@@ -23,5 +23,5 @@ This is a trivial Java EE 7 sample.
 .. `mvn deploy -P release`
 
 dépôt distant
-
 create a new branch hotfix
+creat a commit
