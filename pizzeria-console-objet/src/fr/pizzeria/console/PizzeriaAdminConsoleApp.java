@@ -6,13 +6,6 @@ import fr.pizzeria.model.Pizza;
 
 public class PizzeriaAdminConsoleApp {
 
-	// static Object[][] pizzas = { { 0, "PEP", "Pépéroni", 12.50 }, { 1, "MAR",
-	// "Margherita", 14.00 },
-	// { 2, "REI", "La Reine", 11.50 }, { 3, "FRO", "La 4 fromages", 12.00 }, {
-	// 4, "CAN", "La cannibale", 12.50 },
-	// { 5, "SAV", "La savoyarde", 13.00 }, { 6, "ORI", "L'orientale", 13.50 },
-	// { 7, "IND", "L'indienne", 14.00 } };
-
 	static Pizza[] pizzas;
 
 	/**
@@ -50,6 +43,20 @@ public class PizzeriaAdminConsoleApp {
 	}
 
 	/**
+	 * Vérifie si la pizza existe.
+	 * 
+	 * @param code Le code de la pizza à chercher.
+	 * @return {@code true} si la pizza existe.
+	 */
+	private static boolean pizzaExists(String code) {
+		for (Pizza pizza : pizzas) {
+			if (pizza.code.equals(code))
+				return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Affiche la liste des pizza.
 	 */
 	private static void showPizzas() {
@@ -67,6 +74,10 @@ public class PizzeriaAdminConsoleApp {
 	 * @param price Le prix de la nouvelle pizza.
 	 */
 	private static void addPizza(String code, String name, double price) {
+		if (pizzaExists(code)) {
+			System.err.println("Erreur : La pizza avec le code " + code + " existe déjà.");
+			return;
+		}
 		int nb_pizza = pizzas.length;
 		Pizza[] p = new Pizza[nb_pizza + 1];
 		int i = 0;
@@ -86,6 +97,10 @@ public class PizzeriaAdminConsoleApp {
 	 * @param price Le nouveau prix de la pizza à modifier.
 	 */
 	private static void editPizza(String oldCode, String code, String name, double price) {
+		if (!pizzaExists(oldCode)) {
+			System.err.println("Erreur : La pizza avec le code " + oldCode + " n'existe pas.");
+			return;
+		}
 		for (int i = 0; i < pizzas.length; ++i) {
 			if (pizzas[i].code.equals(oldCode)) {
 				pizzas[i] = createPizza(i, code, name, price);
@@ -99,6 +114,10 @@ public class PizzeriaAdminConsoleApp {
 	 * @param oldCode Le code de la pizza à supprimer.
 	 */
 	private static void deletePizza(String oldCode) {
+		if (!pizzaExists(oldCode)) {
+			System.err.println("Erreur : La pizza avec le code " + oldCode + " n'existe pas.");
+			return;
+		}
 		int nb_pizza = pizzas.length;
 		Pizza[] p = new Pizza[nb_pizza - 1];
 		int i = 0;
@@ -187,7 +206,7 @@ public class PizzeriaAdminConsoleApp {
 					stop = true;
 					break;
 				default:
-					System.out.println("Erreur : L'option " + choice + " n'existe pas.");
+					System.err.println("Erreur : L'option " + choice + " n'existe pas.");
 					System.out.println();
 					break;
 			}
