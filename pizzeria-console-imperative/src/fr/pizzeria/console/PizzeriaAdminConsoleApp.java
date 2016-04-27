@@ -9,12 +9,22 @@ public class PizzeriaAdminConsoleApp {
 			{ 5, "SAV", "La savoyarde", 13.00 }, { 6, "ORI", "L'orientale", 13.50 },
 			{ 7, "IND", "L'indienne", 14.00 } };
 
+	/**
+	 * Affiche la liste des pizza.
+	 */
 	private static void showPizzas() {
 		for (Object[] pizza : pizzas) {
 			System.out.println(pizza[1] + " -> " + pizza[2] + " (" + pizza[3] + "€)");
 		}
 	}
 
+	/**
+	 * Ajouter une pizza.
+	 * 
+	 * @param code Le code de la nouvelle pizza.
+	 * @param name Le nom de la nouvelle pizza.
+	 * @param price Le prix de la nouvelle pizza.
+	 */
 	private static void addPizza(String code, String name, double price) {
 		int nb_pizza = pizzas.length;
 		Object[][] p = new Object[nb_pizza + 1][4];
@@ -26,6 +36,14 @@ public class PizzeriaAdminConsoleApp {
 		pizzas = p;
 	}
 
+	/**
+	 * Modifier une pizza.
+	 * 
+	 * @param oldCode Le code de la pizza à modifier.
+	 * @param code Le nouveau code de la pizza à modifier.
+	 * @param name Le nouveau nom de la pizza à modifier.
+	 * @param price Le nouveau prix de la pizza à modifier.
+	 */
 	private static void editPizza(String oldCode, String code, String name, double price) {
 		for (int i = 0; i < pizzas.length; ++i) {
 			if (pizzas[i][1].toString().equals(oldCode)) {
@@ -34,6 +52,11 @@ public class PizzeriaAdminConsoleApp {
 		}
 	}
 
+	/**
+	 * Supprimer une pizza.
+	 * 
+	 * @param oldCode Le code de la pizza à supprimer.
+	 */
 	private static void deletePizza(String oldCode) {
 		int nb_pizza = pizzas.length;
 		Object[][] p = new Object[nb_pizza - 1][4];
@@ -50,6 +73,11 @@ public class PizzeriaAdminConsoleApp {
 		pizzas = p;
 	}
 
+	/**
+	 * Methode d'entrée. Boucle pour afficher le menu et demander les options.
+	 * 
+	 * @param args Les aguments du programme.
+	 */
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		boolean stop = false;
