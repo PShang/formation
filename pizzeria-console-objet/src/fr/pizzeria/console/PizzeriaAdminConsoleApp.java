@@ -2,6 +2,12 @@ package fr.pizzeria.console;
 
 import java.util.Scanner;
 
+import fr.pizzeria.ihm.menu.Menu;
+import fr.pizzeria.ihm.menu.option.AjouterPizzaOptionMenu;
+import fr.pizzeria.ihm.menu.option.ListerPizzaOptionMenu;
+import fr.pizzeria.ihm.menu.option.ModifierPizzaOptionMenu;
+import fr.pizzeria.ihm.menu.option.QuitterOptionMenu;
+import fr.pizzeria.ihm.menu.option.SupprimerPizzaOptionMenu;
 import fr.pizzeria.model.Pizza;
 
 public class PizzeriaAdminConsoleApp {
@@ -139,78 +145,49 @@ public class PizzeriaAdminConsoleApp {
 	 * @param args Les aguments du programme.
 	 */
 	public static void main(String[] args) {
-		initPizzas();
 		Scanner scan = new Scanner(System.in);
-		boolean stop = false;
-		String code, name;
-		double price;
+		Menu menu = new Menu(scan, new ListerPizzaOptionMenu(), new AjouterPizzaOptionMenu(),
+				new ModifierPizzaOptionMenu(), new SupprimerPizzaOptionMenu(), new QuitterOptionMenu());
+		menu.afficher();
 
-		while (!stop) {
-			System.out.println("***** Pizzeria Administration *****");
-			System.out.println("1. Lister les pizzas");
-			System.out.println("2. Ajouter une nouvelle pizza");
-			System.out.println("3. Mettre à jour une pizza");
-			System.out.println("4. Supprimer une pizza");
-			System.out.println("99. Sortir");
-
-			int choice = scan.nextInt();
-			switch (choice) {
-				case 1:
-					System.out.println("Liste des pizzas");
-					showPizzas();
-					System.out.println();
-					break;
-				case 2:
-					System.out.println("Ajout d’une nouvelle pizza");
-					System.out.println("Veuillez saisir le code");
-					code = scan.next();
-					System.out.println("Veuillez saisir le nom (sans espace)");
-					name = scan.next();
-					System.out.println("Veuillez saisir le prix");
-					price = scan.nextDouble();
-					addPizza(code, name, price);
-					System.out.println();
-					break;
-				case 3:
-					System.out.println("Mise à jour d’une pizza");
-					showPizzas();
-					System.out.println("Veuillez choisir la pizza à modifier.");
-					System.out.println("(99 pour abandonner).");
-					String oldCode = scan.next();
-					if (oldCode.equals("99")) {
-						break;
-					}
-					System.out.println("Veuillez saisir le code");
-					code = scan.next();
-					System.out.println("Veuillez saisir le nom (sans espace)");
-					name = scan.next();
-					System.out.println("Veuillez saisir le prix");
-					price = scan.nextDouble();
-					editPizza(oldCode, code, name, price);
-					System.out.println();
-					break;
-				case 4:
-					System.out.println("Suppression d’une pizza");
-					showPizzas();
-					System.out.println("Veuillez choisir la pizza à modifier.");
-					System.out.println("(99 pour abandonner).");
-					oldCode = scan.next();
-					if (oldCode.equals("99")) {
-						break;
-					}
-					deletePizza(oldCode);
-					System.out.println();
-					break;
-				case 99:
-					System.out.println("Aurevoir");
-					stop = true;
-					break;
-				default:
-					System.err.println("Erreur : L'option " + choice + " n'existe pas.");
-					System.out.println();
-					break;
-			}
-		}
-		scan.close();
+		/*
+		 * initPizzas(); Scanner scan = new Scanner(System.in); boolean stop =
+		 * false; String code, name; double price;
+		 * 
+		 * while (!stop) {
+		 * System.out.println("***** Pizzeria Administration *****");
+		 * System.out.println("1. Lister les pizzas");
+		 * System.out.println("2. Ajouter une nouvelle pizza");
+		 * System.out.println("3. Mettre à jour une pizza");
+		 * System.out.println("4. Supprimer une pizza");
+		 * System.out.println("99. Sortir");
+		 * 
+		 * int choice = scan.nextInt(); switch (choice) { case 1:
+		 * System.out.println("Liste des pizzas"); showPizzas();
+		 * System.out.println(); break; case 2:
+		 * System.out.println("Ajout d’une nouvelle pizza");
+		 * System.out.println("Veuillez saisir le code"); code = scan.next();
+		 * System.out.println("Veuillez saisir le nom (sans espace)"); name =
+		 * scan.next(); System.out.println("Veuillez saisir le prix"); price =
+		 * scan.nextDouble(); addPizza(code, name, price); System.out.println();
+		 * break; case 3: System.out.println("Mise à jour d’une pizza");
+		 * showPizzas();
+		 * System.out.println("Veuillez choisir la pizza à modifier.");
+		 * System.out.println("(99 pour abandonner)."); String oldCode =
+		 * scan.next(); if (oldCode.equals("99")) { break; }
+		 * System.out.println("Veuillez saisir le code"); code = scan.next();
+		 * System.out.println("Veuillez saisir le nom (sans espace)"); name =
+		 * scan.next(); System.out.println("Veuillez saisir le prix"); price =
+		 * scan.nextDouble(); editPizza(oldCode, code, name, price);
+		 * System.out.println(); break; case 4:
+		 * System.out.println("Suppression d’une pizza"); showPizzas();
+		 * System.out.println("Veuillez choisir la pizza à modifier.");
+		 * System.out.println("(99 pour abandonner)."); oldCode = scan.next();
+		 * if (oldCode.equals("99")) { break; } deletePizza(oldCode);
+		 * System.out.println(); break; case 99: System.out.println("Aurevoir");
+		 * stop = true; break; default: System.err.println("Erreur : L'option "
+		 * + choice + " n'existe pas."); System.out.println(); break; } }
+		 * scan.close();
+		 */
 	}
 }
