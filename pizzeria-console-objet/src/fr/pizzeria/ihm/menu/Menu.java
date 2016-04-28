@@ -41,8 +41,7 @@ public class Menu {
 					System.err.println("Erreur : L'option " + choix + " n'existe pas.");
 				}
 			} catch (InputMismatchException e) {
-				System.err.println("Erreur d'entrée.");
-				scan.next();
+				System.err.println("Erreur de saisie : \"" + scan.next() + "\" n'était pas attendu.");
 			}
 		}
 		scan.close();
