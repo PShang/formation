@@ -24,7 +24,7 @@ public class Menu {
 		boolean stop = false;
 		while (!stop) {
 			System.out.println(this.titre);
-			for (int i = 0; i < actions.length; i++) {
+			for (int i = 0; i < actions.length; ++i) {
 				System.out.println(i + ". " + actions[i].getLibelle());
 			}
 			int choix = this.scan.nextInt();
