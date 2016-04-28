@@ -18,7 +18,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 	public boolean execute() {
 		System.out.println("Suppression d’une pizza");
 		new ListerPizzaOptionMenu(pizzaDao).execute();
-		System.out.println("Veuillez choisir la pizza à modifier.");
+		System.out.println("Veuillez choisir le code la pizza à modifier.");
 		System.out.println("(99 pour abandonner).");
 		String oldCode = scan.next();
 		if (oldCode.equals("99")) {
