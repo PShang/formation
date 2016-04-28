@@ -3,6 +3,8 @@ package fr.pizzeria.ihm.menu.option;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaOptionMenu extends OptionMenu {
@@ -16,7 +18,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 	}
 
 	@Override
-	public boolean execute() {
+	public boolean execute() throws DaoException {
 		System.out.println("Mise à jour d’une pizza");
 		new ListerPizzaOptionMenu(pizzaDao).execute();
 		System.out.println("Veuillez choisir le code la pizza à modifier.");
@@ -29,8 +31,10 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		String name = scan.next();
 		System.out.println("Veuillez saisir le prix");
 		double price = scan.nextDouble();
-		if (!pizzaDao.updatePizza(code, new Pizza(code, name, price))) {
-			System.err.println("Erreur : La pizza avec le code " + code + " n'existe pas.");
+		try {
+			pizzaDao.updatePizza(code, new Pizza(code, name, price));
+		} catch (UpdatePizzaException e) {
+			throw new DaoException("Erreur : La pizza avec le code " + code + " n'existe pas.", e);
 		}
 		System.out.println();
 		return false;

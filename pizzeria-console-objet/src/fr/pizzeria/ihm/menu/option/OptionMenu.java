@@ -1,6 +1,7 @@
 package fr.pizzeria.ihm.menu.option;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.DaoException;
 
 public abstract class OptionMenu {
 
@@ -16,7 +17,7 @@ public abstract class OptionMenu {
 		this.pizzaDao = pizzaDao;
 	}
 
-	public abstract boolean execute();
+	public abstract boolean execute() throws DaoException;
 
 	public String getLibelle() {
 		return libelle;

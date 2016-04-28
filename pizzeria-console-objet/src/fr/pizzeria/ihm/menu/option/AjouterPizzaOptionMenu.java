@@ -3,6 +3,8 @@ package fr.pizzeria.ihm.menu.option;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.model.Pizza;
 
 public class AjouterPizzaOptionMenu extends OptionMenu {
@@ -16,7 +18,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 	}
 
 	@Override
-	public boolean execute() {
+	public boolean execute() throws DaoException {
 		System.out.println("Ajout d’une nouvelle pizza");
 		System.out.println("Veuillez saisir le code");
 		String code = scan.next();
@@ -24,8 +26,10 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		String name = scan.next();
 		System.out.println("Veuillez saisir le prix");
 		double price = scan.nextDouble();
-		if (!pizzaDao.saveNewPizza(new Pizza(code, name, price))) {
-			System.err.println("Erreur : La pizza avec le code " + code + " existe déjà.");
+		try {
+			pizzaDao.saveNewPizza(new Pizza(code, name, price));
+		} catch (SavePizzaException e) {
+			throw new DaoException("Erreur : La pizza avec le code " + code + " existe déjà.", e);
 		}
 		System.out.println();
 		return false;

@@ -1,7 +1,9 @@
 package fr.pizzeria.ihm.menu;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.option.OptionMenu;
 
 public class Menu {
@@ -27,11 +29,20 @@ public class Menu {
 			for (int i = 0; i < actions.length; ++i) {
 				System.out.println(i + ". " + actions[i].getLibelle());
 			}
-			int choix = this.scan.nextInt();
-			if (choix < this.actions.length) {
-				stop = this.actions[choix].execute();
-			} else {
-				System.err.println("Erreur : L'option " + choix + " n'existe pas.");
+			try {
+				int choix = this.scan.nextInt();
+				if (choix < this.actions.length) {
+					try {
+						stop = this.actions[choix].execute();
+					} catch (DaoException e) {
+						System.err.println(e.getMessage());
+					}
+				} else {
+					System.err.println("Erreur : L'option " + choix + " n'existe pas.");
+				}
+			} catch (InputMismatchException e) {
+				System.err.println("Erreur d'entrée.");
+				scan.next();
 			}
 		}
 		scan.close();
