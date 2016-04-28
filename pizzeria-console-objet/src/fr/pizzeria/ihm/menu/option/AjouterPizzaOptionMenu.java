@@ -28,8 +28,8 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		double price = scan.nextDouble();
 		try {
 			pizzaDao.saveNewPizza(new Pizza(code, name, price));
-		} catch (SavePizzaException e) {
-			throw new DaoException("Erreur : La pizza avec le code " + code + " existe déjà.", e);
+		} catch (DaoException e) {
+			throw new SavePizzaException("Erreur : La pizza avec le code " + code + " existe déjà.", e);
 		}
 		System.out.println();
 		return false;

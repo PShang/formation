@@ -28,8 +28,8 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		}
 		try {
 			pizzaDao.deletePizza(oldCode);
-		} catch (DeletePizzaException e) {
-			throw new DaoException("Erreur : La pizza avec le code " + oldCode + " n'existe pas.", e);
+		} catch (DaoException e) {
+			throw new DeletePizzaException("Erreur : La pizza avec le code " + oldCode + " n'existe pas.", e);
 		}
 		System.out.println();
 		return false;

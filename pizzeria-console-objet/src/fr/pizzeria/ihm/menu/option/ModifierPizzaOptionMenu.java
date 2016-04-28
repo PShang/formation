@@ -33,8 +33,8 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		double price = scan.nextDouble();
 		try {
 			pizzaDao.updatePizza(code, new Pizza(code, name, price));
-		} catch (UpdatePizzaException e) {
-			throw new DaoException("Erreur : La pizza avec le code " + code + " n'existe pas.", e);
+		} catch (DaoException e) {
+			throw new UpdatePizzaException("Erreur : La pizza avec le code " + code + " n'existe pas.", e);
 		}
 		System.out.println();
 		return false;

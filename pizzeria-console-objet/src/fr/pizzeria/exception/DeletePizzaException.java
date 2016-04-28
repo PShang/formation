@@ -7,4 +7,8 @@ public class DeletePizzaException extends DaoException {
 	public DeletePizzaException() {
 		super();
 	}
+
+	public DeletePizzaException(String string, DaoException e) {
+		super(string, e);
+	}
 }

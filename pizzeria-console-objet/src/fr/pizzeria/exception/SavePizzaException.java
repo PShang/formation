@@ -7,4 +7,8 @@ public class SavePizzaException extends DaoException {
 	public SavePizzaException() {
 		super();
 	}
+
+	public SavePizzaException(String string, DaoException e) {
+		super(string, e);
+	}
 }
