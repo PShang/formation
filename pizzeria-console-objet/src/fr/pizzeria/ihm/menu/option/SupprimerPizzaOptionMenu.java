@@ -8,9 +8,19 @@ import fr.pizzeria.exception.DeletePizzaException;
 
 public class SupprimerPizzaOptionMenu extends OptionMenu {
 
+	/**
+	 * Constante pour le {@link OptionMenu.libelle libéllé} de
+	 * l'{@link OptionMenu}.
+	 */
 	private static final String SUPPRIMER_PIZZA_LIBELLE = "Supprimer une pizza";
 	private Scanner scan;
 
+	/**
+	 * Constructeur.
+	 * 
+	 * @param pizzaDao La DAO pour les pizzas.
+	 * @param scan Le {@link Scanner} pour la saisie utilisateur.
+	 */
 	public SupprimerPizzaOptionMenu(IPizzaDao pizzaDao, Scanner scan) {
 		super(SUPPRIMER_PIZZA_LIBELLE, pizzaDao);
 		this.scan = scan;

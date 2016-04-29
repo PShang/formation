@@ -14,10 +14,14 @@ import fr.pizzeria.ihm.menu.option.OptionMenu;
 import fr.pizzeria.ihm.menu.option.QuitterOptionMenu;
 import fr.pizzeria.ihm.menu.option.SupprimerPizzaOptionMenu;
 
+/**
+ * Classe principale de l'application.
+ */
 public class PizzeriaAdminConsoleApp {
 
 	/**
-	 * Methode d'entrée. Crée le {@link Menu} et les {@link OptionMenu}
+	 * Methode d'entrée. Initialise le {@link Menu}, le {@link Scanner} et la
+	 * {@link PizzaDaoImpl DAO}.
 	 * 
 	 * @param args Les aguments du programme.
 	 */

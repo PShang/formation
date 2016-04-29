@@ -8,10 +8,19 @@ import java.util.Map;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Pizza;
 
+/**
+ * Implémentation de la DAO utilisant une {@link Map} pour les pizzas.
+ */
 public class PizzaDaoImpl implements IPizzaDao {
 
+	/**
+	 * La {@link Map} pour les pizzas.
+	 */
 	private Map<String, Pizza> pizzas;
 
+	/**
+	 * Constructeur. Initialise la {@link Map} de pizzas.
+	 */
 	public PizzaDaoImpl() {
 		pizzas = new HashMap<String, Pizza>();
 		pizzas.put("PEP", new Pizza("PEP", "Pépéroni", 12.50));

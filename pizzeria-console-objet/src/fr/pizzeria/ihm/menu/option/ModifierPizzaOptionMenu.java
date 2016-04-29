@@ -9,9 +9,19 @@ import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaOptionMenu extends OptionMenu {
 
+	/**
+	 * Constante pour le {@link OptionMenu.libelle libéllé} de
+	 * l'{@link OptionMenu}.
+	 */
 	private static final String MODIFIER_PIZZA_LIBELLE = "Modifier une pizza";
 	private Scanner scan;
 
+	/**
+	 * Constructeur.
+	 * 
+	 * @param pizzaDao La DAO pour les pizzas.
+	 * @param scan Le {@link Scanner} pour la saisie utilisateur.
+	 */
 	public ModifierPizzaOptionMenu(IPizzaDao pizzaDao, Scanner scan) {
 		super(MODIFIER_PIZZA_LIBELLE, pizzaDao);
 		this.scan = scan;

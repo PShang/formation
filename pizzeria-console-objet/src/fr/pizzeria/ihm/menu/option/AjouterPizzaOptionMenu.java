@@ -7,11 +7,24 @@ import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.model.Pizza;
 
+/**
+ * Option pour ajouter une nouvelle pizza.
+ */
 public class AjouterPizzaOptionMenu extends OptionMenu {
 
+	/**
+	 * Constante pour le {@link OptionMenu.libelle libéllé} de
+	 * l'{@link OptionMenu}.
+	 */
 	private static final String AJOUTER_PIZZA_LIBELLE = "Ajouter une pizza";
 	private Scanner scan;
 
+	/**
+	 * Constructeur.
+	 * 
+	 * @param pizzaDao La DAO pour les pizzas.
+	 * @param scan Le {@link Scanner} pour la saisie utilisateur.
+	 */
 	public AjouterPizzaOptionMenu(IPizzaDao pizzaDao, Scanner scan) {
 		super(AJOUTER_PIZZA_LIBELLE, pizzaDao);
 		this.scan = scan;

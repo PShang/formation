@@ -8,13 +8,25 @@ import java.util.Scanner;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.option.OptionMenu;
 
+/**
+ * Classe pour le menu principale.
+ */
 public class Menu {
 
+	/**
+	 * Constante pour le {@link titre} du {@link Menu}.
+	 */
 	private static final String MENU_TITRE_LIBELLE = "Pizzeria Administration";
 	private String titre;
 	private Scanner scan;
 	private Map<Integer, OptionMenu> actions;
 
+	/**
+	 * Constructeur de {@link Menu}.
+	 * 
+	 * @param scan Un {@link Scanner} pour la gestion des saisies utilisateur.
+	 * @param options La {@link Map} d'{@link OptionMenu}.
+	 */
 	public Menu(Scanner scan, Map<Integer, OptionMenu> options) {
 		this.titre = "***** " + MENU_TITRE_LIBELLE + " *****";
 		this.scan = scan;

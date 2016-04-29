@@ -1,5 +1,8 @@
 package fr.pizzeria.exception;
 
+/**
+ * Exception générique pour la DAO.
+ */
 public class DaoException extends Exception {
 
 	/**
