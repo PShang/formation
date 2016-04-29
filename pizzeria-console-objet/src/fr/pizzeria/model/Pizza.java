@@ -1,13 +1,19 @@
 package fr.pizzeria.model;
 
+import java.lang.reflect.Field;
+
 /**
  * La classe de définition d'une pizza.
  */
 public class Pizza implements Comparable<Pizza> {
+	@ToString
 	private String code;
+	@ToString(uppercase = true)
 	private String nom;
-	private double prix;
+	@ToString
 	private CategoriePizza categorie;
+	@ToString
+	private double prix;
 	/**
 	 * Variable statique servant a compter la création des pizzas..
 	 */
@@ -47,7 +53,26 @@ public class Pizza implements Comparable<Pizza> {
 
 	@Override
 	public String toString() {
-		return code + " -> " + nom + " [" + categorie.getLibelle() + "] (" + prix + "€)";
+		String codeString = new String();
+		String nomString = new String();
+		String categorieString = new String();
+		String prixString = new String();
+		for (Field field : getClass().getDeclaredFields()) {
+			ToString ts;
+			if ((ts = field.getAnnotation(ToString.class)) != null) {
+				if (field.getName().equals("code")) {
+					codeString = (ts.uppercase()) ? (code.toUpperCase() + " -> ") : (code + " -> ");
+				} else if (field.getName().equals("nom")) {
+					nomString = (ts.uppercase()) ? (nom.toUpperCase()) : (nom);
+				} else if (field.getName().equals("categorie")) {
+					categorieString = (ts.uppercase()) ? (" [" + categorie.getLibelle().toUpperCase() + "]")
+							: (" [" + categorie.getLibelle() + "]");
+				} else if (field.getName().equals("prix")) {
+					prixString = " (" + prix + "€)";
+				}
+			}
+		}
+		return codeString + nomString + categorieString + prixString;
 	}
 
 	@Override
