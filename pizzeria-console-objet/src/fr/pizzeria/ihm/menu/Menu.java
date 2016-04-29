@@ -2,6 +2,7 @@ package fr.pizzeria.ihm.menu;
 
 import java.util.InputMismatchException;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import fr.pizzeria.exception.DaoException;
@@ -27,8 +28,8 @@ public class Menu {
 		boolean stop = false;
 		while (!stop) {
 			System.out.println(this.titre);
-			for (Integer key : actions.keySet()) {
-				System.out.println(key + ". " + actions.get(key).getLibelle());
+			for (Entry<Integer, OptionMenu> entry : actions.entrySet()) {
+				System.out.println(entry.getKey() + ". " + entry.getValue().getLibelle());
 			}
 			try {
 				int choix = this.scan.nextInt();
