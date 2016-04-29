@@ -1,10 +1,13 @@
 package fr.pizzeria.ihm.menu.option;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.CategoriePizzaException;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -39,10 +42,16 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		String name = scan.next();
 		System.out.println("Veuillez saisir le prix");
 		double price = scan.nextDouble();
+		System.out.println("Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values()));
+		String categorieString = scan.next();
 		try {
-			pizzaDao.saveNewPizza(new Pizza(code, name, price));
+			CategoriePizza categorie = CategoriePizza.valueOf(categorieString.toUpperCase());
+			pizzaDao.saveNewPizza(new Pizza(code, name, price, categorie));
 		} catch (DaoException e) {
 			throw new SavePizzaException("Erreur : La pizza avec le code " + code + " existe déjà.", e);
+		} catch (IllegalArgumentException e) {
+			throw new CategoriePizzaException(
+					"Erreur de saisie : La catégorie \"" + categorieString + "\" n'existe pas.", e);
 		}
 		System.out.println();
 		return false;

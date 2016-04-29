@@ -26,7 +26,7 @@ public class ListerPizzaOptionMenu extends OptionMenu {
 	public boolean execute() {
 		List<Pizza> pizzas = this.pizzaDao.findAllPizzas();
 		for (Pizza p : pizzas) {
-			System.out.println(p.getCode() + " -> " + p.getNom() + " (" + p.getPrix() + "€)");
+			System.out.println(p.toString());
 		}
 		System.out.println("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme");
 		System.out.println();
