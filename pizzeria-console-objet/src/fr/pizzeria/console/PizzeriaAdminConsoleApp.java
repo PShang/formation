@@ -1,6 +1,8 @@
 package fr.pizzeria.console;
 
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoImpl;
@@ -22,9 +24,15 @@ public class PizzeriaAdminConsoleApp {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		IPizzaDao pizzaDao = new PizzaDaoImpl();
-		Menu menu = new Menu(scan, new ListerPizzaOptionMenu(pizzaDao), new AjouterPizzaOptionMenu(pizzaDao, scan),
-				new ModifierPizzaOptionMenu(pizzaDao, scan), new SupprimerPizzaOptionMenu(pizzaDao, scan),
-				new QuitterOptionMenu());
+
+		Map<Integer, OptionMenu> options = new TreeMap<Integer, OptionMenu>();
+		options.put(0, new ListerPizzaOptionMenu(pizzaDao));
+		options.put(1, new AjouterPizzaOptionMenu(pizzaDao, scan));
+		options.put(2, new ModifierPizzaOptionMenu(pizzaDao, scan));
+		options.put(3, new SupprimerPizzaOptionMenu(pizzaDao, scan));
+		options.put(99, new QuitterOptionMenu());
+
+		Menu menu = new Menu(scan, options);
 		menu.afficher();
 	}
 }

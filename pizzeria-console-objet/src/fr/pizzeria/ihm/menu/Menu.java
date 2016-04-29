@@ -1,6 +1,7 @@
 package fr.pizzeria.ihm.menu;
 
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 import fr.pizzeria.exception.DaoException;
@@ -11,9 +12,9 @@ public class Menu {
 	private static final String MENU_TITRE_LIBELLE = "Pizzeria Administration";
 	private String titre;
 	private Scanner scan;
-	private OptionMenu[] actions;
+	private Map<Integer, OptionMenu> actions;
 
-	public Menu(Scanner scan, OptionMenu... options) {
+	public Menu(Scanner scan, Map<Integer, OptionMenu> options) {
 		this.titre = "***** " + MENU_TITRE_LIBELLE + " *****";
 		this.scan = scan;
 		this.actions = options;
@@ -26,14 +27,14 @@ public class Menu {
 		boolean stop = false;
 		while (!stop) {
 			System.out.println(this.titre);
-			for (int i = 0; i < actions.length; ++i) {
-				System.out.println(i + ". " + actions[i].getLibelle());
+			for (Integer key : actions.keySet()) {
+				System.out.println(key + ". " + actions.get(key).getLibelle());
 			}
 			try {
 				int choix = this.scan.nextInt();
-				if (choix < this.actions.length) {
+				if (actions.containsKey(choix)) {
 					try {
-						stop = this.actions[choix].execute();
+						stop = actions.get(choix).execute();
 					} catch (DaoException e) {
 						System.err.println(e.getMessage());
 					}
