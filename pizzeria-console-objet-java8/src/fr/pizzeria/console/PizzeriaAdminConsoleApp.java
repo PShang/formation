@@ -5,7 +5,9 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.dao.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.Menu;
 import fr.pizzeria.ihm.menu.option.AfficherPizzaPlusCherOptionMenu;
 import fr.pizzeria.ihm.menu.option.AjouterPizzaOptionMenu;
@@ -28,19 +30,22 @@ public class PizzeriaAdminConsoleApp {
 	 * @param args Les aguments du programme.
 	 */
 	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
-		IPizzaDao pizzaDao = new PizzaDaoImpl();
+		try {
+			IPizzaDao pizzaDao = new PizzaDaoFichierImpl();
+			Scanner scan = new Scanner(System.in);
+			Map<Integer, OptionMenu> options = new TreeMap<Integer, OptionMenu>();
+			options.put(0, new ListerPizzaOptionMenu(pizzaDao));
+			options.put(1, new AjouterPizzaOptionMenu(pizzaDao, scan));
+			options.put(2, new ModifierPizzaOptionMenu(pizzaDao, scan));
+			options.put(3, new SupprimerPizzaOptionMenu(pizzaDao, scan));
+			options.put(4, new ListerPizzaCategorieOptionMenu(pizzaDao));
+			options.put(5, new AfficherPizzaPlusCherOptionMenu(pizzaDao));
+			options.put(99, new QuitterOptionMenu());
 
-		Map<Integer, OptionMenu> options = new TreeMap<Integer, OptionMenu>();
-		options.put(0, new ListerPizzaOptionMenu(pizzaDao));
-		options.put(1, new AjouterPizzaOptionMenu(pizzaDao, scan));
-		options.put(2, new ModifierPizzaOptionMenu(pizzaDao, scan));
-		options.put(3, new SupprimerPizzaOptionMenu(pizzaDao, scan));
-		options.put(4, new ListerPizzaCategorieOptionMenu(pizzaDao));
-		options.put(5, new AfficherPizzaPlusCherOptionMenu(pizzaDao));
-		options.put(99, new QuitterOptionMenu());
-
-		Menu menu = new Menu(scan, options);
-		menu.afficher();
+			Menu menu = new Menu(scan, options);
+			menu.afficher();
+		} catch (DaoException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 }
