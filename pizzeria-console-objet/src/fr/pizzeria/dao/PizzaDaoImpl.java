@@ -33,7 +33,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 		pizzas.put("SAV", new Pizza("SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
 		pizzas.put("ORI", new Pizza("ORI", "L'orientale", 13.50, CategoriePizza.VIANDE));
 		pizzas.put("IND", new Pizza("IND", "L'indienne", 14.00, CategoriePizza.VIANDE));
-		pizzas.put("IND", new Pizza("SAU", "La saumonetta", 15.50, CategoriePizza.POISSON));
+		pizzas.put("SAU", new Pizza("SAU", "La saumonetta", 15.50, CategoriePizza.POISSON));
 	}
 
 	@Override
