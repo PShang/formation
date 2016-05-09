@@ -1,1 +1,1 @@
-Pépéroni;12.5;VIANDE
+Pépéroni;12,5;VIANDE

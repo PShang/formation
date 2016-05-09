@@ -1,1 +1,1 @@
-La saumonetta;15.50;POISSON
+La saumonetta;15,50;POISSON

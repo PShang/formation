@@ -6,9 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -42,9 +45,11 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 			Files.list(ROOTDIR).map(path -> {
 				try {
 					String[] line = Files.readAllLines(path, StandardCharsets.ISO_8859_1).get(0).split(";");
-					return new Pizza(path.getFileName().toString().replace(".txt", ""), line[0],
-							Double.parseDouble(line[1]), CategoriePizza.valueOf(line[2]));
-				} catch (IOException e) {
+					NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
+					Number number = format.parse(line[1]);
+					return new Pizza(path.getFileName().toString().replace(".txt", ""), line[0], number.doubleValue(),
+							CategoriePizza.valueOf(line[2]));
+				} catch (IOException | ParseException e) {
 					e.printStackTrace();
 					return null;
 				}
@@ -58,7 +63,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 
 	private void writePizzaFile(Pizza pizza) throws DaoException {
 		try {
-			byte[] datas = String.format("%s;%d;%s", pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString())
+			byte[] datas = String.format("%s;%f;%s", pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString())
 					.getBytes();
 			Files.write(Paths.get(ROOTDIR.toString(), pizza.getCode() + ".txt"), datas, StandardOpenOption.CREATE_NEW);
 		} catch (IOException e) {

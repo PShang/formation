@@ -1,1 +1,1 @@
-L'orientale;13.50;VIANDE
+L'orientale;13,50;VIANDE
