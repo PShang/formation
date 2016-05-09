@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -44,7 +47,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 	@Override
 	public void saveNewPizza(Pizza pizza) throws DaoException {
 		if (pizzas.containsKey(pizza.getCode())) {
-			throw new DaoException();
+			throw new SavePizzaException();
 		}
 		pizzas.put(pizza.getCode(), pizza);
 	}
@@ -52,7 +55,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) throws DaoException {
 		if (!pizzas.containsKey(pizza.getCode())) {
-			throw new DaoException();
+			throw new UpdatePizzaException();
 		}
 		pizzas.put(codePizza, pizza);
 	}
@@ -60,7 +63,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 	@Override
 	public void deletePizza(String codePizza) throws DaoException {
 		if (!pizzas.containsKey(codePizza)) {
-			throw new DaoException();
+			throw new DeletePizzaException();
 		}
 		pizzas.remove(codePizza);
 	}

@@ -16,6 +16,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -65,7 +68,8 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		try {
 			byte[] datas = String.format("%s;%f;%s", pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString())
 					.getBytes();
-			Files.write(Paths.get(ROOTDIR.toString(), pizza.getCode() + ".txt"), datas, StandardOpenOption.CREATE_NEW);
+			Files.write(Paths.get(ROOTDIR.toString(), pizza.getCode() + ".txt"), datas,
+					StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
 			throw new DaoException("Erreur dans l'écriture des fichiers de donnée des pizzas", e);
 		}
@@ -87,7 +91,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	@Override
 	public void saveNewPizza(Pizza pizza) throws DaoException {
 		if (pizzas.containsKey(pizza.getCode())) {
-			throw new DaoException();
+			throw new SavePizzaException();
 		}
 		pizzas.put(pizza.getCode(), pizza);
 		writePizzaFile(pizza);
@@ -96,7 +100,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) throws DaoException {
 		if (!pizzas.containsKey(pizza.getCode())) {
-			throw new DaoException();
+			throw new UpdatePizzaException();
 		}
 		pizzas.put(codePizza, pizza);
 		writePizzaFile(pizza);
@@ -105,7 +109,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	@Override
 	public void deletePizza(String codePizza) throws DaoException {
 		if (!pizzas.containsKey(codePizza)) {
-			throw new DaoException();
+			throw new DeletePizzaException();
 		}
 		pizzas.remove(codePizza);
 		deletePizzaFile(codePizza);
