@@ -32,7 +32,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	 */
 	private Map<String, Pizza> pizzas = new HashMap<String, Pizza>();;
 
-	private final static Path ROOTDIR = Paths.get("data");
+	private final static Path ROOTDIR = Paths.get("src\\main\\resources\\data");
 
 	/**
 	 * Constructeur. Initialise la {@link Map} de pizzas en lisant les fichiers
