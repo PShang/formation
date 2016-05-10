@@ -49,7 +49,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		try {
 			CategoriePizza categorie = CategoriePizza.valueOf(categorieString.toUpperCase());
 			pizzaDao.updatePizza(code, new Pizza(code, name, price, categorie));
-		} catch (DaoException e) {
+		} catch (UpdatePizzaException e) {
 			throw new UpdatePizzaException("Erreur : La pizza avec le code " + code + " n'existe pas.", e);
 		} catch (IllegalArgumentException e) {
 			throw new CategoriePizzaException(

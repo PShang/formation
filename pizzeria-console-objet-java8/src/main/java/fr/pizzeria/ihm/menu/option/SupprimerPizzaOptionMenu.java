@@ -38,7 +38,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		}
 		try {
 			pizzaDao.deletePizza(oldCode);
-		} catch (DaoException e) {
+		} catch (DeletePizzaException e) {
 			throw new DeletePizzaException("Erreur : La pizza avec le code " + oldCode + " n'existe pas.", e);
 		}
 		System.out.println();

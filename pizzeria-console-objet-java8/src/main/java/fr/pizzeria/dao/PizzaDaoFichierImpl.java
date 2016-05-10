@@ -68,7 +68,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		try {
 			byte[] datas = String.format("%s;%f;%s", pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString())
 					.getBytes();
-			Files.write(Paths.get(ROOTDIR.toString(), pizza.getCode() + ".txt"), datas,
+			Files.write(Paths.get(ROOTDIR.toString(), pizza.getCode() + ".txt"), datas, StandardOpenOption.CREATE,
 					StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
 			throw new DaoException("Erreur dans l'écriture des fichiers de donnée des pizzas", e);

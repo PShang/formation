@@ -47,7 +47,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		try {
 			CategoriePizza categorie = CategoriePizza.valueOf(categorieString.toUpperCase());
 			pizzaDao.saveNewPizza(new Pizza(code, name, price, categorie));
-		} catch (DaoException e) {
+		} catch (SavePizzaException e) {
 			throw new SavePizzaException("Erreur : La pizza avec le code " + code + " existe déjà.", e);
 		} catch (IllegalArgumentException e) {
 			throw new CategoriePizzaException(
