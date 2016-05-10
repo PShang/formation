@@ -24,7 +24,7 @@ import fr.pizzeria.ihm.menu.option.SupprimerPizzaOptionMenu;
 public class PizzeriaAdminConsoleApp {
 
 	/**
-	 * Methode d'entrée. Initialise le {@link Menu}, le {@link Scanner} et la
+	 * Methode d'entrÃ©e. Initialise le {@link Menu}, le {@link Scanner} et la
 	 * {@link PizzaDaoImpl DAO}.
 	 * 
 	 * @param args Les aguments du programme.
@@ -45,7 +45,7 @@ public class PizzeriaAdminConsoleApp {
 			Menu menu = new Menu(scan, options);
 			menu.afficher();
 		} catch (DaoException e) {
-			System.err.println(e.getMessage());
+			System.err.println(e.getMessage() + " : " + e.getCause().getMessage());
 		}
 	}
 }

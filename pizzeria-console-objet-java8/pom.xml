@@ -1,52 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>fr.pizzeria</groupId>
 	<artifactId>pizzeria-console-objet-java8</artifactId>
-	<version>1.0.0</version>
 
-	<properties>
-		<junit.version>4.12</junit.version>
-		<system-rules.version>1.16.0</system-rules.version>
-		<java.source>1.8</java.source>
-		<java.target>1.8</java.target>
-	</properties>
+	<parent>
+		<groupId>fr.pizzeria</groupId>
+		<artifactId>pizzeria-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
 
 	<build>
-		<finalName>pizzeria-console-objet-java8</finalName>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>${java.source}</source>
-						<target>${java.target}</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>2.4</version>
-					<configuration>
-						<archive>
-							<manifest>
-								<mainClass>fr.pizzeria.console.PizzeriaAdminConsoleApp</mainClass>
-							</manifest>
-						</archive>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-shade-plugin</artifactId>
-					<version>2.4.3</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>3.0.0</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -60,38 +24,21 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>package</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
+
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.4</version>
+			<groupId>fr.pizzeria</groupId>
+			<artifactId>pizzeria-model</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
+			<groupId>fr.pizzeria</groupId>
+			<artifactId>pizzeria-dao</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.github.stefanbirkner</groupId>
 			<artifactId>system-rules</artifactId>
-			<version>${system-rules.version}</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

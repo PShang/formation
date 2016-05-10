@@ -9,10 +9,10 @@ import fr.pizzeria.model.Pizza;
 public class AfficherPizzaPlusCherOptionMenu extends OptionMenu {
 
 	/**
-	 * Constante pour le {@link OptionMenu.libelle libéllé} de
+	 * Constante pour le {@link OptionMenu.libelle libÃ©llÃ©} de
 	 * l'{@link OptionMenu}.
 	 */
-	private static final String LISTER_PIZZAS_LIBELLE = "Afficher la pizza au tarif le plus élevé";
+	private static final String LISTER_PIZZAS_LIBELLE = "Afficher la pizza au tarif le plus Ã©levÃ©";
 
 	/**
 	 * Constructeur.
@@ -28,7 +28,7 @@ public class AfficherPizzaPlusCherOptionMenu extends OptionMenu {
 		System.out.println("La pizza la plus cher : ");
 		System.out.println(this.pizzaDao.findAllPizzas().stream()
 				.collect(Collectors.maxBy(Comparator.comparing(Pizza::getPrix))).get());
-		System.out.println("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme");
+		System.out.println("------- " + Pizza.nbPizzas + " pizzas crÃ©Ã©es depuis lâ€™initialisation du programme");
 		System.out.println();
 		return false;
 	}

@@ -11,10 +11,10 @@ import fr.pizzeria.model.Pizza;
 public class ListerPizzaCategorieOptionMenu extends OptionMenu {
 
 	/**
-	 * Constante pour le {@link OptionMenu.libelle libéllé} de
+	 * Constante pour le {@link OptionMenu.libelle libÃ©llÃ©} de
 	 * l'{@link OptionMenu}.
 	 */
-	private static final String LISTER_PIZZAS_LIBELLE = "Lister les pizzas groupées par catégorie";
+	private static final String LISTER_PIZZAS_LIBELLE = "Lister les pizzas groupÃ©es par catÃ©gorie";
 
 	/**
 	 * Constructeur.
@@ -33,7 +33,7 @@ public class ListerPizzaCategorieOptionMenu extends OptionMenu {
 			System.out.println("--- " + k.getLibelle() + " :");
 			v.stream().forEach(System.out::println);
 		});
-		System.out.println("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme");
+		System.out.println("------- " + Pizza.nbPizzas + " pizzas crÃ©Ã©es depuis lâ€™initialisation du programme");
 		System.out.println();
 		return false;
 	}

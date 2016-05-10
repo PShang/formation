@@ -33,7 +33,7 @@ public class Menu {
 	}
 
 	/**
-	 * Affiche le Menu et demande les entrées utilisateur.
+	 * Affiche le Menu et demande les entrÃ©es utilisateur.
 	 */
 	public void afficher() {
 		boolean stop = false;
@@ -52,7 +52,7 @@ public class Menu {
 					System.err.println("Erreur : L'option " + choix + " n'existe pas.");
 				}
 			} catch (InputMismatchException e) {
-				System.err.println("Erreur de saisie : \"" + scan.next() + "\" n'était pas attendu.");
+				System.err.println("Erreur de saisie : \"" + scan.next() + "\" n'Ã©tait pas attendu.");
 			}
 		}
 		scan.close();

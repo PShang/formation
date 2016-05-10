@@ -9,7 +9,7 @@ import fr.pizzeria.exception.DeletePizzaException;
 public class SupprimerPizzaOptionMenu extends OptionMenu {
 
 	/**
-	 * Constante pour le {@link OptionMenu.libelle libéllé} de
+	 * Constante pour le {@link OptionMenu.libelle libÃ©llÃ©} de
 	 * l'{@link OptionMenu}.
 	 */
 	private static final String SUPPRIMER_PIZZA_LIBELLE = "Supprimer une pizza";
@@ -28,9 +28,9 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Suppression d’une pizza");
+		System.out.println("Suppression dâ€™une pizza");
 		new ListerPizzaOptionMenu(pizzaDao).execute();
-		System.out.println("Veuillez choisir le code la pizza à supprimer.");
+		System.out.println("Veuillez choisir le code la pizza Ã  supprimer.");
 		System.out.println("(99 pour abandonner).");
 		String oldCode = scan.next();
 		if (oldCode.equals("99")) {

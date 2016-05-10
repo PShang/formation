@@ -16,7 +16,7 @@ import fr.pizzeria.model.Pizza;
 public class AjouterPizzaOptionMenu extends OptionMenu {
 
 	/**
-	 * Constante pour le {@link OptionMenu.libelle libéllé} de
+	 * Constante pour le {@link OptionMenu.libelle libÃ©llÃ©} de
 	 * l'{@link OptionMenu}.
 	 */
 	private static final String AJOUTER_PIZZA_LIBELLE = "Ajouter une pizza";
@@ -35,23 +35,23 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Ajout d’une nouvelle pizza");
+		System.out.println("Ajout dâ€™une nouvelle pizza");
 		System.out.println("Veuillez saisir le code");
 		String code = scan.next();
 		System.out.println("Veuillez saisir le nom (sans espace)");
 		String name = scan.next();
 		System.out.println("Veuillez saisir le prix");
 		double price = scan.nextDouble();
-		System.out.println("Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values()));
+		System.out.println("Veuillez saisir la catÃ©gorie : " + Arrays.toString(CategoriePizza.values()));
 		String categorieString = scan.next();
 		try {
 			CategoriePizza categorie = CategoriePizza.valueOf(categorieString.toUpperCase());
 			pizzaDao.saveNewPizza(new Pizza(code, name, price, categorie));
 		} catch (SavePizzaException e) {
-			throw new SavePizzaException("Erreur : La pizza avec le code " + code + " existe déjà.", e);
+			throw new SavePizzaException("Erreur : La pizza avec le code " + code + " existe dÃ©jÃ .", e);
 		} catch (IllegalArgumentException e) {
 			throw new CategoriePizzaException(
-					"Erreur de saisie : La catégorie \"" + categorieString + "\" n'existe pas.", e);
+					"Erreur de saisie : La catÃ©gorie \"" + categorieString + "\" n'existe pas.", e);
 		}
 		System.out.println();
 		return false;

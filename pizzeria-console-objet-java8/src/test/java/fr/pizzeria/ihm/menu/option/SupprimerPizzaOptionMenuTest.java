@@ -38,13 +38,13 @@ public class SupprimerPizzaOptionMenuTest {
 	@Test
 	public void testExecuteCodeExistant() throws DaoException {
 		StringBuilder outAttendus = new StringBuilder();
-		outAttendus.append("Suppression d’une pizza\r\n");
+		outAttendus.append("Suppression dâ€™une pizza\r\n");
 		List<Pizza> listPizzas = dao.findAllPizzas();
 		listPizzas.stream().forEach(p -> {
 			outAttendus.append(p).append("\r\n");
 		});
-		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme\r\n\r\n"
-				+ "Veuillez choisir le code la pizza à supprimer.\r\n" + "(99 pour abandonner).\r\n\r\n");
+		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas crÃ©Ã©es depuis lâ€™initialisation du programme\r\n\r\n"
+				+ "Veuillez choisir le code la pizza Ã  supprimer.\r\n" + "(99 pour abandonner).\r\n\r\n");
 
 		systemInMock.provideLines("FRO");
 		boolean next = supprimerPizzaOptionMenu.execute();

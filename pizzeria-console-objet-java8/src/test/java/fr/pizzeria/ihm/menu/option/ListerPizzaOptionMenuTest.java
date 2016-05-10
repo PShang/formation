@@ -34,7 +34,7 @@ public class ListerPizzaOptionMenuTest {
 		listPizzas.stream().forEach(p -> {
 			outAttendus.append(p).append("\r\n");
 		});
-		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme\r\n\r\n");
+		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas crÃ©Ã©es depuis lâ€™initialisation du programme\r\n\r\n");
 
 		boolean next = listerPizzaOptionMenu.execute();
 		assertTrue(next == false);

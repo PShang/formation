@@ -10,7 +10,7 @@ import fr.pizzeria.ihm.menu.Menu;
 public abstract class OptionMenu {
 
 	/**
-	 * Le libéllé de l'{@link OptionMenu}.
+	 * Le libÃ©llÃ© de l'{@link OptionMenu}.
 	 */
 	private String libelle;
 	protected IPizzaDao pizzaDao;
@@ -18,7 +18,7 @@ public abstract class OptionMenu {
 	/**
 	 * Constructeur.
 	 * 
-	 * @param libelle Le libéllé de l'{@link OptionMenu}.
+	 * @param libelle Le libÃ©llÃ© de l'{@link OptionMenu}.
 	 */
 	public OptionMenu(String libelle) {
 		this.libelle = libelle;
@@ -27,7 +27,7 @@ public abstract class OptionMenu {
 	/**
 	 * Constructeur.
 	 * 
-	 * @param libelle Le libéllé de l'{@link OptionMenu}.
+	 * @param libelle Le libÃ©llÃ© de l'{@link OptionMenu}.
 	 * @param pizzaDao La DAO pour lespizzas.
 	 */
 	public OptionMenu(String libelle, IPizzaDao pizzaDao) {
@@ -38,16 +38,16 @@ public abstract class OptionMenu {
 	/**
 	 * Execute l'action.
 	 * 
-	 * @return {@code true} si l'action doit arrêter l'execution de
-	 *         l'application après son execution.
+	 * @return {@code true} si l'action doit arrÃªter l'execution de
+	 *         l'application aprÃ¨s son execution.
 	 * @throws DaoException
 	 */
 	public abstract boolean execute() throws DaoException;
 
 	/**
-	 * Récupère le libéllé.
+	 * RÃ©cupÃ¨re le libÃ©llÃ©.
 	 * 
-	 * @return Le libéllé de l'{@link OptionMenu}.
+	 * @return Le libÃ©llÃ© de l'{@link OptionMenu}.
 	 */
 	public String getLibelle() {
 		return libelle;

@@ -6,7 +6,7 @@ import fr.pizzeria.model.Pizza;
 public class ListerPizzaOptionMenu extends OptionMenu {
 
 	/**
-	 * Constante pour le {@link OptionMenu.libelle libéllé} de
+	 * Constante pour le {@link OptionMenu.libelle libÃ©llÃ©} de
 	 * l'{@link OptionMenu}.
 	 */
 	private static final String LISTER_PIZZAS_LIBELLE = "Lister les pizzas";
@@ -23,7 +23,7 @@ public class ListerPizzaOptionMenu extends OptionMenu {
 	@Override
 	public boolean execute() {
 		this.pizzaDao.findAllPizzas().stream().forEach(System.out::println);
-		System.out.println("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme");
+		System.out.println("------- " + Pizza.nbPizzas + " pizzas crÃ©Ã©es depuis lâ€™initialisation du programme");
 		System.out.println();
 		return false;
 	}
