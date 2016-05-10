@@ -10,7 +10,31 @@
 		<relativePath>../</relativePath>
 	</parent>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<dao.impl>0</dao.impl>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<dao.impl>1</dao.impl>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
