@@ -1,6 +1,8 @@
 package fr.pizzeria.console;
 
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -30,8 +32,26 @@ public class PizzeriaAdminConsoleApp {
 	 * @param args Les aguments du programme.
 	 */
 	public static void main(String[] args) {
+		String daoProp = "dao.impl";
+		String fileProp = "application";
+
 		try {
-			IPizzaDao pizzaDao = new PizzaDaoFichierImpl();
+			ResourceBundle bundle = ResourceBundle.getBundle(fileProp);
+			String property = bundle.getString(daoProp);
+			int daoImpl = Integer.valueOf(property);
+			IPizzaDao pizzaDao;
+			switch (daoImpl) {
+				case 0:
+					pizzaDao = new PizzaDaoImpl();
+					break;
+				case 1:
+					pizzaDao = new PizzaDaoFichierImpl();
+					break;
+				default:
+					System.err.println("Erreur: Le fichier " + fileProp + ".properties doit contenir la propriété \""
+							+ daoProp + "\" avec la valeur 0 ou 1.");
+					return;
+			}
 			Scanner scan = new Scanner(System.in);
 			Map<Integer, OptionMenu> options = new TreeMap<Integer, OptionMenu>();
 			options.put(0, new ListerPizzaOptionMenu(pizzaDao));
@@ -45,7 +65,10 @@ public class PizzeriaAdminConsoleApp {
 			Menu menu = new Menu(scan, options);
 			menu.afficher();
 		} catch (DaoException e) {
-			System.err.println(e.getMessage() + " : " + e.getCause().getMessage());
+			System.err.println(e.getMessage());
+		} catch (MissingResourceException e) {
+			System.err.println("Erreur: Le fichier " + fileProp + ".properties doit contenir la propriété \"" + daoProp
+					+ "\" avec la valeur 0 ou 1.");
 		}
 	}
 }
