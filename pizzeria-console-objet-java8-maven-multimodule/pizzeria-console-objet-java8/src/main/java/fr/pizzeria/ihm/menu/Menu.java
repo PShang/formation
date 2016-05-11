@@ -43,14 +43,12 @@ public class Menu {
 			try {
 				int choix = this.scan.nextInt();
 				if (actions.containsKey(choix)) {
-					try {
-						stop = actions.get(choix).execute();
-					} catch (DaoException e) {
-						System.err.println(e.getMessage());
-					}
+					stop = actions.get(choix).execute();
 				} else {
 					System.err.println("Erreur : L'option " + choix + " n'existe pas.");
 				}
+			} catch (DaoException e) {
+				System.err.println(e.getMessage());
 			} catch (InputMismatchException e) {
 				System.err.println("Erreur de saisie : \"" + scan.next() + "\" n'était pas attendu.");
 			}

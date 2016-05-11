@@ -27,7 +27,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 	 * Constructeur. Initialise la {@link Map} de pizzas.
 	 */
 	public PizzaDaoImpl() {
-		pizzas = new HashMap<String, Pizza>();
+		pizzas = new HashMap<>();
 		pizzas.put("PEP", new Pizza("PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
 		pizzas.put("MAR", new Pizza("MAR", "Margherita", 14.00, CategoriePizza.SANS_VIANDE));
 		pizzas.put("REI", new Pizza("REI", "La Reine", 11.50, CategoriePizza.VIANDE));

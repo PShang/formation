@@ -23,7 +23,16 @@ public class Pizza /* implements Comparable<Pizza> */ {
 	/**
 	 * Variable statique servant a compter la création des pizzas..
 	 */
-	static public int nbPizzas;
+	public static int nbPizzas;
+
+	private static final Map<String, String> FORMAT = new HashMap<>();
+
+	static {
+		FORMAT.put("code", "%s -> ");
+		FORMAT.put("nom", "%s");
+		FORMAT.put("categorie", " [%s]");
+		FORMAT.put("prix", " (%s€)");
+	}
 
 	/**
 	 * Constructeur.
@@ -57,15 +66,6 @@ public class Pizza /* implements Comparable<Pizza> */ {
 		return categorie;
 	}
 
-	private static Map<String, String> FORMAT = new HashMap<>();
-
-	static {
-		FORMAT.put("code", "%s -> ");
-		FORMAT.put("nom", "%s");
-		FORMAT.put("categorie", " [%s]");
-		FORMAT.put("prix", " (%s€)");
-	}
-
 	@Override
 	public String toString() {
 		return Arrays.asList(getClass().getDeclaredFields()).stream()
@@ -73,11 +73,11 @@ public class Pizza /* implements Comparable<Pizza> */ {
 					ToString ts = f.getAnnotation(ToString.class);
 					try {
 						String s;
-						if (f.getName().equals("categorie"))
+						if ("categorie".equals(f.getName()))
 							s = ((CategoriePizza) f.get(this)).getLibelle().toString();
 						else
 							s = f.get(this).toString();
-						return String.format(FORMAT.get(f.getName()), (ts.uppercase()) ? (s.toUpperCase()) : (s));
+						return String.format(FORMAT.get(f.getName()), ts.uppercase() ? s.toUpperCase() : s);
 					} catch (IllegalArgumentException | IllegalAccessException e) {
 						e.printStackTrace();
 						return "";

@@ -25,6 +25,9 @@ import fr.pizzeria.ihm.menu.option.SupprimerPizzaOptionMenu;
  */
 public class PizzeriaAdminConsoleApp {
 
+	private PizzeriaAdminConsoleApp() {
+	}
+
 	/**
 	 * Methode d'entrée. Initialise le {@link Menu}, le {@link Scanner} et la
 	 * {@link PizzaDaoImpl DAO}.
@@ -38,7 +41,7 @@ public class PizzeriaAdminConsoleApp {
 		try {
 			ResourceBundle bundle = ResourceBundle.getBundle(fileProp);
 			String property = bundle.getString(daoProp);
-			int daoImpl = Integer.valueOf(property);
+			int daoImpl = Integer.parseInt(property);
 			IPizzaDao pizzaDao;
 			switch (daoImpl) {
 				case 0:
@@ -53,7 +56,7 @@ public class PizzeriaAdminConsoleApp {
 					return;
 			}
 			Scanner scan = new Scanner(System.in);
-			Map<Integer, OptionMenu> options = new TreeMap<Integer, OptionMenu>();
+			Map<Integer, OptionMenu> options = new TreeMap<>();
 			options.put(0, new ListerPizzaOptionMenu(pizzaDao));
 			options.put(1, new AjouterPizzaOptionMenu(pizzaDao, scan));
 			options.put(2, new ModifierPizzaOptionMenu(pizzaDao, scan));

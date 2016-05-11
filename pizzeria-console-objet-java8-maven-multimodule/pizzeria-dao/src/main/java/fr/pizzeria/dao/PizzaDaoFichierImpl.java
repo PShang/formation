@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
@@ -30,9 +31,9 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	/**
 	 * La {@link Map} pour les pizzas.
 	 */
-	private Map<String, Pizza> pizzas = new HashMap<String, Pizza>();;
+	private Map<String, Pizza> pizzas = new HashMap<>();
 
-	private final static Path ROOTDIR = Paths.get("data");
+	private static final Path ROOTDIR = Paths.get("data");
 
 	/**
 	 * Constructeur. Initialise la {@link Map} de pizzas en lisant les fichiers
@@ -45,20 +46,20 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 			if (Files.notExists(ROOTDIR)) {
 				Files.createDirectory(ROOTDIR);
 			}
-			Files.list(ROOTDIR).map(path -> {
-				try {
-					String[] line = Files.readAllLines(path, StandardCharsets.UTF_8).get(0).split(";");
-					NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
-					Number number = format.parse(line[1]);
-					return new Pizza(path.getFileName().toString().replace(".txt", ""), line[0], number.doubleValue(),
-							CategoriePizza.valueOf(line[2]));
-				} catch (IOException | ParseException e) {
-					e.printStackTrace();
-					return null;
-				}
-			}).forEach(p -> {
-				pizzas.put(p.getCode(), p);
-			});
+			try (Stream<Path> s = Files.list(ROOTDIR)) {
+				s.map(path -> {
+					try {
+						String[] line = Files.readAllLines(path, StandardCharsets.UTF_8).get(0).split(";");
+						NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
+						Number number = format.parse(line[1]);
+						return new Pizza(path.getFileName().toString().replace(".txt", ""), line[0],
+								number.doubleValue(), CategoriePizza.valueOf(line[2]));
+					} catch (IOException | ParseException e) {
+						e.printStackTrace();
+						return null;
+					}
+				}).forEach(p -> pizzas.put(p.getCode(), p));
+			}
 		} catch (IOException e) {
 			throw new DaoException("Erreur de lecture des fichiers de donnée des pizzas", e);
 		}

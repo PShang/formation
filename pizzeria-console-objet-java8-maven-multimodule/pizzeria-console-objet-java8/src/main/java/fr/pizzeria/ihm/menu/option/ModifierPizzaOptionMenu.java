@@ -37,7 +37,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		System.out.println("Veuillez choisir le code la pizza à modifier.");
 		System.out.println("(99 pour abandonner).");
 		String code = scan.next();
-		if (code.equals("99")) {
+		if ("99".equals(code)) {
 			return false;
 		}
 		System.out.println("Veuillez saisir le nom (sans espace)");
