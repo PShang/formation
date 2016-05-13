@@ -1,5 +1,8 @@
 package fr.pizzeria.dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Comparator;
@@ -7,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.apache.commons.collections4.ListUtils;
 
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
@@ -25,7 +30,9 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 	 */
 	private Map<String, Pizza> pizzas = new HashMap<>();
 
-	private JdbcHelper helper;
+	private String urlConnection;
+	private String userConnection;
+	private String passConnection;
 
 	private static final String TABLE_PIZZA = "pizza";
 	private static final String COLUMN_CODE = "code";
@@ -42,19 +49,23 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 	 * @throws DaoException
 	 * @throws SQLException
 	 */
-	public PizzaDaoJdbcImpl(JdbcHelper jdbcHelper) throws DaoException, SQLException {
-		helper = jdbcHelper;
-		ResultSet results = helper.executeQuery("SELECT * FROM " + TABLE_PIZZA);
-		while (results.next()) {
-			String code = results.getString(COLUMN_CODE);
-			String nom = results.getString(COLUMN_NOM);
-			Double prix = results.getDouble(COLUMN_PRIX);
-			String categorie = results.getString(COLUMN_CATEGORIE);
-			Pizza p = new Pizza(code, nom, prix, CategoriePizza.valueOf(categorie));
-			pizzas.put(p.getCode(), p);
+	public PizzaDaoJdbcImpl(String urlConnection, String userConnection, String passConnection)
+			throws DaoException, SQLException {
+		this.urlConnection = urlConnection;
+		this.userConnection = userConnection;
+		this.passConnection = passConnection;
+		try (Connection connection = DriverManager.getConnection(urlConnection, userConnection, passConnection);
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_PIZZA);
+				ResultSet results = statement.executeQuery();) {
+			while (results.next()) {
+				String code = results.getString(COLUMN_CODE);
+				String nom = results.getString(COLUMN_NOM);
+				Double prix = results.getDouble(COLUMN_PRIX);
+				String categorie = results.getString(COLUMN_CATEGORIE);
+				Pizza p = new Pizza(code, nom, prix, CategoriePizza.valueOf(categorie));
+				pizzas.put(p.getCode(), p);
+			}
 		}
-		results.close();
-		helper.close();
 	}
 
 	@Override
@@ -67,13 +78,18 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 		if (pizzas.containsKey(pizza.getCode())) {
 			throw new SavePizzaException();
 		}
-		pizzas.put(pizza.getCode(), pizza);
-		try {
-			String request = String.format("INSERT INTO %s(%s, %s, %s, %s) VALUES(\"%s\", \"%s\", %s, \"%s\")",
-					TABLE_PIZZA, COLUMN_CODE, COLUMN_NOM, COLUMN_PRIX, COLUMN_CATEGORIE, pizza.getCode(),
-					pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString());
-			helper.executeUpdate(request);
-			helper.close();
+		try (Connection connection = DriverManager.getConnection(urlConnection, userConnection, passConnection);
+				PreparedStatement statement = connection
+						.prepareStatement("INSERT INTO " + TABLE_PIZZA + "(" + COLUMN_CODE + ", " + COLUMN_NOM + ", "
+								+ COLUMN_PRIX + ", " + COLUMN_CATEGORIE + ") VALUES(?, ?, ?, ?)");) {
+			statement.setString(1, pizza.getCode());
+			statement.setString(2, pizza.getNom());
+			statement.setDouble(3, pizza.getPrix());
+			statement.setString(4, pizza.getCategorie().toString());
+			statement.executeUpdate();
+			pizzas.put(pizza.getCode(), pizza);
+			statement.close();
+			connection.close();
 		} catch (SQLException e) {
 			throw new SavePizzaException("Erreur SQL lors de l'insertion des données.", e);
 		}
@@ -84,14 +100,18 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 		if (!pizzas.containsKey(pizza.getCode())) {
 			throw new UpdatePizzaException();
 		}
-		pizzas.put(codePizza, pizza);
-		try {
-			String request = String.format(
-					"UPDATE %s SET %s = \"%s\", %s = \"%s\", %s = %s, %s = \"%s\" WHERE %s = \"%s\"", TABLE_PIZZA,
-					COLUMN_CODE, pizza.getCode(), COLUMN_NOM, pizza.getNom(), COLUMN_PRIX, pizza.getPrix(),
-					COLUMN_CATEGORIE, pizza.getCategorie().toString(), COLUMN_CODE, codePizza);
-			helper.executeUpdate(request);
-			helper.close();
+		try (Connection connection = DriverManager.getConnection(urlConnection, userConnection, passConnection);
+				PreparedStatement statement = connection.prepareStatement(
+						"UPDATE " + TABLE_PIZZA + " SET " + COLUMN_CODE + " = ?, " + COLUMN_NOM + " = ?, " + COLUMN_PRIX
+								+ " = ?, " + COLUMN_CATEGORIE + " = ? WHERE " + COLUMN_CODE + " = ?");) {
+			statement.setString(1, pizza.getCode());
+			statement.setString(2, pizza.getNom());
+			statement.setDouble(3, pizza.getPrix());
+			statement.setString(4, pizza.getCategorie().toString());
+			statement.setString(5, codePizza);
+			if (statement.executeUpdate() == 1) {
+				pizzas.put(codePizza, pizza);
+			}
 		} catch (SQLException e) {
 			throw new UpdatePizzaException("Erreur SQL lors de la mise à jour des données.", e);
 		}
@@ -102,13 +122,47 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 		if (!pizzas.containsKey(codePizza)) {
 			throw new DeletePizzaException();
 		}
-		pizzas.remove(codePizza);
-		try {
-			String request = String.format("DELETE FROM %s WHERE %s = \"%s\"", TABLE_PIZZA, COLUMN_CODE, codePizza);
-			helper.executeUpdate(request);
-			helper.close();
+		try (Connection connection = DriverManager.getConnection(urlConnection, userConnection, passConnection);
+				PreparedStatement statement = connection
+						.prepareStatement("DELETE FROM " + TABLE_PIZZA + " WHERE " + COLUMN_CODE + " = ?");) {
+			statement.setString(1, codePizza);
+			if (statement.executeUpdate() == 1) {
+				pizzas.remove(codePizza);
+			}
 		} catch (SQLException e) {
 			throw new DeletePizzaException("Erreur SQL lors de la suppression des données.", e);
+		}
+	}
+
+	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl) throws DaoException {
+		for (List<Pizza> list : ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), 3)) {
+			try (Connection connection = DriverManager.getConnection(urlConnection, userConnection, passConnection);) {
+				connection.setAutoCommit(false);
+				try (PreparedStatement statement = connection
+						.prepareStatement("INSERT INTO " + TABLE_PIZZA + "(" + COLUMN_CODE + ", " + COLUMN_NOM + ", "
+								+ COLUMN_PRIX + ", " + COLUMN_CATEGORIE + ") VALUES(?, ?, ?, ?)");) {
+					try {
+						for (Pizza pizza : list) {
+							if (pizzas.containsKey(pizza.getCode())) {
+								throw new SavePizzaException(
+										"Erreur : La pizza avec le code " + pizza.getCode() + " existe déjà.", null);
+							}
+							statement.setString(1, pizza.getCode());
+							statement.setString(2, pizza.getNom());
+							statement.setDouble(3, pizza.getPrix());
+							statement.setString(4, pizza.getCategorie().toString());
+							statement.executeUpdate();
+							pizzas.put(pizza.getCode(), pizza);
+						}
+						connection.commit();
+					} catch (SQLException e) {
+						connection.rollback();
+						throw new SQLException(e);
+					}
+				}
+			} catch (SQLException e) {
+				throw new SavePizzaException("Erreur SQL lors de l'insertion des données.", e);
+			}
 		}
 	}
 }

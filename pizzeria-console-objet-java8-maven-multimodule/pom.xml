@@ -14,12 +14,13 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.source>1.8</java.source>
+		<java.target>1.8</java.target>
 		<junit.version>4.12</junit.version>
 		<system-rules.version>1.16.0</system-rules.version>
 		<commons-lang3.version>3.4</commons-lang3.version>
 		<mysql.version>5.1.38</mysql.version>
-		<java.source>1.8</java.source>
-		<java.target>1.8</java.target>
+		<commons-collections4.version>4.1</commons-collections4.version>
 	</properties>
 
 	<build>
@@ -114,6 +115,11 @@
 				<artifactId>mysql-connector-java</artifactId>
 				<version>${mysql.version}</version>
 				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>${commons-collections4.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

@@ -8,7 +8,6 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.dao.JdbcHelper;
 import fr.pizzeria.dao.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.PizzaDaoImpl;
 import fr.pizzeria.dao.PizzaDaoJdbcImpl;
@@ -16,6 +15,7 @@ import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.Menu;
 import fr.pizzeria.ihm.menu.option.AfficherPizzaPlusCherOptionMenu;
 import fr.pizzeria.ihm.menu.option.AjouterPizzaOptionMenu;
+import fr.pizzeria.ihm.menu.option.ImporterPizzaOptionMenu;
 import fr.pizzeria.ihm.menu.option.ListerPizzaCategorieOptionMenu;
 import fr.pizzeria.ihm.menu.option.ListerPizzaOptionMenu;
 import fr.pizzeria.ihm.menu.option.ModifierPizzaOptionMenu;
@@ -65,8 +65,12 @@ public class PizzeriaAdminConsoleApp {
 					String passConnection = bundle.getString(PROPERTY_PASS).isEmpty() ? null
 							: bundle.getString(PROPERTY_PASS);
 					try {
-						pizzaDao = new PizzaDaoJdbcImpl(
-								new JdbcHelper(driverConnection, urlConnection, userConnection, passConnection));
+						Class.forName(driverConnection);
+					} catch (ClassNotFoundException e) {
+						System.err.println("Erreur : Le driver " + driverConnection + " est introuvable.");
+					}
+					try {
+						pizzaDao = new PizzaDaoJdbcImpl(urlConnection, userConnection, passConnection);
 					} catch (SQLException e) {
 						throw new DaoException("Erreur SQL : " + e.getMessage(), e);
 					}
@@ -85,6 +89,7 @@ public class PizzeriaAdminConsoleApp {
 			options.put(3, new SupprimerPizzaOptionMenu(pizzaDao, scan));
 			options.put(4, new ListerPizzaCategorieOptionMenu(pizzaDao));
 			options.put(5, new AfficherPizzaPlusCherOptionMenu(pizzaDao));
+			options.put(6, new ImporterPizzaOptionMenu(pizzaDao));
 			options.put(99, new QuitterOptionMenu());
 
 			Menu menu = new Menu(scan, options);
