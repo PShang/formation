@@ -20,7 +20,7 @@
 		<profile>
 			<id>prod</id>
 			<properties>
-				<dao.impl>1</dao.impl>
+				<dao.impl>2</dao.impl>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>

@@ -17,6 +17,7 @@
 		<junit.version>4.12</junit.version>
 		<system-rules.version>1.16.0</system-rules.version>
 		<commons-lang3.version>3.4</commons-lang3.version>
+		<mysql.version>5.1.38</mysql.version>
 		<java.source>1.8</java.source>
 		<java.target>1.8</java.target>
 	</properties>
@@ -107,6 +108,12 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>${commons-lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.version}</version>
+				<scope>runtime</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

@@ -11,7 +11,7 @@ public class CategoriePizzaException extends DaoException {
 		super();
 	}
 
-	public CategoriePizzaException(String string, IllegalArgumentException e) {
+	public CategoriePizzaException(String string, Throwable e) {
 		super(string, e);
 	}
 }

@@ -11,7 +11,7 @@ public class DeletePizzaException extends DaoException {
 		super();
 	}
 
-	public DeletePizzaException(String string, DaoException e) {
+	public DeletePizzaException(String string, Throwable e) {
 		super(string, e);
 	}
 }

@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.dao.PizzaDaoJdbcImpl;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.Menu;
 import fr.pizzeria.ihm.menu.option.AfficherPizzaPlusCherOptionMenu;
@@ -50,9 +51,12 @@ public class PizzeriaAdminConsoleApp {
 				case 1:
 					pizzaDao = new PizzaDaoFichierImpl();
 					break;
+				case 2:
+					pizzaDao = new PizzaDaoJdbcImpl();
+					break;
 				default:
 					System.err.println("Erreur: Le fichier " + fileProp + ".properties doit contenir la propriété \""
-							+ daoProp + "\" avec la valeur 0 ou 1.");
+							+ daoProp + "\" avec la valeur 0, 1 ou 2.");
 					return;
 			}
 			Scanner scan = new Scanner(System.in);
@@ -71,7 +75,7 @@ public class PizzeriaAdminConsoleApp {
 			System.err.println(e.getMessage());
 		} catch (MissingResourceException e) {
 			System.err.println("Erreur: Le fichier " + fileProp + ".properties doit contenir la propriété \"" + daoProp
-					+ "\" avec la valeur 0 ou 1.");
+					+ "\" avec la valeur 0, 1 ou 2.");
 		}
 	}
 }
