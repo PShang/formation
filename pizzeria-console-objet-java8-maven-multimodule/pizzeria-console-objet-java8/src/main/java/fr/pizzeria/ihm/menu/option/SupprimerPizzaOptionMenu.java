@@ -41,6 +41,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		} catch (DeletePizzaException e) {
 			throw new DeletePizzaException("Erreur : La pizza avec le code " + oldCode + " n'existe pas.", e);
 		}
+		System.out.println();
 		return false;
 	}
 }

@@ -32,9 +32,10 @@ public class ListerPizzaOptionMenuTest {
 		StringBuilder outAttendus = new StringBuilder();
 		List<Pizza> listPizzas = dao.findAllPizzas();
 		listPizzas.stream().forEach(p -> {
-			outAttendus.append(p).append("\r\n");
+			outAttendus.append(p).append(System.lineSeparator());
 		});
-		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme\r\n");
+		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme"
+				+ System.lineSeparator() + System.lineSeparator());
 
 		boolean next = listerPizzaOptionMenu.execute();
 		assertTrue(next == false);

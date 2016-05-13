@@ -40,15 +40,17 @@ public class ModifierPizzaOptionMenuTest {
 	@Test
 	public void testExecuteCodeExistant() throws DaoException {
 		StringBuilder outAttendus = new StringBuilder();
-		outAttendus.append("Mise à jour d’une pizza\r\n");
+		outAttendus.append("Mise à jour d’une pizza" + System.lineSeparator());
 		List<Pizza> listPizzas = dao.findAllPizzas();
 		listPizzas.stream().forEach(p -> {
-			outAttendus.append(p).append("\r\n");
+			outAttendus.append(p).append(System.lineSeparator());
 		});
-		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme\r\n"
-				+ "Veuillez choisir le code la pizza à modifier.\r\n" + "(99 pour abandonner).\r\n"
-				+ "Veuillez saisir le nom (sans espace)\r\n" + "Veuillez saisir le prix\r\n"
-				+ "Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values()) + "\r\n");
+		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme"
+				+ System.lineSeparator() + System.lineSeparator() + "Veuillez choisir le code la pizza à modifier."
+				+ System.lineSeparator() + "(99 pour abandonner)." + System.lineSeparator()
+				+ "Veuillez saisir le nom (sans espace)" + System.lineSeparator() + "Veuillez saisir le prix"
+				+ System.lineSeparator() + "Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values())
+				+ System.lineSeparator() + System.lineSeparator());
 
 		systemInMock.provideLines("FRO", "fromage", "20,6", "sans_viande");
 		boolean next = modifierPizzaOptionMenu.execute();
