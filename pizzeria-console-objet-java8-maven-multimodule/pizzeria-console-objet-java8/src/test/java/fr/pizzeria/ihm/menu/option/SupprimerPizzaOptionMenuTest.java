@@ -43,8 +43,8 @@ public class SupprimerPizzaOptionMenuTest {
 		listPizzas.stream().forEach(p -> {
 			outAttendus.append(p).append("\r\n");
 		});
-		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme\r\n\r\n"
-				+ "Veuillez choisir le code la pizza à supprimer.\r\n" + "(99 pour abandonner).\r\n\r\n");
+		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme\r\n"
+				+ "Veuillez choisir le code la pizza à supprimer.\r\n" + "(99 pour abandonner).\r\n");
 
 		systemInMock.provideLines("FRO");
 		boolean next = supprimerPizzaOptionMenu.execute();

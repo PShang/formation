@@ -45,10 +45,10 @@ public class ModifierPizzaOptionMenuTest {
 		listPizzas.stream().forEach(p -> {
 			outAttendus.append(p).append("\r\n");
 		});
-		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme\r\n\r\n"
+		outAttendus.append("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme\r\n"
 				+ "Veuillez choisir le code la pizza à modifier.\r\n" + "(99 pour abandonner).\r\n"
 				+ "Veuillez saisir le nom (sans espace)\r\n" + "Veuillez saisir le prix\r\n"
-				+ "Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values()) + "\r\n\r\n");
+				+ "Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values()) + "\r\n");
 
 		systemInMock.provideLines("FRO", "fromage", "20,6", "sans_viande");
 		boolean next = modifierPizzaOptionMenu.execute();

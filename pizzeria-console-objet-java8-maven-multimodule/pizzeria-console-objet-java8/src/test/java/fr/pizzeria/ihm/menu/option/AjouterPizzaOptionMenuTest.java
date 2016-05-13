@@ -42,7 +42,7 @@ public class AjouterPizzaOptionMenuTest {
 		assertTrue(next == false);
 		String outAttendus = "Ajout d’une nouvelle pizza\r\n" + "Veuillez saisir le code\r\n"
 				+ "Veuillez saisir le nom (sans espace)\r\n" + "Veuillez saisir le prix\r\n"
-				+ "Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values()) + "\r\n\r\n";
+				+ "Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values()) + "\r\n";
 		assertEquals(outAttendus, systemOutRule.getLog());
 	}
 
