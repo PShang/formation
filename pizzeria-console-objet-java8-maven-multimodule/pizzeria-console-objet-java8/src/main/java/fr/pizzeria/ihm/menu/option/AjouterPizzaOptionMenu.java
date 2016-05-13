@@ -53,7 +53,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 			throw new CategoriePizzaException(
 					"Erreur de saisie : La catégorie \"" + categorieString + "\" n'existe pas.", e);
 		}
-		System.out.println();
+		System.out.println("");
 		return false;
 	}
 }

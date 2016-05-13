@@ -24,7 +24,7 @@ public class ListerPizzaOptionMenu extends OptionMenu {
 	public boolean execute() {
 		this.pizzaDao.findAllPizzas().stream().forEach(System.out::println);
 		System.out.println("------- " + Pizza.nbPizzas + " pizzas créées depuis l’initialisation du programme");
-		System.out.println();
+		System.out.println("");
 		return false;
 	}
 }
