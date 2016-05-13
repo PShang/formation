@@ -1,5 +1,6 @@
 package fr.pizzeria.console;
 
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -7,6 +8,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.dao.JdbcHelper;
 import fr.pizzeria.dao.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.PizzaDaoImpl;
 import fr.pizzeria.dao.PizzaDaoJdbcImpl;
@@ -25,6 +27,13 @@ import fr.pizzeria.ihm.menu.option.SupprimerPizzaOptionMenu;
  * Classe principale de l'application.
  */
 public class PizzeriaAdminConsoleApp {
+	private static final String FILE_APLLICATION_PROP = "application";
+	private static final String FILE_JDBC_PROP = "jdbc";
+	private static final String PROPERTY_DAO_IMPL = "dao.impl";
+	private static final String PROPERTY_DRIVER = "driver";
+	private static final String PROPERTY_URL = "url";
+	private static final String PROPERTY_USER = "user";
+	private static final String PROPERTY_PASS = "pass";
 
 	private PizzeriaAdminConsoleApp() {
 	}
@@ -36,12 +45,9 @@ public class PizzeriaAdminConsoleApp {
 	 * @param args Les aguments du programme.
 	 */
 	public static void main(String[] args) {
-		String daoProp = "dao.impl";
-		String fileProp = "application";
-
 		try {
-			ResourceBundle bundle = ResourceBundle.getBundle(fileProp);
-			String property = bundle.getString(daoProp);
+			ResourceBundle bundle = ResourceBundle.getBundle(FILE_APLLICATION_PROP);
+			String property = bundle.getString(PROPERTY_DAO_IMPL);
 			int daoImpl = Integer.parseInt(property);
 			IPizzaDao pizzaDao;
 			switch (daoImpl) {
@@ -52,11 +58,23 @@ public class PizzeriaAdminConsoleApp {
 					pizzaDao = new PizzaDaoFichierImpl();
 					break;
 				case 2:
-					pizzaDao = new PizzaDaoJdbcImpl();
+					bundle = ResourceBundle.getBundle(FILE_JDBC_PROP);
+					String driverConnection = bundle.getString(PROPERTY_DRIVER);
+					String urlConnection = bundle.getString(PROPERTY_URL);
+					String userConnection = bundle.getString(PROPERTY_USER);
+					String passConnection = bundle.getString(PROPERTY_PASS).isEmpty() ? null
+							: bundle.getString(PROPERTY_PASS);
+					try {
+						pizzaDao = new PizzaDaoJdbcImpl(
+								new JdbcHelper(driverConnection, urlConnection, userConnection, passConnection));
+					} catch (SQLException e) {
+						throw new DaoException("Erreur SQL : " + e.getMessage(), e);
+					}
 					break;
 				default:
-					System.err.println("Erreur: Le fichier " + fileProp + ".properties doit contenir la propriété \""
-							+ daoProp + "\" avec la valeur 0, 1 ou 2.");
+					System.err.println(
+							"Erreur: Le fichier " + FILE_APLLICATION_PROP + ".properties doit contenir la propriété \""
+									+ PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1 ou 2.");
 					return;
 			}
 			Scanner scan = new Scanner(System.in);
@@ -74,8 +92,8 @@ public class PizzeriaAdminConsoleApp {
 		} catch (DaoException e) {
 			System.err.println(e.getMessage());
 		} catch (MissingResourceException e) {
-			System.err.println("Erreur: Le fichier " + fileProp + ".properties doit contenir la propriété \"" + daoProp
-					+ "\" avec la valeur 0, 1 ou 2.");
+			System.err.println("Erreur: Le fichier " + FILE_APLLICATION_PROP
+					+ ".properties doit contenir la propriété \"" + PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1 ou 2.");
 		}
 	}
 }

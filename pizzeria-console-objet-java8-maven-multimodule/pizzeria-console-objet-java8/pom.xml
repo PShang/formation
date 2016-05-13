@@ -28,6 +28,14 @@
 		</profile>
 	</profiles>
 
+
+	<properties>
+		<driver>com.mysql.jdbc.Driver</driver>
+		<url>jdbc:mysql://localhost:3306/pizzeria</url>
+		<user>root</user>
+		<pass></pass>
+	</properties>
+
 	<build>
 		<resources>
 			<resource>

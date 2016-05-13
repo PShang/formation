@@ -62,5 +62,10 @@
       </exclusions>
     </dependency>
   </dependencies>
+  <properties>
+    <user>root</user>
+    <url>jdbc:mysql://localhost:3306/pizzeria</url>
+    <driver>com.mysql.jdbc.Driver</driver>
+  </properties>
 </project>
 

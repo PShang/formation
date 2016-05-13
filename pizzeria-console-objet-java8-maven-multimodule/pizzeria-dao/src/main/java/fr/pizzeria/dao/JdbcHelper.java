@@ -13,15 +13,14 @@ public class JdbcHelper {
 	private Connection connection;
 	private Statement statement;
 
-	public JdbcHelper(String urlConnection, String userConnection, String passConnection) throws SQLException {
-		String driverClassName = "com.mysql.jdbc.Driver";
+	public JdbcHelper(String driverConnection, String urlConnection, String userConnection, String passConnection) {
 		try {
-			Class.forName(driverClassName);
+			Class.forName(driverConnection);
 			this.urlConnection = urlConnection;
 			this.userConnection = userConnection;
 			this.passConnection = passConnection;
 		} catch (ClassNotFoundException e) {
-			System.err.println("Erreur : Le driver " + driverClassName + " est introuvable.");
+			System.err.println("Erreur : Le driver " + driverConnection + " est introuvable.");
 		}
 	}
 

@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import fr.pizzeria.exception.DaoException;
@@ -38,39 +37,24 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 	 * Constructeur. Initialise la {@link Map} de pizzas en lisant une base de
 	 * données de pizzas.
 	 * 
+	 * @param jdbcHelper Le Helper pour la base de donnée
+	 * 
 	 * @throws DaoException
+	 * @throws SQLException
 	 */
-	public PizzaDaoJdbcImpl() throws DaoException {
-		String fileProp = "jdbc";
-		String driverProp = "driver";
-		String urlProp = "url";
-		String userProp = "user";
-		String passProp = "pass";
-		String dbProp = "db";
-
-		try {
-			ResourceBundle bundle = ResourceBundle.getBundle(fileProp);
-			String urlConnection = "jdbc:" + bundle.getString(driverProp) + "://" + bundle.getString(urlProp) + "/"
-					+ bundle.getString(dbProp);
-			String userConnection = bundle.getString(userProp);
-			String passConnection = bundle.getString(passProp).isEmpty() ? null : bundle.getString(passProp);
-
-			helper = new JdbcHelper(urlConnection, userConnection, passConnection);
-
-			ResultSet results = helper.executeQuery("SELECT * FROM " + TABLE_PIZZA);
-			while (results.next()) {
-				String code = results.getString(COLUMN_CODE);
-				String nom = results.getString(COLUMN_NOM);
-				Double prix = results.getDouble(COLUMN_PRIX);
-				String categorie = results.getString(COLUMN_CATEGORIE);
-				Pizza p = new Pizza(code, nom, prix, CategoriePizza.valueOf(categorie));
-				pizzas.put(p.getCode(), p);
-			}
-			results.close();
-			helper.close();
-		} catch (SQLException e) {
-			throw new DaoException("Erreur SQL : " + e.getMessage(), e);
+	public PizzaDaoJdbcImpl(JdbcHelper jdbcHelper) throws DaoException, SQLException {
+		helper = jdbcHelper;
+		ResultSet results = helper.executeQuery("SELECT * FROM " + TABLE_PIZZA);
+		while (results.next()) {
+			String code = results.getString(COLUMN_CODE);
+			String nom = results.getString(COLUMN_NOM);
+			Double prix = results.getDouble(COLUMN_PRIX);
+			String categorie = results.getString(COLUMN_CATEGORIE);
+			Pizza p = new Pizza(code, nom, prix, CategoriePizza.valueOf(categorie));
+			pizzas.put(p.getCode(), p);
 		}
+		results.close();
+		helper.close();
 	}
 
 	@Override
@@ -109,7 +93,7 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 			helper.executeUpdate(request);
 			helper.close();
 		} catch (SQLException e) {
-			throw new SavePizzaException("Erreur SQL lors de la mise à jour des données.", e);
+			throw new UpdatePizzaException("Erreur SQL lors de la mise à jour des données.", e);
 		}
 	}
 
@@ -124,7 +108,7 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 			helper.executeUpdate(request);
 			helper.close();
 		} catch (SQLException e) {
-			throw new SavePizzaException("Erreur SQL lors de la suppression des données.", e);
+			throw new DeletePizzaException("Erreur SQL lors de la suppression des données.", e);
 		}
 	}
 }
