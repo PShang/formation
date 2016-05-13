@@ -25,12 +25,6 @@ public class JdbcHelper {
 		}
 	}
 
-	@Override
-	protected void finalize() throws Throwable {
-		close();
-		super.finalize();
-	}
-
 	private void open() throws SQLException {
 		connection = DriverManager.getConnection(urlConnection, userConnection, passConnection);
 	}
@@ -47,14 +41,12 @@ public class JdbcHelper {
 	public ResultSet executeQuery(String request) throws SQLException {
 		open();
 		statement = connection.createStatement();
-		ResultSet results = statement.executeQuery(request);
-		return results;
+		return statement.executeQuery(request);
 	}
 
 	public int executeUpdate(String request) throws SQLException {
 		open();
 		statement = connection.createStatement();
-		int results = statement.executeUpdate(request);
-		return results;
+		return statement.executeUpdate(request);
 	}
 }
