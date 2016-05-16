@@ -1,4 +1,5 @@
 # formation-dta
+[![Build Status](http://ns377570.ip-5-196-89.eu:8080/job/Etienne%20Bohain%20-%20Pizzeria%20-%20Build/badge/icon)](http://ns377570.ip-5-196-89.eu:8080/job/Etienne%20Bohain%20-%20Pizzeria%20-%20Build/)
 Projets réalisés pendant la formation DTA
 
 ## [pizzeria-console-imperative](pizzeria-console-imperative)
