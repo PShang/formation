@@ -21,7 +21,9 @@ Cetta application réécrit la même console d'administration de pizzeria en app
 
 ## [pizzeria-console-objet-java8-maven-multimodule](pizzeria-console-objet-java8-maven-multimodule) [![Build Status](http://ns377570.ip-5-196-89.eu:8080/job/Etienne%20Bohain%20-%20Pizzeria%20-%20Build/badge/icon)](http://ns377570.ip-5-196-89.eu:8080/job/Etienne%20Bohain%20-%20Pizzeria%20-%20Build/)
 Version améliorée de la console d'administration de pizzeria avec les nouveautés Java 8 (Streams, Lambdas, ...).
+
 Implémentation d'autres DAO (Data Access Object) : par fichiers, par base de données avec JDBC et base de données avec JPA.
+
 Utilisation de Maven :
 - Séparation des différentes parties du projet (DOA, Model, Console) dans des modules différents.
 - Utilisation de fichiers de configuration pour la gestion du choix de DAO, et pour les accès aux bases de données.
