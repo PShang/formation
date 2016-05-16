@@ -32,7 +32,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Mise à jour d’une pizza");
+		System.out.println("Mise à jour d'une pizza");
 		new ListerPizzaOptionMenu(pizzaDao).execute();
 		System.out.println("Veuillez choisir le code la pizza à modifier.");
 		System.out.println("(99 pour abandonner).");

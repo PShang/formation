@@ -6,7 +6,6 @@ import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.PizzaDaoJdbcImpl;
 import fr.pizzeria.exception.DaoException;
-import fr.pizzeria.exception.SavePizzaException;
 
 public class ImporterPizzaOptionMenu extends OptionMenu {
 
@@ -31,7 +30,7 @@ public class ImporterPizzaOptionMenu extends OptionMenu {
 		if (pizzaDao instanceof PizzaDaoJdbcImpl) {
 			((PizzaDaoJdbcImpl) pizzaDao).importFromFiles(new PizzaDaoFichierImpl());
 		} else {
-			System.err.println("Veuillez configurer l’application avec une implémentation base de données.");
+			System.err.println("Veuillez configurer l'application avec une implémentation base de données.");
 		}
 		System.out.println();
 		return false;

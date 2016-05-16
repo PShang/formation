@@ -40,7 +40,7 @@ public class AjouterPizzaOptionMenuTest {
 		systemInMock.provideLines("NEW", "NewPizza", "12,5", "viande");
 		boolean next = ajouterPizzaOptionMenu.execute();
 		assertTrue(next == false);
-		String outAttendus = "Ajout d’une nouvelle pizza" + System.lineSeparator() + "Veuillez saisir le code"
+		String outAttendus = "Ajout d'une nouvelle pizza" + System.lineSeparator() + "Veuillez saisir le code"
 				+ System.lineSeparator() + "Veuillez saisir le nom (sans espace)" + System.lineSeparator()
 				+ "Veuillez saisir le prix" + System.lineSeparator() + "Veuillez saisir la catégorie : "
 				+ Arrays.toString(CategoriePizza.values()) + System.lineSeparator() + System.lineSeparator();

@@ -35,7 +35,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Ajout d’une nouvelle pizza");
+		System.out.println("Ajout d'une nouvelle pizza");
 		System.out.println("Veuillez saisir le code");
 		String code = scan.next();
 		System.out.println("Veuillez saisir le nom (sans espace)");

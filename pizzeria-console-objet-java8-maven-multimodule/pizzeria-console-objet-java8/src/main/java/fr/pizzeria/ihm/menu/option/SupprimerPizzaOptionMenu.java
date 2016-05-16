@@ -28,7 +28,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Suppression d’une pizza");
+		System.out.println("Suppression d'une pizza");
 		new ListerPizzaOptionMenu(pizzaDao).execute();
 		System.out.println("Veuillez choisir le code la pizza à supprimer.");
 		System.out.println("(99 pour abandonner).");
