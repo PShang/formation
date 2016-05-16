@@ -27,6 +27,7 @@ Implémentation d'autres DAO (Data Access Object) : par fichiers, par base de do
 Utilisation de Maven :
 - Séparation des différentes parties du projet (DOA, Model, Console) dans des modules différents.
 - Utilisation de fichiers de configuration pour la gestion du choix de DAO, et pour les accès aux bases de données.
+
 Implémentation de tests unitaires.
 
 Le menu affiché :
