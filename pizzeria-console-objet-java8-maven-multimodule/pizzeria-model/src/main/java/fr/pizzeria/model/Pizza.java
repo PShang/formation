@@ -12,6 +12,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -20,6 +22,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * La classe de définition d'une pizza.
  */
 @Entity
+@NamedQueries({ @NamedQuery(name = "pizza.findByCode", query = "SELECT p FROM Pizza p WHERE p.code = :code") })
 public class Pizza {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
