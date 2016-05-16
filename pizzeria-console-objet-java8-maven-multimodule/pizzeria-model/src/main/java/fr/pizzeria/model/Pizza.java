@@ -32,12 +32,12 @@ public class Pizza {
 	@Column(length = 32, nullable = false)
 	private String nom;
 	@ToString
-	@Column(nullable = false)
-	private double prix;
-	@ToString
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private CategoriePizza categorie;
+	@ToString
+	@Column(nullable = false)
+	private double prix;
 	/**
 	 * Variable statique servant a compter la création des pizzas..
 	 */
@@ -86,12 +86,12 @@ public class Pizza {
 		return nom;
 	}
 
-	public double getPrix() {
-		return prix;
-	}
-
 	public CategoriePizza getCategorie() {
 		return categorie;
+	}
+
+	public double getPrix() {
+		return prix;
 	}
 
 	public void setId(Integer id) {
