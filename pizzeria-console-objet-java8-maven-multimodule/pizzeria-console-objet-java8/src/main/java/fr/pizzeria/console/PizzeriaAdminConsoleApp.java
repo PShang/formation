@@ -59,12 +59,15 @@ public class PizzeriaAdminConsoleApp {
 			IPizzaDao pizzaDao;
 			switch (daoImpl) {
 				case 0:
+					System.out.println("DAO : Mémoire");
 					pizzaDao = new PizzaDaoImpl();
 					break;
 				case 1:
+					System.out.println("DAO : FIchiers");
 					pizzaDao = new PizzaDaoFichierImpl();
 					break;
 				case 2:
+					System.out.println("DAO : JDBC");
 					bundle = ResourceBundle.getBundle(FILE_JDBC_PROP);
 					String driverConnection = bundle.getString(PROPERTY_DRIVER);
 					String urlConnection = bundle.getString(PROPERTY_URL);
@@ -83,6 +86,7 @@ public class PizzeriaAdminConsoleApp {
 					}
 					break;
 				case 3:
+					System.out.println("DAO : JPA");
 					Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
 					pizzaDao = new PizzaDaoJpaImpl(
 							Persistence.createEntityManagerFactory("pizzeria-console-objet-java8"));
@@ -106,6 +110,10 @@ public class PizzeriaAdminConsoleApp {
 
 			Menu menu = new Menu(scan, options);
 			menu.afficher();
+
+			if (pizzaDao instanceof PizzaDaoJpaImpl) {
+				((PizzaDaoJpaImpl) pizzaDao).close();
+			}
 		} catch (DaoException e) {
 			System.err.println(e.getMessage());
 		} catch (MissingResourceException e) {
