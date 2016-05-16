@@ -28,10 +28,8 @@ public class ImporterPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		if (pizzaDao instanceof PizzaDaoJdbcImpl) {
-			((PizzaDaoJdbcImpl) pizzaDao).importFromFiles(new PizzaDaoFichierImpl());
-		} else if (pizzaDao instanceof PizzaDaoJpaImpl) {
-			((PizzaDaoJpaImpl) pizzaDao).importFromFiles(new PizzaDaoFichierImpl());
+		if (pizzaDao instanceof PizzaDaoJdbcImpl || pizzaDao instanceof PizzaDaoJpaImpl) {
+			pizzaDao.importFromFiles(new PizzaDaoFichierImpl(), 3);
 		} else {
 			System.err.println("Veuillez configurer l'application avec une implémentation base de données.");
 		}

@@ -112,7 +112,7 @@ public class PizzeriaAdminConsoleApp {
 			menu.afficher();
 
 			if (pizzaDao instanceof PizzaDaoJpaImpl) {
-				((PizzaDaoJpaImpl) pizzaDao).close();
+				pizzaDao.close();
 			}
 		} catch (DaoException e) {
 			System.err.println(e.getMessage());

@@ -65,6 +65,11 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		}
 	}
 
+	@Override
+	public void close() {
+		throw new UnsupportedOperationException();
+	}
+
 	private void writePizzaFile(Pizza pizza) throws DaoException {
 		try {
 			byte[] datas = String.format("%s;%f;%s", pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString())
@@ -114,5 +119,10 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		}
 		pizzas.remove(codePizza);
 		deletePizzaFile(codePizza);
+	}
+
+	@Override
+	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException {
+		throw new UnsupportedOperationException("La méthode n'est utilisable uniquement avec les bases de données.");
 	}
 }

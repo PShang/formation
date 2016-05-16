@@ -9,6 +9,12 @@ import fr.pizzeria.model.Pizza;
  * Interface de DAO pour la gestion des {@link Pizza}.
  */
 public interface IPizzaDao {
+
+	/**
+	 * Ferme toutes les instances nécessaire.
+	 */
+	void close();
+
 	/**
 	 * Récupere la liste des pizzas.
 	 * 
@@ -40,4 +46,13 @@ public interface IPizzaDao {
 	 * @throws DaoException
 	 */
 	void deletePizza(String codePizza) throws DaoException;
+
+	/**
+	 * Importe les pizzas depuis les fichiers.
+	 * 
+	 * @param pizzaDaoFichierImpl La DAO pour la lecture des fichiers.
+	 * @param nb Le nombre de pizza par groupe d'importation.
+	 * @throws DaoException
+	 */
+	void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException;
 }

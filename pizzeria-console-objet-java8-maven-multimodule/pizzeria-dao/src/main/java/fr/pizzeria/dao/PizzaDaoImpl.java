@@ -40,6 +40,11 @@ public class PizzaDaoImpl implements IPizzaDao {
 	}
 
 	@Override
+	public void close() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public List<Pizza> findAllPizzas() {
 		return pizzas.values().stream().sorted(Comparator.comparing(Pizza::getNom)).collect(Collectors.toList());
 	}
@@ -66,5 +71,10 @@ public class PizzaDaoImpl implements IPizzaDao {
 			throw new DeletePizzaException();
 		}
 		pizzas.remove(codePizza);
+	}
+
+	@Override
+	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException {
+		throw new UnsupportedOperationException("La méthode n'est utilisable uniquement avec les bases de données.");
 	}
 }

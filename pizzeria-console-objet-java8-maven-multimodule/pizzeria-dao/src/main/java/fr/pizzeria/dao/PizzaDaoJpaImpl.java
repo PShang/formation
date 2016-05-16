@@ -30,6 +30,7 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 		this.emf = emf;
 	}
 
+	@Override
 	public void close() {
 		emf.close();
 	}
@@ -91,8 +92,9 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 		}
 	}
 
-	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl) throws SavePizzaException {
-		for (List<Pizza> list : ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), 3)) {
+	@Override
+	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException {
+		for (List<Pizza> list : ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), nb)) {
 			EntityManager em = emf.createEntityManager();
 			try {
 				em.getTransaction().begin();

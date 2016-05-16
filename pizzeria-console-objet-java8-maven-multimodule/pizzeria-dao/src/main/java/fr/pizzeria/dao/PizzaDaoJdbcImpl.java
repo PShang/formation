@@ -69,6 +69,11 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 	}
 
 	@Override
+	public void close() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public List<Pizza> findAllPizzas() {
 		return pizzas.values().stream().sorted(Comparator.comparing(Pizza::getNom)).collect(Collectors.toList());
 	}
@@ -134,8 +139,9 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 		}
 	}
 
-	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl) throws DaoException {
-		for (List<Pizza> list : ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), 3)) {
+	@Override
+	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException {
+		for (List<Pizza> list : ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), nb)) {
 			try (Connection connection = DriverManager.getConnection(urlConnection, userConnection, passConnection);) {
 				connection.setAutoCommit(false);
 				try (PreparedStatement statement = connection
