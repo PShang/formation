@@ -70,7 +70,7 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 
 	@Override
 	public void close() {
-		throw new UnsupportedOperationException();
+		// Nothing to close.
 	}
 
 	@Override

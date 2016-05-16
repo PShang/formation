@@ -111,9 +111,7 @@ public class PizzeriaAdminConsoleApp {
 			Menu menu = new Menu(scan, options);
 			menu.afficher();
 
-			if (pizzaDao instanceof PizzaDaoJpaImpl) {
-				pizzaDao.close();
-			}
+			pizzaDao.close();
 		} catch (DaoException e) {
 			System.err.println(e.getMessage());
 		} catch (MissingResourceException e) {

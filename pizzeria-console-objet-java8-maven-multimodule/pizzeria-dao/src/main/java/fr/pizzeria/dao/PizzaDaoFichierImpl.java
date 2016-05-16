@@ -67,7 +67,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 
 	@Override
 	public void close() {
-		throw new UnsupportedOperationException();
+		// Nothing to close.
 	}
 
 	private void writePizzaFile(Pizza pizza) throws DaoException {
