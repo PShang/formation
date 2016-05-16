@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -23,6 +24,7 @@ public class PizzaDaoImplTest {
 
 	@Before
 	public void setUp() {
+		Locale.setDefault(Locale.FRENCH);
 		dao = new PizzaDaoImpl();
 	}
 

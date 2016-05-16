@@ -1,6 +1,7 @@
 package fr.pizzeria.model;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +10,7 @@ public class PizzaTest {
 
 	@Test
 	public void testToString() {
+		Locale.setDefault(Locale.FRENCH);
 		Pizza p1 = new Pizza("IND", "L'indienne", BigDecimal.valueOf(14.00), CategoriePizza.VIANDE);
 		Pizza p2 = new Pizza("ORI", "L'orientale", BigDecimal.valueOf(13.50), CategoriePizza.VIANDE);
 		Pizza p3 = new Pizza("FRO", "La 4 fromages", BigDecimal.valueOf(12.00), CategoriePizza.SANS_VIANDE);

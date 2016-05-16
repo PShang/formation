@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,6 +24,7 @@ public class ListerPizzaOptionMenuTest {
 
 	@Before
 	public void setUp() {
+		Locale.setDefault(Locale.FRENCH);
 		dao = new PizzaDaoImpl();
 		listerPizzaOptionMenu = new ListerPizzaOptionMenu(dao);
 	}

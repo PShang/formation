@@ -6,6 +6,7 @@ import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emp
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 import org.junit.Before;
@@ -32,6 +33,7 @@ public class ModifierPizzaOptionMenuTest {
 
 	@Before
 	public void setUp() {
+		Locale.setDefault(Locale.FRENCH);
 		Scanner scan = new Scanner(System.in);
 		dao = new PizzaDaoImpl();
 		modifierPizzaOptionMenu = new ModifierPizzaOptionMenu(dao, scan);

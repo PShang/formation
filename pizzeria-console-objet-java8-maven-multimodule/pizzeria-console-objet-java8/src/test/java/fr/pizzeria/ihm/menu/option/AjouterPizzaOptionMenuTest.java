@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 import org.junit.Before;
@@ -30,6 +31,7 @@ public class AjouterPizzaOptionMenuTest {
 
 	@Before
 	public void setUp() {
+		Locale.setDefault(Locale.FRENCH);
 		Scanner scan = new Scanner(System.in);
 		dao = new PizzaDaoImpl();
 		ajouterPizzaOptionMenu = new AjouterPizzaOptionMenu(dao, scan);
