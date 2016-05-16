@@ -96,9 +96,7 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 			EntityManager em = emf.createEntityManager();
 			try {
 				em.getTransaction().begin();
-				for (Pizza pizza : list) {
-					em.persist(pizza);
-				}
+				list.forEach(em::persist);
 				em.getTransaction().commit();
 			} catch (PersistenceException e) {
 				em.getTransaction().rollback();
