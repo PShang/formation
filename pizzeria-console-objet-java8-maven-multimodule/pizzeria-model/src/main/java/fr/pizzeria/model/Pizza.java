@@ -5,21 +5,39 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * La classe de définition d'une pizza.
  */
-public class Pizza /* implements Comparable<Pizza> */ {
+@Entity
+public class Pizza {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false)
+	private Integer id;
 	@ToString(uppercase = true)
+	@Column(length = 8, nullable = false, unique = true)
 	private String code;
 	@ToString
+	@Column(length = 32, nullable = false)
 	private String nom;
 	@ToString
-	private CategoriePizza categorie;
-	@ToString
+	@Column(nullable = false)
 	private double prix;
+	@ToString
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private CategoriePizza categorie;
 	/**
 	 * Variable statique servant a compter la création des pizzas..
 	 */
@@ -32,6 +50,12 @@ public class Pizza /* implements Comparable<Pizza> */ {
 		FORMAT.put("nom", "%s");
 		FORMAT.put("categorie", " [%s]");
 		FORMAT.put("prix", " (%s€)");
+	}
+
+	/**
+	 * Constructeur vide pour JPA.
+	 */
+	public Pizza() {
 	}
 
 	/**
@@ -50,6 +74,10 @@ public class Pizza /* implements Comparable<Pizza> */ {
 		Pizza.nbPizzas++;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
 	public String getCode() {
 		return code;
 	}
@@ -64,6 +92,26 @@ public class Pizza /* implements Comparable<Pizza> */ {
 
 	public CategoriePizza getCategorie() {
 		return categorie;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public void setCategorie(CategoriePizza categorie) {
+		this.categorie = categorie;
+	}
+
+	public void setPrix(double prix) {
+		this.prix = prix;
 	}
 
 	@Override

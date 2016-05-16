@@ -1,16 +1,22 @@
 package fr.pizzeria.console;
 
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.persistence.Persistence;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.PizzaDaoImpl;
 import fr.pizzeria.dao.PizzaDaoJdbcImpl;
+import fr.pizzeria.dao.PizzaDaoJpaImpl;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.Menu;
 import fr.pizzeria.ihm.menu.option.AfficherPizzaPlusCherOptionMenu;
@@ -45,6 +51,7 @@ public class PizzeriaAdminConsoleApp {
 	 * @param args Les aguments du programme.
 	 */
 	public static void main(String[] args) {
+		Locale.setDefault(Locale.FRENCH);
 		try {
 			ResourceBundle bundle = ResourceBundle.getBundle(FILE_APLLICATION_PROP);
 			String property = bundle.getString(PROPERTY_DAO_IMPL);
@@ -75,10 +82,15 @@ public class PizzeriaAdminConsoleApp {
 						throw new DaoException("Erreur SQL : " + e.getMessage(), e);
 					}
 					break;
+				case 3:
+					Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
+					pizzaDao = new PizzaDaoJpaImpl(
+							Persistence.createEntityManagerFactory("pizzeria-console-objet-java8"));
+					break;
 				default:
 					System.err.println(
 							"Erreur: Le fichier " + FILE_APLLICATION_PROP + ".properties doit contenir la propriété \""
-									+ PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1 ou 2.");
+									+ PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1, 2 ou 3.");
 					return;
 			}
 			Scanner scan = new Scanner(System.in);
@@ -97,8 +109,9 @@ public class PizzeriaAdminConsoleApp {
 		} catch (DaoException e) {
 			System.err.println(e.getMessage());
 		} catch (MissingResourceException e) {
-			System.err.println("Erreur: Le fichier " + FILE_APLLICATION_PROP
-					+ ".properties doit contenir la propriété \"" + PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1 ou 2.");
+			System.err
+					.println("Erreur: Le fichier " + FILE_APLLICATION_PROP + ".properties doit contenir la propriété \""
+							+ PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1, 2 ou 3.");
 		}
 	}
 }

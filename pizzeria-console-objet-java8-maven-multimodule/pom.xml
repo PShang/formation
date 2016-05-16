@@ -21,6 +21,8 @@
 		<commons-lang3.version>3.4</commons-lang3.version>
 		<mysql.version>5.1.38</mysql.version>
 		<commons-collections4.version>4.1</commons-collections4.version>
+		<hibernate.version>1.0.0.Final</hibernate.version>
+		<hibernate-entitymanager.version>5.1.0.Final</hibernate-entitymanager.version>
 	</properties>
 
 	<build>
@@ -120,6 +122,16 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-collections4</artifactId>
 				<version>${commons-collections4.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.1-api</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate-entitymanager.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
