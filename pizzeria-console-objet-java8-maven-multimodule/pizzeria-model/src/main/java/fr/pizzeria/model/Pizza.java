@@ -1,5 +1,6 @@
 package fr.pizzeria.model;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class Pizza {
 	private CategoriePizza categorie;
 	@ToString
 	@Column(nullable = false)
-	private double prix;
+	private BigDecimal prix;
 	/**
 	 * Variable statique servant a compter la création des pizzas..
 	 */
@@ -69,7 +70,7 @@ public class Pizza {
 	 * @param prix Le prix de la pizza.
 	 * @param categorie La catégorie de la pizza.
 	 */
-	public Pizza(String code, String nom, double prix, CategoriePizza categorie) {
+	public Pizza(String code, String nom, BigDecimal prix, CategoriePizza categorie) {
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
@@ -93,7 +94,7 @@ public class Pizza {
 		return categorie;
 	}
 
-	public double getPrix() {
+	public BigDecimal getPrix() {
 		return prix;
 	}
 
@@ -113,7 +114,7 @@ public class Pizza {
 		this.categorie = categorie;
 	}
 
-	public void setPrix(double prix) {
+	public void setPrix(BigDecimal prix) {
 		this.prix = prix;
 	}
 

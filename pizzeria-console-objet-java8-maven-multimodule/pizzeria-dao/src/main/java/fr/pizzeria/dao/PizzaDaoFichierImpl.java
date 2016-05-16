@@ -1,6 +1,7 @@
 package fr.pizzeria.dao;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -53,7 +54,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 						NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
 						Number number = format.parse(line[1]);
 						return new Pizza(path.getFileName().toString().replace(".txt", ""), line[0],
-								number.doubleValue(), CategoriePizza.valueOf(line[2]));
+								BigDecimal.valueOf(number.doubleValue()), CategoriePizza.valueOf(line[2]));
 					} catch (IOException | ParseException e) {
 						e.printStackTrace();
 						return null;

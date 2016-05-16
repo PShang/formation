@@ -1,5 +1,6 @@
 package fr.pizzeria.ihm.menu.option;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -43,7 +44,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		System.out.println("Veuillez saisir le nom (sans espace)");
 		String name = scan.next();
 		System.out.println("Veuillez saisir le prix");
-		double price = scan.nextDouble();
+		BigDecimal price = scan.nextBigDecimal();
 		System.out.println("Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values()));
 		String categorieString = scan.next();
 		try {
