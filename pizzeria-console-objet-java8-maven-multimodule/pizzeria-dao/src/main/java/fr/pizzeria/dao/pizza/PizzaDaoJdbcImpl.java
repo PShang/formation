@@ -1,4 +1,4 @@
-package fr.pizzeria.dao;
+package fr.pizzeria.dao.pizza;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -67,11 +67,6 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 				pizzas.put(p.getCode(), p);
 			}
 		}
-	}
-
-	@Override
-	public void close() {
-		// Nothing to close.
 	}
 
 	@Override

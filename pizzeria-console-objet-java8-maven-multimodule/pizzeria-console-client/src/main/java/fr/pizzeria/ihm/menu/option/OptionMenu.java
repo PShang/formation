@@ -1,7 +1,6 @@
 package fr.pizzeria.ihm.menu.option;
 
-
-import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.Menu;
 
@@ -14,7 +13,7 @@ public abstract class OptionMenu {
 	 * Le libéllé de l'{@link OptionMenu}.
 	 */
 	private String libelle;
-	protected IPizzaDao pizzaDao;
+	protected IDaoFactory dao;
 
 	/**
 	 * Constructeur.
@@ -29,11 +28,11 @@ public abstract class OptionMenu {
 	 * Constructeur.
 	 * 
 	 * @param libelle Le libéllé de l'{@link OptionMenu}.
-	 * @param pizzaDao La DAO pour lespizzas.
+	 * @param dao La DAO.
 	 */
-	public OptionMenu(String libelle, IPizzaDao pizzaDao) {
+	public OptionMenu(String libelle, IDaoFactory dao) {
 		this(libelle);
-		this.pizzaDao = pizzaDao;
+		this.dao = dao;
 	}
 
 	/**

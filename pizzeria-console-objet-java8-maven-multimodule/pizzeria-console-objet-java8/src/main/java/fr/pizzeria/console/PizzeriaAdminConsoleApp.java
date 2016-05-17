@@ -10,13 +10,14 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.dao.PizzaDaoFichierImpl;
-import fr.pizzeria.dao.PizzaDaoImpl;
-import fr.pizzeria.dao.PizzaDaoJdbcImpl;
-import fr.pizzeria.dao.PizzaDaoJpaImpl;
+import fr.pizzeria.dao.pizza.IPizzaDao;
+import fr.pizzeria.dao.pizza.PizzaDaoFichierImpl;
+import fr.pizzeria.dao.pizza.PizzaDaoImpl;
+import fr.pizzeria.dao.pizza.PizzaDaoJdbcImpl;
+import fr.pizzeria.dao.pizza.PizzaDaoJpaImpl;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.Menu;
 import fr.pizzeria.ihm.menu.option.AfficherPizzaPlusCherOptionMenu;
@@ -57,6 +58,7 @@ public class PizzeriaAdminConsoleApp {
 			String property = bundle.getString(PROPERTY_DAO_IMPL);
 			int daoImpl = Integer.parseInt(property);
 			IPizzaDao pizzaDao;
+			EntityManagerFactory emf = null;
 			switch (daoImpl) {
 				case 0:
 					System.out.println("DAO : Mémoire");
@@ -88,8 +90,8 @@ public class PizzeriaAdminConsoleApp {
 				case 3:
 					System.out.println("DAO : JPA");
 					Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
-					pizzaDao = new PizzaDaoJpaImpl(
-							Persistence.createEntityManagerFactory("pizzeria-console-objet-java8"));
+					emf = Persistence.createEntityManagerFactory("pizzeria-console-objet-java8");
+					pizzaDao = new PizzaDaoJpaImpl(emf);
 					break;
 				default:
 					System.err.println(
@@ -111,7 +113,9 @@ public class PizzeriaAdminConsoleApp {
 			Menu menu = new Menu(scan, options);
 			menu.afficher();
 
-			pizzaDao.close();
+			if (emf != null) {
+				emf.close();
+			}
 		} catch (DaoException e) {
 			System.err.println(e.getMessage());
 		} catch (MissingResourceException e) {

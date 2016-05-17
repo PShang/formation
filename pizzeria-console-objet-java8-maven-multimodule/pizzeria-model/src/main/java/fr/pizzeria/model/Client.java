@@ -7,24 +7,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
  * La classe de définition d'un client.
  */
 @Entity
+@NamedQueries({ @NamedQuery(name = "client.findByEmail", query = "SELECT c FROM Client c WHERE c.email = :email") })
 public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
 	private Integer id;
-	@Column(length = 32, nullable = false)
+	@Column(length = 32)
 	private String nom;
-	@Column(length = 32, nullable = false)
+	@Column(length = 32)
 	private String prenom;
-	@Column(length = 64, nullable = false, unique = true)
+	@Column(length = 64, unique = true)
 	private String email;
-	@Column(name = "mot_de_passe", length = 32, nullable = false)
+	@Column(name = "mot_de_passe", length = 32)
 	private String mdp;
 
 	@OneToMany(mappedBy = "client")
@@ -35,6 +37,21 @@ public class Client {
 	 */
 	public Client() {
 		super();
+	}
+
+	/**
+	 * Constructeur.
+	 * 
+	 * @param nom Le nom du client.
+	 * @param prenom Le prénom du client.
+	 * @param email L'e-mail du client.
+	 * @param mdp Le mot de passe du client.
+	 */
+	public Client(String nom, String prenom, String email, String mdp) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.mdp = mdp;
 	}
 
 	public Integer getId() {

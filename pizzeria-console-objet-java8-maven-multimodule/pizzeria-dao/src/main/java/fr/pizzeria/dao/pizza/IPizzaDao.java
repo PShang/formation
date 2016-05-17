@@ -1,4 +1,4 @@
-package fr.pizzeria.dao;
+package fr.pizzeria.dao.pizza;
 
 import java.util.List;
 
@@ -9,11 +9,6 @@ import fr.pizzeria.model.Pizza;
  * Interface de DAO pour la gestion des {@link Pizza}.
  */
 public interface IPizzaDao {
-
-	/**
-	 * Ferme toutes les instances nécessaire.
-	 */
-	void close();
 
 	/**
 	 * Récupere la liste des pizzas.

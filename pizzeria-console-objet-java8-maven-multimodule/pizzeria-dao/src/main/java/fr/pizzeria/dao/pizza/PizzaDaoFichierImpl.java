@@ -1,4 +1,4 @@
-package fr.pizzeria.dao;
+package fr.pizzeria.dao.pizza;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -64,11 +64,6 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		} catch (IOException e) {
 			throw new DaoException("Erreur de lecture des fichiers de donnée des pizzas", e);
 		}
-	}
-
-	@Override
-	public void close() {
-		// Nothing to close.
 	}
 
 	private void writePizzaFile(Pizza pizza) throws DaoException {

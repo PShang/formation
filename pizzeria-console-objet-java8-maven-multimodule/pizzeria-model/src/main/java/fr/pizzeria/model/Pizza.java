@@ -27,22 +27,19 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class Pizza {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
 	private Integer id;
 	@ToString(uppercase = true)
-	@Column(length = 8, nullable = false, unique = true)
+	@Column(length = 8, unique = true)
 	private String code;
 	@ToString
-	@Column(length = 32, nullable = false)
+	@Column(length = 32)
 	private String nom;
 	@ToString
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
 	private CategoriePizza categorie;
 	@ToString
-	@Column(nullable = false)
 	private BigDecimal prix;
-	@Column(name = "url_image", length = 255, nullable = true)
+	@Column(name = "url_image", nullable = true)
 	private String urlImage;
 
 	/**

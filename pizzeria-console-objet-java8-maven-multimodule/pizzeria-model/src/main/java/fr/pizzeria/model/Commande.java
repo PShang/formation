@@ -22,21 +22,20 @@ import javax.persistence.ManyToOne;
 public class Commande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
 	private Integer id;
-	@Column(name = "numero_commande", nullable = false, unique = true)
+	@Column(name = "numero_commande", unique = true)
 	private Integer numCommande;
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Statut statut;
-	@Column(name = "date_commande", nullable = false)
+	@Column(name = "date_commande")
 	private Date dateCommande;
 
 	@ManyToOne
-	@JoinColumn(name = "livreur_id", nullable = false)
+	@JoinColumn(name = "livreur_id")
 	private Livreur livreur;
 	@ManyToOne
-	@JoinColumn(name = "client_id", nullable = false)
+	@JoinColumn(name = "client_id")
 	private Client client;
 	@ManyToMany
 	@JoinTable(name = "commande_pizza", joinColumns = @JoinColumn(name = "commande_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "pizza_id", referencedColumnName = "id"))

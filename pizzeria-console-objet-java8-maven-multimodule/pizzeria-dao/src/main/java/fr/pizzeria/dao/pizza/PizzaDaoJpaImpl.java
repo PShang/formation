@@ -1,4 +1,4 @@
-package fr.pizzeria.dao;
+package fr.pizzeria.dao.pizza;
 
 import java.util.List;
 
@@ -28,11 +28,6 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 	 */
 	public PizzaDaoJpaImpl(EntityManagerFactory emf) {
 		this.emf = emf;
-	}
-
-	@Override
-	public void close() {
-		emf.close();
 	}
 
 	@Override

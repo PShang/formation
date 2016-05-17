@@ -1,4 +1,4 @@
-package fr.pizzeria.dao;
+package fr.pizzeria.dao.pizza;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
@@ -38,11 +38,6 @@ public class PizzaDaoImpl implements IPizzaDao {
 		pizzas.put("ORI", new Pizza("ORI", "L'orientale", BigDecimal.valueOf(13.50), CategoriePizza.VIANDE));
 		pizzas.put("IND", new Pizza("IND", "L'indienne", BigDecimal.valueOf(14.00), CategoriePizza.VIANDE));
 		pizzas.put("SAU", new Pizza("SAU", "La saumonetta", BigDecimal.valueOf(15.50), CategoriePizza.POISSON));
-	}
-
-	@Override
-	public void close() {
-		// Nothing to close.
 	}
 
 	@Override

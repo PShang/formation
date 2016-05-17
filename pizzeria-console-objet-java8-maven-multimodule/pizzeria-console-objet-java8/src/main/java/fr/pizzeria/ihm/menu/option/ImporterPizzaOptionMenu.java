@@ -2,10 +2,10 @@ package fr.pizzeria.ihm.menu.option;
 
 import java.util.Scanner;
 
-import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.dao.PizzaDaoFichierImpl;
-import fr.pizzeria.dao.PizzaDaoJdbcImpl;
-import fr.pizzeria.dao.PizzaDaoJpaImpl;
+import fr.pizzeria.dao.pizza.IPizzaDao;
+import fr.pizzeria.dao.pizza.PizzaDaoFichierImpl;
+import fr.pizzeria.dao.pizza.PizzaDaoJdbcImpl;
+import fr.pizzeria.dao.pizza.PizzaDaoJpaImpl;
 import fr.pizzeria.exception.DaoException;
 
 public class ImporterPizzaOptionMenu extends OptionMenu {
