@@ -53,6 +53,5 @@ public class Menu {
 				System.err.println("Erreur de saisie : \"" + scan.next() + "\" n'était pas attendu.");
 			}
 		}
-		scan.close();
 	}
 }

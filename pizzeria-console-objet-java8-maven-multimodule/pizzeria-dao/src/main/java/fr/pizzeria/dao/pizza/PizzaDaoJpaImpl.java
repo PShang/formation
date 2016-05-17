@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import org.apache.commons.collections4.ListUtils;
@@ -19,6 +20,7 @@ import fr.pizzeria.model.Pizza;
  */
 public class PizzaDaoJpaImpl implements IPizzaDao {
 
+	private static final String PIZZA_FIND_BY_CODE = "pizza.findByCode";
 	private EntityManagerFactory emf;
 
 	/**
@@ -34,6 +36,26 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 	public List<Pizza> findAllPizzas() {
 		EntityManager em = emf.createEntityManager();
 		return em.createQuery("SELECT p FROM Pizza p", Pizza.class).getResultList();
+	}
+
+	@Override
+	public Pizza getPizza(String code) throws DaoException {
+		Pizza p = null;
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			p = em.createNamedQuery(PIZZA_FIND_BY_CODE, Pizza.class).setParameter("code", code).getSingleResult();
+			em.getTransaction().commit();
+		} catch (NoResultException e) {
+			em.getTransaction().rollback();
+			throw new DaoException("La pizza n'existe pas.", e);
+		} catch (PersistenceException e) {
+			em.getTransaction().rollback();
+			throw new UpdatePizzaException("Erreur SQL lors de la mise à jour des données.", e);
+		} finally {
+			em.close();
+		}
+		return p;
 	}
 
 	@Override
@@ -56,7 +78,7 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Pizza p = em.createNamedQuery("pizza.findByCode", Pizza.class).setParameter("code", codePizza)
+			Pizza p = em.createNamedQuery(PIZZA_FIND_BY_CODE, Pizza.class).setParameter("code", codePizza)
 					.getSingleResult();
 			p.setCode(codePizza);
 			p.setNom(pizza.getNom());
@@ -76,7 +98,7 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.remove(em.createNamedQuery("pizza.findByCode", Pizza.class).setParameter("code", codePizza)
+			em.remove(em.createNamedQuery(PIZZA_FIND_BY_CODE, Pizza.class).setParameter("code", codePizza)
 					.getSingleResult());
 			em.getTransaction().commit();
 		} catch (PersistenceException e) {

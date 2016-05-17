@@ -1,11 +1,15 @@
 package fr.pizzeria.ihm.menu.option;
 
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SaveClientException;
 import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.ihm.menu.Menu;
+import fr.pizzeria.model.Client;
 
 public class ConnexionOptionMenu extends OptionMenu {
 
@@ -34,8 +38,16 @@ public class ConnexionOptionMenu extends OptionMenu {
 		System.out.println("Veuillez saisir votre mot de passe");
 		String mdp = scan.next();
 		try {
-			Integer clientId = dao.getClientDao().getClient(email, mdp);
-			// TODO faire le sous menu
+			Client client = dao.getClientDao().getClient(email, mdp);
+
+			Map<Integer, OptionMenu> options = new TreeMap<>();
+			options.put(1, new CommanderPizzaOptionMenu(dao, scan, client));
+			options.put(2, new ListerCommandesOptionMenu(dao, client));
+			options.put(99, new SortirOptionMenu());
+
+			Menu menu = new Menu(scan, options);
+			menu.afficher();
+
 		} catch (SaveClientException e) {
 			throw new SavePizzaException("Erreur : Le client avec l'adresse email " + email + " existe déjà.", e);
 		}

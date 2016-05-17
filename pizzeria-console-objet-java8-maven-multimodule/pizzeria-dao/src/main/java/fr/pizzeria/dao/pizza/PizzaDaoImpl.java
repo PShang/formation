@@ -46,6 +46,11 @@ public class PizzaDaoImpl implements IPizzaDao {
 	}
 
 	@Override
+	public Pizza getPizza(String code) {
+		return pizzas.get(code);
+	}
+
+	@Override
 	public void saveNewPizza(Pizza pizza) throws DaoException {
 		if (pizzas.containsKey(pizza.getCode())) {
 			throw new SavePizzaException();

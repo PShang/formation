@@ -18,6 +18,15 @@ public interface IPizzaDao {
 	List<Pizza> findAllPizzas();
 
 	/**
+	 * Récupere une pizza par son code.
+	 * 
+	 * @param code Le code de la pizza à récupérer.
+	 * @return Une {@link Pizza}.
+	 * @throws DaoException
+	 */
+	Pizza getPizza(String code) throws DaoException;
+
+	/**
 	 * Sauvegarde une nouvelle pizza.
 	 * 
 	 * @param pizza La nouvelle pizza à sauvegarder.

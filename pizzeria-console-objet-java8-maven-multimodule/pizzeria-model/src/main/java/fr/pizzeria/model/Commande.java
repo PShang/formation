@@ -1,5 +1,6 @@
 package fr.pizzeria.model;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,12 +24,11 @@ public class Commande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "numero_commande", unique = true)
-	private Integer numCommande;
+	@Column(name = "numero_commande", length = 32, nullable = false, unique = true)
+	private String numCommande;
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
 	private Statut statut;
-	@Column(name = "date_commande")
+	@Column(name = "date_commande", nullable = false)
 	private Date dateCommande;
 
 	@ManyToOne
@@ -48,6 +48,14 @@ public class Commande {
 		super();
 	}
 
+	public Commande(Date dateCommande, Client client, List<Pizza> pizzas) {
+		this.numCommande = "CMD_" + Calendar.getInstance().getTimeInMillis();
+		this.statut = Statut.NON_TRAITEE;
+		this.dateCommande = dateCommande;
+		this.client = client;
+		this.pizzas = pizzas;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -56,11 +64,11 @@ public class Commande {
 		this.id = id;
 	}
 
-	public Integer getNumCommande() {
+	public String getNumCommande() {
 		return numCommande;
 	}
 
-	public void setNumCommande(Integer numCommande) {
+	public void setNumCommande(String numCommande) {
 		this.numCommande = numCommande;
 	}
 
@@ -94,5 +102,11 @@ public class Commande {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	@Override
+	public String toString() {
+		return "Commande numéro : " + numCommande + ", statut : " + statut + ", date : " + dateCommande + ", pizzas : "
+				+ pizzas;
 	}
 }

@@ -1,5 +1,7 @@
 package fr.pizzeria.dao.client;
 
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -10,6 +12,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SaveClientException;
 import fr.pizzeria.model.Client;
+import fr.pizzeria.model.Commande;
 
 public class ClientDaoJpaImpl implements IClientDao {
 
@@ -28,14 +31,14 @@ public class ClientDaoJpaImpl implements IClientDao {
 			em.getTransaction().commit();
 		} catch (PersistenceException e) {
 			em.getTransaction().rollback();
-			throw new SaveClientException("Erreur SQL lors de l'insertion des données.", e);
+			throw new SaveClientException("Erreur SQL lors de l'insertion du client.", e);
 		} finally {
 			em.close();
 		}
 	}
 
 	@Override
-	public Integer getClient(String email, String mdp) throws DaoException {
+	public Client getClient(String email, String mdp) throws DaoException {
 		EntityManager em = emf.createEntityManager();
 		Client c = null;
 		try {
@@ -54,6 +57,24 @@ public class ClientDaoJpaImpl implements IClientDao {
 		} finally {
 			em.close();
 		}
-		return c.getId();
+		return c;
+	}
+
+	@Override
+	public Set<Commande> getAllCommandes(Client client) throws DaoException {
+		EntityManager em = emf.createEntityManager();
+		Set<Commande> commandes = null;
+		try {
+			em.getTransaction().begin();
+			Client c = em.find(Client.class, client.getId());
+			commandes = c.getCommandes();
+			em.getTransaction().commit();
+		} catch (PersistenceException e) {
+			em.getTransaction().rollback();
+			throw new DaoException("Erreur SQL lors de la lecture des données.", e);
+		} finally {
+			em.close();
+		}
+		return commandes;
 	}
 }

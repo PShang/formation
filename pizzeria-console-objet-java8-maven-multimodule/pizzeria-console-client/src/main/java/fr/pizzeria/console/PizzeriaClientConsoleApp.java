@@ -48,6 +48,7 @@ public class PizzeriaClientConsoleApp {
 
 		Menu menu = new Menu(scan, options);
 		menu.afficher();
+		scan.close();
 
 		emf.close();
 	}

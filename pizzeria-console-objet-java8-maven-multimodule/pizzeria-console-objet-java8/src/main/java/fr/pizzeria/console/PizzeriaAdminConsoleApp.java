@@ -112,6 +112,7 @@ public class PizzeriaAdminConsoleApp {
 
 			Menu menu = new Menu(scan, options);
 			menu.afficher();
+			scan.close();
 
 			if (emf != null) {
 				emf.close();

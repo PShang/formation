@@ -4,7 +4,7 @@ package fr.pizzeria.model;
  * Enumeration pour désigner le statut d'une commande.
  */
 public enum Statut {
-	PREPARATION("En préparation"), LIVRAISON("En livraison"), TERMINEE("Terminée");
+	NON_TRAITEE("Non traitée"), PREPARATION("En préparation"), LIVRAISON("En livraison"), TERMINEE("Terminée");
 
 	private String libelle;
 
