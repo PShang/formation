@@ -6,7 +6,7 @@
     <version>1.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>pizzeria-console-objet-java8</artifactId>
+  <artifactId>pizzeria-console-client</artifactId>
   <build>
     <resources>
       <resource>
@@ -31,7 +31,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>fr.pizzeria.console.PizzeriaAdminConsoleApp</mainClass>
+              <mainClass>fr.pizzeria.console.PizzeriaClientConsoleApp</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -53,12 +53,6 @@
     </profile>
   </profiles>
   <dependencies>
-    <dependency>
-      <groupId>com.github.stefanbirkner</groupId>
-      <artifactId>system-rules</artifactId>
-      <version>1.16.0</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

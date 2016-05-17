@@ -102,7 +102,6 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 				em.getTransaction().commit();
 			} catch (PersistenceException e) {
 				em.getTransaction().rollback();
-				em.close();
 				throw new SavePizzaException("Erreur SQL lors de l'insertion des données.", e);
 			} finally {
 				em.close();

@@ -10,6 +10,7 @@
 		<module>pizzeria-console-objet-java8</module>
 		<module>pizzeria-dao</module>
 		<module>pizzeria-model</module>
+		<module>pizzeria-console-client</module>
 	</modules>
 
 	<properties>
@@ -41,13 +42,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>2.4</version>
-					<configuration>
-						<archive>
-							<manifest>
-								<mainClass>fr.pizzeria.console.PizzeriaAdminConsoleApp</mainClass>
-							</manifest>
-						</archive>
-					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
