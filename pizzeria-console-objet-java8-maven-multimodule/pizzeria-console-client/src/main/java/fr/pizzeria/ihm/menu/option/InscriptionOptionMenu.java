@@ -2,6 +2,8 @@ package fr.pizzeria.ihm.menu.option;
 
 import java.util.Scanner;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SaveClientException;
@@ -39,7 +41,7 @@ public class InscriptionOptionMenu extends OptionMenu {
 		System.out.println("Veuillez saisir votre mot de passe");
 		String mdp = scan.next();
 		try {
-			dao.getClientDao().saveNewClient(new Client(nom, prenom, email, mdp));
+			dao.getClientDao().saveNewClient(new Client(nom, prenom, email, DigestUtils.md5Hex(mdp).toString()));
 		} catch (SaveClientException e) {
 			throw new SavePizzaException("Erreur : Le client avec l'adresse email " + email + " existe déjà.", e);
 		}

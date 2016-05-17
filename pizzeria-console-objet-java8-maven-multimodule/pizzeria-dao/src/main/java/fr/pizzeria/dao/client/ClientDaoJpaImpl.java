@@ -5,6 +5,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SaveClientException;
 import fr.pizzeria.model.Client;
@@ -39,7 +41,7 @@ public class ClientDaoJpaImpl implements IClientDao {
 		try {
 			em.getTransaction().begin();
 			c = em.createNamedQuery("client.findByEmail", Client.class).setParameter("email", email).getSingleResult();
-			if (!mdp.equals(c.getMdp())) {
+			if (!DigestUtils.md5Hex(mdp).equals(c.getMdp())) {
 				throw new DaoException("Le mot de passe est incorrect.", null);
 			}
 			em.getTransaction().commit();
