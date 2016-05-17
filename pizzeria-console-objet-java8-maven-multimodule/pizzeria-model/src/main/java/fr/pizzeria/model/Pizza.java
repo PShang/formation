@@ -42,6 +42,9 @@ public class Pizza {
 	@ToString
 	@Column(nullable = false)
 	private BigDecimal prix;
+	@Column(name = "url_image", length = 255, nullable = true)
+	private String urlImage;
+
 	/**
 	 * Variable statique servant a compter la création des pizzas..
 	 */
@@ -60,6 +63,7 @@ public class Pizza {
 	 * Constructeur vide pour JPA.
 	 */
 	public Pizza() {
+		super();
 	}
 
 	/**
