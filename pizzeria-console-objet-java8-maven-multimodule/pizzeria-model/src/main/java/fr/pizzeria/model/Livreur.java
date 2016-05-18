@@ -16,10 +16,11 @@ import javax.persistence.OneToMany;
 public class Livreur {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false)
 	private Integer id;
-	@Column(length = 32)
+	@Column(length = 32, nullable = false)
 	private String nom;
-	@Column(length = 32)
+	@Column(length = 32, nullable = false)
 	private String prenom;
 
 	@OneToMany(mappedBy = "livreur")

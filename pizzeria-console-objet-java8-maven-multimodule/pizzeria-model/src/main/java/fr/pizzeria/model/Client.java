@@ -19,14 +19,15 @@ import javax.persistence.OneToMany;
 public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false)
 	private Integer id;
-	@Column(length = 32)
+	@Column(length = 32, nullable = false)
 	private String nom;
-	@Column(length = 32)
+	@Column(length = 32, nullable = false)
 	private String prenom;
-	@Column(length = 64, unique = true)
+	@Column(length = 64, nullable = false, unique = true)
 	private String email;
-	@Column(name = "mot_de_passe", length = 32)
+	@Column(name = "mot_de_passe", length = 32, nullable = false)
 	private String mdp;
 
 	@OneToMany(mappedBy = "client")

@@ -38,8 +38,7 @@ public abstract class OptionMenu {
 	/**
 	 * Execute l'action.
 	 * 
-	 * @return {@code true} si l'action doit arrêter l'execution de
-	 *         l'application après son execution.
+	 * @return {@code true} si l'action doit arrêter l'execution de l'application après son execution.
 	 * @throws DaoException
 	 */
 	public abstract boolean execute() throws DaoException;

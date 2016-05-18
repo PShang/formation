@@ -11,8 +11,7 @@ import fr.pizzeria.exception.DaoException;
 public class ImporterPizzaOptionMenu extends OptionMenu {
 
 	/**
-	 * Constante pour le {@link OptionMenu.libelle libéllé} de
-	 * l'{@link OptionMenu}.
+	 * Constante pour le {@link OptionMenu.libelle libéllé} de l'{@link OptionMenu}.
 	 */
 	private static final String IMPORTER_PIZZA_LIBELLE = "(Base de données) Importer les données";
 

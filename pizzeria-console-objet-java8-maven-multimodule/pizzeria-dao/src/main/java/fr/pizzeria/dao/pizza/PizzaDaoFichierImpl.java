@@ -37,8 +37,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	private static final Path ROOTDIR = Paths.get("data");
 
 	/**
-	 * Constructeur. Initialise la {@link Map} de pizzas en lisant les fichiers
-	 * de données des pizzas.
+	 * Constructeur. Initialise la {@link Map} de pizzas en lisant les fichiers de données des pizzas.
 	 * 
 	 * @throws DaoException
 	 */

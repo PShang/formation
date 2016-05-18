@@ -13,8 +13,7 @@ import fr.pizzeria.model.Client;
 public class InscriptionOptionMenu extends OptionMenu {
 
 	/**
-	 * Constante pour le {@link OptionMenu.libelle libéllé} de
-	 * l'{@link OptionMenu}.
+	 * Constante pour le {@link OptionMenu.libelle libéllé} de l'{@link OptionMenu}.
 	 */
 	private static final String INSCRIPTION_LIBELLE = "S'inscrire";
 	private Scanner scan;

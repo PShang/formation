@@ -38,20 +38,6 @@
       </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>dev</id>
-      <properties>
-        <dao.impl>0</dao.impl>
-      </properties>
-    </profile>
-    <profile>
-      <id>prod</id>
-      <properties>
-        <dao.impl>3</dao.impl>
-      </properties>
-    </profile>
-  </profiles>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

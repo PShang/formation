@@ -24,12 +24,10 @@ import fr.pizzeria.ihm.menu.option.QuitterOptionMenu;
  */
 public class PizzeriaClientConsoleApp {
 
-	private PizzeriaClientConsoleApp() {
-	}
+	private PizzeriaClientConsoleApp() {}
 
 	/**
-	 * Methode d'entrée. Initialise le {@link Menu}, le {@link Scanner} et la
-	 * {@link PizzaDaoImpl DAO}.
+	 * Methode d'entrée. Initialise le {@link Menu}, le {@link Scanner} et la {@link PizzaDaoImpl DAO}.
 	 * 
 	 * @param args Les aguments du programme.
 	 */

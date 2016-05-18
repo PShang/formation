@@ -42,12 +42,10 @@ public class PizzeriaAdminConsoleApp {
 	private static final String PROPERTY_USER = "user";
 	private static final String PROPERTY_PASS = "pass";
 
-	private PizzeriaAdminConsoleApp() {
-	}
+	private PizzeriaAdminConsoleApp() {}
 
 	/**
-	 * Methode d'entrée. Initialise le {@link Menu}, le {@link Scanner} et la
-	 * {@link PizzaDaoImpl DAO}.
+	 * Methode d'entrée. Initialise le {@link Menu}, le {@link Scanner} et la {@link PizzaDaoImpl DAO}.
 	 * 
 	 * @param args Les aguments du programme.
 	 */

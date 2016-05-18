@@ -10,8 +10,7 @@ import fr.pizzeria.model.Commande;
 public class ListerCommandesOptionMenu extends OptionMenu {
 
 	/**
-	 * Constante pour le {@link OptionMenu.libelle libéllé} de
-	 * l'{@link OptionMenu}.
+	 * Constante pour le {@link OptionMenu.libelle libéllé} de l'{@link OptionMenu}.
 	 */
 	private static final String LISTER_COMMANDES_LIBELLE = "Lister ses commandes";
 	private Client client;

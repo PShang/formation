@@ -42,8 +42,7 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 	private static final String COLUMN_CATEGORIE = "categorie";
 
 	/**
-	 * Constructeur. Initialise la {@link Map} de pizzas en lisant une base de
-	 * données de pizzas.
+	 * Constructeur. Initialise la {@link Map} de pizzas en lisant une base de données de pizzas.
 	 * 
 	 * @param jdbcHelper Le Helper pour la base de donnée
 	 * 

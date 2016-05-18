@@ -17,8 +17,7 @@ import fr.pizzeria.model.Pizza;
 public class AjouterPizzaOptionMenu extends OptionMenu {
 
 	/**
-	 * Constante pour le {@link OptionMenu.libelle libéllé} de
-	 * l'{@link OptionMenu}.
+	 * Constante pour le {@link OptionMenu.libelle libéllé} de l'{@link OptionMenu}.
 	 */
 	private static final String AJOUTER_PIZZA_LIBELLE = "Ajouter une pizza";
 	private Scanner scan;
