@@ -1,7 +1,5 @@
 package fr.pizzeria.dao.client;
 
-import java.util.Set;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -12,7 +10,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SaveClientException;
 import fr.pizzeria.model.Client;
-import fr.pizzeria.model.Commande;
 
 public class ClientDaoJpaImpl implements IClientDao {
 
@@ -58,23 +55,5 @@ public class ClientDaoJpaImpl implements IClientDao {
 			em.close();
 		}
 		return c;
-	}
-
-	@Override
-	public Set<Commande> getAllCommandes(Client client) throws DaoException {
-		EntityManager em = emf.createEntityManager();
-		Set<Commande> commandes = null;
-		try {
-			em.getTransaction().begin();
-			Client c = em.find(Client.class, client.getId());
-			commandes = c.getCommandes();
-			em.getTransaction().commit();
-		} catch (PersistenceException e) {
-			em.getTransaction().rollback();
-			throw new DaoException("Erreur SQL lors de la lecture des données.", e);
-		} finally {
-			em.close();
-		}
-		return commandes;
 	}
 }

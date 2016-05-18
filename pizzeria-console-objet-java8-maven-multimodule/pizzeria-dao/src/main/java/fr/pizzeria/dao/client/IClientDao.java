@@ -1,10 +1,7 @@
 package fr.pizzeria.dao.client;
 
-import java.util.Set;
-
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Client;
-import fr.pizzeria.model.Commande;
 
 /**
  * Interface de DAO pour la gestion des {@link Client}.
@@ -28,13 +25,4 @@ public interface IClientDao {
 	 * @throws DaoException
 	 */
 	Client getClient(String email, String mdp) throws DaoException;
-
-	/**
-	 * Récupère la liste des commandes d'un client.
-	 * 
-	 * @param client Le client.
-	 * @return La liste des commandes.
-	 * @throws DaoException
-	 */
-	Set<Commande> getAllCommandes(Client client) throws DaoException;
 }

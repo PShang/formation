@@ -24,7 +24,7 @@ public class Livreur {
 	private String prenom;
 
 	@OneToMany(mappedBy = "livreur")
-	public Set<Commande> commandes;
+	private Set<Commande> commandes;
 
 	/**
 	 * Constructeur vide pour JPA.

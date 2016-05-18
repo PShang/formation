@@ -1,11 +1,8 @@
 package fr.pizzeria.ihm.menu.option;
 
-import java.util.Set;
-
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Client;
-import fr.pizzeria.model.Commande;
 
 public class ListerCommandesOptionMenu extends OptionMenu {
 
@@ -29,8 +26,7 @@ public class ListerCommandesOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		Set<Commande> commandes = dao.getClientDao().getAllCommandes(client);
-		commandes.forEach(System.out::println);
+		client.getCommandes().forEach(System.out::println);
 		return false;
 	}
 }
