@@ -64,6 +64,7 @@ public class Pizza {
 	 */
 	public Pizza() {
 		super();
+		this.urlImage = "http://placehold.it/150x150";
 	}
 
 	/**
@@ -79,6 +80,7 @@ public class Pizza {
 		this.nom = nom;
 		this.prix = prix;
 		this.categorie = categorie;
+		this.urlImage = "http://placehold.it/150x150";
 		Pizza.nbPizzas++;
 	}
 
