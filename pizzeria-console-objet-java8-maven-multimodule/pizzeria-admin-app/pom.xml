@@ -10,13 +10,17 @@
 		<artifactId>pizzeria-parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
+	<build>
+		<finalName>pizzeria-admin-app</finalName>
+	</build>
 	<dependencies>
+		<dependency>
+			<groupId>fr.pizzeria</groupId>
+			<artifactId>pizzeria-dao</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
 	</dependencies>
-	<build>
-		<finalName>pizzeria-admin-app</finalName>
-	</build>
 </project>

@@ -102,6 +102,10 @@ public class Pizza {
 		return prix;
 	}
 
+	public String getUrlImage() {
+		return urlImage;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -120,6 +124,15 @@ public class Pizza {
 
 	public void setPrix(BigDecimal prix) {
 		this.prix = prix;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+
+	public String toJSON() {
+		return "{\"id\":\"" + id + "\",\"code\":\"" + code + "\",\"nom\":\"" + nom + "\",\"categorie\":\""
+				+ categorie.toString() + "\",\"prix\":\"" + prix + "\",\"urlImage\":\"" + urlImage + "\"}";
 	}
 
 	@Override
