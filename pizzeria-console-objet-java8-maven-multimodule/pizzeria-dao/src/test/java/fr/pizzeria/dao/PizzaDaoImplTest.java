@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -33,15 +34,15 @@ public class PizzaDaoImplTest {
 	@Test
 	public void testFindAllPizzas() {
 		List<Pizza> pizzas = new ArrayList<Pizza>();
-		pizzas.add(new Pizza("IND", "L'indienne", BigDecimal.valueOf(14.00), CategoriePizza.VIANDE));
-		pizzas.add(new Pizza("ORI", "L'orientale", BigDecimal.valueOf(13.50), CategoriePizza.VIANDE));
-		pizzas.add(new Pizza("FRO", "La 4 fromages", BigDecimal.valueOf(12.00), CategoriePizza.SANS_VIANDE));
-		pizzas.add(new Pizza("REI", "La Reine", BigDecimal.valueOf(11.50), CategoriePizza.VIANDE));
-		pizzas.add(new Pizza("CAN", "La cannibale", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE));
-		pizzas.add(new Pizza("SAU", "La saumonetta", BigDecimal.valueOf(15.50), CategoriePizza.POISSON));
-		pizzas.add(new Pizza("SAV", "La savoyarde", BigDecimal.valueOf(13.00), CategoriePizza.VIANDE));
-		pizzas.add(new Pizza("MAR", "Margherita", BigDecimal.valueOf(14.00), CategoriePizza.SANS_VIANDE));
-		pizzas.add(new Pizza("PEP", "Pépéroni", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE));
+		pizzas.add(new Pizza(1, "PEP", "Pépéroni", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.add(new Pizza(2, "MAR", "Margherita", BigDecimal.valueOf(14.00), CategoriePizza.SANS_VIANDE, "http://placehold.it/150x150"));
+		pizzas.add(new Pizza(3, "REI", "La Reine", BigDecimal.valueOf(11.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.add(new Pizza(4, "FRO", "La 4 fromages", BigDecimal.valueOf(12.00), CategoriePizza.SANS_VIANDE, "http://placehold.it/150x150"));
+		pizzas.add(new Pizza(5, "CAN", "La cannibale", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.add(new Pizza(6, "SAV", "La savoyarde", BigDecimal.valueOf(13.00), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.add(new Pizza(7, "ORI", "L'orientale", BigDecimal.valueOf(13.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.add(new Pizza(8, "IND", "L'indienne", BigDecimal.valueOf(14.00), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.add(new Pizza(9, "SAU", "La saumonetta", BigDecimal.valueOf(15.50), CategoriePizza.POISSON, "http://placehold.it/150x150"));
 
 		List<Pizza> resultat = dao.findAllPizzas();
 		assertArrayEquals(pizzas.toArray(), resultat.toArray());
