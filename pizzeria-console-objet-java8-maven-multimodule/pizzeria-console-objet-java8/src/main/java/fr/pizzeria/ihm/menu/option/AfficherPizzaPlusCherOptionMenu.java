@@ -25,8 +25,7 @@ public class AfficherPizzaPlusCherOptionMenu extends OptionMenu {
 	@Override
 	public boolean execute() {
 		System.out.println("La pizza la plus cher : ");
-		System.out.println(this.pizzaDao.findAllPizzas().stream()
-				.collect(Collectors.maxBy(Comparator.comparing(Pizza::getPrix))).get());
+		System.out.println(this.pizzaDao.findAllPizzas().stream().collect(Collectors.maxBy(Comparator.comparing(Pizza::getPrix))).get());
 		System.out.println("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
 		System.out.println();
 		return false;

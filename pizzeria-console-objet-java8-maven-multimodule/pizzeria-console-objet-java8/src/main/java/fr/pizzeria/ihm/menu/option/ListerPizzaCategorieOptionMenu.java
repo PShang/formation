@@ -26,8 +26,7 @@ public class ListerPizzaCategorieOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() {
-		Map<CategoriePizza, List<Pizza>> map = this.pizzaDao.findAllPizzas().stream()
-				.collect(Collectors.groupingBy(Pizza::getCategorie));
+		Map<CategoriePizza, List<Pizza>> map = this.pizzaDao.findAllPizzas().stream().collect(Collectors.groupingBy(Pizza::getCategorie));
 		map.forEach((k, v) -> {
 			System.out.println("--- " + k.getLibelle() + " :");
 			v.stream().forEach(System.out::println);

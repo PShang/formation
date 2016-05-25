@@ -50,8 +50,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		} catch (SavePizzaException e) {
 			throw new SavePizzaException("Erreur : La pizza avec le code " + code + " existe déjà.", e);
 		} catch (IllegalArgumentException e) {
-			throw new CategoriePizzaException(
-					"Erreur de saisie : La catégorie \"" + categorieString + "\" n'existe pas.", e);
+			throw new CategoriePizzaException("Erreur de saisie : La catégorie \"" + categorieString + "\" n'existe pas.", e);
 		}
 		System.out.println();
 		return false;

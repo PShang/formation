@@ -72,8 +72,7 @@ public class PizzeriaAdminConsoleApp {
 					String driverConnection = bundle.getString(PROPERTY_DRIVER);
 					String urlConnection = bundle.getString(PROPERTY_URL);
 					String userConnection = bundle.getString(PROPERTY_USER);
-					String passConnection = bundle.getString(PROPERTY_PASS).isEmpty() ? null
-							: bundle.getString(PROPERTY_PASS);
+					String passConnection = bundle.getString(PROPERTY_PASS).isEmpty() ? null : bundle.getString(PROPERTY_PASS);
 					try {
 						Class.forName(driverConnection);
 					} catch (ClassNotFoundException e) {
@@ -92,9 +91,7 @@ public class PizzeriaAdminConsoleApp {
 					pizzaDao = new PizzaDaoJpaImpl(emf);
 					break;
 				default:
-					System.err.println(
-							"Erreur: Le fichier " + FILE_APLLICATION_PROP + ".properties doit contenir la propriété \""
-									+ PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1, 2 ou 3.");
+					System.err.println("Erreur: Le fichier " + FILE_APLLICATION_PROP + ".properties doit contenir la propriété \"" + PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1, 2 ou 3.");
 					return;
 			}
 			Scanner scan = new Scanner(System.in);
@@ -118,9 +115,7 @@ public class PizzeriaAdminConsoleApp {
 		} catch (DaoException e) {
 			System.err.println(e.getMessage());
 		} catch (MissingResourceException e) {
-			System.err
-					.println("Erreur: Le fichier " + FILE_APLLICATION_PROP + ".properties doit contenir la propriété \""
-							+ PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1, 2 ou 3.");
+			System.err.println("Erreur: Le fichier " + FILE_APLLICATION_PROP + ".properties doit contenir la propriété \"" + PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1, 2 ou 3.");
 		}
 	}
 }

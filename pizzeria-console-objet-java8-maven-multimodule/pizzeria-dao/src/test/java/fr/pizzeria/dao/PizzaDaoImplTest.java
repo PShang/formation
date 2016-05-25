@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -44,6 +45,7 @@ public class PizzaDaoImplTest {
 		pizzas.add(new Pizza(8, "IND", "L'indienne", BigDecimal.valueOf(14.00), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
 		pizzas.add(new Pizza(9, "SAU", "La saumonetta", BigDecimal.valueOf(15.50), CategoriePizza.POISSON, "http://placehold.it/150x150"));
 
+		Collections.sort(pizzas, Comparator.comparing(Pizza::getNom));
 		List<Pizza> resultat = dao.findAllPizzas();
 		assertArrayEquals(pizzas.toArray(), resultat.toArray());
 	}

@@ -78,8 +78,7 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Pizza p = em.createNamedQuery(PIZZA_FIND_BY_CODE, Pizza.class).setParameter("code", codePizza)
-					.getSingleResult();
+			Pizza p = em.createNamedQuery(PIZZA_FIND_BY_CODE, Pizza.class).setParameter("code", codePizza).getSingleResult();
 			p.setCode(codePizza);
 			p.setNom(pizza.getNom());
 			p.setPrix(pizza.getPrix());
@@ -98,8 +97,7 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.remove(em.createNamedQuery(PIZZA_FIND_BY_CODE, Pizza.class).setParameter("code", codePizza)
-					.getSingleResult());
+			em.remove(em.createNamedQuery(PIZZA_FIND_BY_CODE, Pizza.class).setParameter("code", codePizza).getSingleResult());
 			em.getTransaction().commit();
 		} catch (PersistenceException e) {
 			em.getTransaction().rollback();

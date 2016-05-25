@@ -26,8 +26,7 @@ public class DaoProducer {
 		return new GenericDaoFactory(new PizzaDaoFichierImpl(), null, null);
 	}
 
-	public IDaoFactory getDaoFactoryJdbc(String urlConnection, String userConnection, String passConnection)
-			throws DaoException, SQLException {
+	public IDaoFactory getDaoFactoryJdbc(String urlConnection, String userConnection, String passConnection) throws DaoException, SQLException {
 		return new GenericDaoFactory(new PizzaDaoJdbcImpl(urlConnection, userConnection, passConnection), null, null);
 	}
 }

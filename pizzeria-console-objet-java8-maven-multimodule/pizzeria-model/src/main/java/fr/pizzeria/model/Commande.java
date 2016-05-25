@@ -109,7 +109,6 @@ public class Commande {
 
 	@Override
 	public String toString() {
-		return "Commande numéro : " + numCommande + ", statut : " + statut + ", date : " + dateCommande + ", pizzas : "
-				+ pizzas;
+		return "Commande numéro : " + numCommande + ", statut : " + statut + ", date : " + dateCommande + ", pizzas : " + pizzas;
 	}
 }

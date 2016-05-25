@@ -52,8 +52,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 						String[] line = Files.readAllLines(path, StandardCharsets.UTF_8).get(0).split(";");
 						NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
 						Number number = format.parse(line[1]);
-						return new Pizza(path.getFileName().toString().replace(".txt", ""), line[0],
-								BigDecimal.valueOf(number.doubleValue()), CategoriePizza.valueOf(line[2]));
+						return new Pizza(path.getFileName().toString().replace(".txt", ""), line[0], BigDecimal.valueOf(number.doubleValue()), CategoriePizza.valueOf(line[2]));
 					} catch (IOException | ParseException e) {
 						e.printStackTrace();
 						return null;
@@ -67,10 +66,8 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 
 	private void writePizzaFile(Pizza pizza) throws DaoException {
 		try {
-			byte[] datas = String.format("%s;%f;%s", pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString())
-					.getBytes();
-			Files.write(Paths.get(ROOTDIR.toString(), pizza.getCode() + ".txt"), datas, StandardOpenOption.CREATE,
-					StandardOpenOption.TRUNCATE_EXISTING);
+			byte[] datas = String.format("%s;%f;%s", pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString()).getBytes();
+			Files.write(Paths.get(ROOTDIR.toString(), pizza.getCode() + ".txt"), datas, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
 			throw new DaoException("Erreur dans l'écriture des fichiers de donnée des pizzas", e);
 		}
