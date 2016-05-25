@@ -29,15 +29,15 @@ public class PizzaDaoImpl implements IPizzaDao {
 	 */
 	public PizzaDaoImpl() {
 		pizzas = new HashMap<>();
-		pizzas.put("PEP", new Pizza("PEP", "Pépéroni", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE));
-		pizzas.put("MAR", new Pizza("MAR", "Margherita", BigDecimal.valueOf(14.00), CategoriePizza.SANS_VIANDE));
-		pizzas.put("REI", new Pizza("REI", "La Reine", BigDecimal.valueOf(11.50), CategoriePizza.VIANDE));
-		pizzas.put("FRO", new Pizza("FRO", "La 4 fromages", BigDecimal.valueOf(12.00), CategoriePizza.SANS_VIANDE));
-		pizzas.put("CAN", new Pizza("CAN", "La cannibale", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE));
-		pizzas.put("SAV", new Pizza("SAV", "La savoyarde", BigDecimal.valueOf(13.00), CategoriePizza.VIANDE));
-		pizzas.put("ORI", new Pizza("ORI", "L'orientale", BigDecimal.valueOf(13.50), CategoriePizza.VIANDE));
-		pizzas.put("IND", new Pizza("IND", "L'indienne", BigDecimal.valueOf(14.00), CategoriePizza.VIANDE));
-		pizzas.put("SAU", new Pizza("SAU", "La saumonetta", BigDecimal.valueOf(15.50), CategoriePizza.POISSON));
+		pizzas.put("PEP", new Pizza(1, "PEP", "Pépéroni", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.put("MAR", new Pizza(2, "MAR", "Margherita", BigDecimal.valueOf(14.00), CategoriePizza.SANS_VIANDE, "http://placehold.it/150x150"));
+		pizzas.put("REI", new Pizza(3, "REI", "La Reine", BigDecimal.valueOf(11.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.put("FRO", new Pizza(4, "FRO", "La 4 fromages", BigDecimal.valueOf(12.00), CategoriePizza.SANS_VIANDE, "http://placehold.it/150x150"));
+		pizzas.put("CAN", new Pizza(5, "CAN", "La cannibale", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.put("SAV", new Pizza(6, "SAV", "La savoyarde", BigDecimal.valueOf(13.00), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.put("ORI", new Pizza(7, "ORI", "L'orientale", BigDecimal.valueOf(13.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.put("IND", new Pizza(8, "IND", "L'indienne", BigDecimal.valueOf(14.00), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
+		pizzas.put("SAU", new Pizza(9, "SAU", "La saumonetta", BigDecimal.valueOf(15.50), CategoriePizza.POISSON, "http://placehold.it/150x150"));
 	}
 
 	@Override

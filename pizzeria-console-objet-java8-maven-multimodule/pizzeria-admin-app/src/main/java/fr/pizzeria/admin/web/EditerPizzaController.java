@@ -54,8 +54,7 @@ public class EditerPizzaController extends HttpServlet {
 				p.setCategorie(CategoriePizza.valueOf(categorie));
 				p.setUrlImage(urlImage);
 				pizzaDao.updatePizza(code, p);
-				response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-				response.setHeader("Location", request.getContextPath() + "/pizzas/list");
+				response.sendRedirect(request.getContextPath() + "/pizzas/list");
 			} catch (DaoException e) {
 				response.sendError(500, e.getMessage());
 			}

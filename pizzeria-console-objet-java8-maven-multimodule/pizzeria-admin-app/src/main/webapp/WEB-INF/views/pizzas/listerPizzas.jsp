@@ -51,7 +51,7 @@
 						<td>${p.code}</td>
 						<td>${p.nom}</td>
 						<td>${p.categorie.libelle}</td>
-						<td>${p.prix}&nbsp;€</td>
+						<td><fmt:formatNumber type="currency" value="${p.prix}" /></td>
 						<td><img class="img-rounded" height="50" src="${p.urlImage}" alt="${p.nom}" title="${p.nom}" /></td>
 						<td><a class="btn btn-primary" href="<c:url value="/pizzas/edit?code=${p.code}" />">Editer</a></td>
 						<td><a class="btn btn-danger" href="#" onclick="deletePizza('${p.code}')">Supprimer</a></td>
