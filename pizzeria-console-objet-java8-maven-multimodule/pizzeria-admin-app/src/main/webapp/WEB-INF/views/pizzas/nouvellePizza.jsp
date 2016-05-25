@@ -2,12 +2,7 @@
 <%@page import="java.util.Map.Entry"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page import="java.util.Collections"%>
-<%@page import="fr.pizzeria.model.Pizza"%>
 <%@page import="fr.pizzeria.model.CategoriePizza"%>
-<%
-	Pizza pizza = ((Pizza) request.getAttribute("pizza"));
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,23 +11,23 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<title>Editer pizza</title>
+<title>Ajouter pizza</title>
 </head>
 <body>
 	<div class="container">
-		<h1>Editer une pizza</h1>
+		<h1>Nouvelle pizza</h1>
 		<form class="form-horizontal" method="post">
 			<fieldset>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="code">Code</label>
 					<div class="col-md-4">
-						<input id="code" name="code" type="text" placeholder="Code de la pizza" class="form-control input-md" required disabled value="<%=pizza.getCode()%>">
+						<input id="code" name="code" type="text" placeholder="Code de la pizza" class="form-control input-md" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="nom">Nom</label>
 					<div class="col-md-4">
-						<input id="nom" name="nom" type="text" placeholder="Nom de la pizza" class="form-control input-md" required value="<%=pizza.getNom()%>">
+						<input id="nom" name="nom" type="text" placeholder="Nom de la pizza" class="form-control input-md" required>
 
 					</div>
 				</div>
@@ -47,8 +42,7 @@
 							for (Entry<String, String> entry : cats.entrySet()) {
 						%>
 						<div class="radio">
-							<label for="<%=entry.getValue()%>"> <input type="radio" name="categorie" id="<%=entry.getValue()%>" required <%if (pizza.getCategorie().getLibelle().equals(entry.getKey())) {%> checked
-								<%}%> value="<%=entry.getValue()%>"><%=entry.getKey()%>
+							<label for="<%=entry.getValue()%>"> <input type="radio" name="categorie" id="<%=entry.getValue()%>" required value="<%=entry.getValue()%>"><%=entry.getKey()%>
 							</label>
 						</div>
 						<%
@@ -59,13 +53,13 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="prix">Prix (€)</label>
 					<div class="col-md-4">
-						<input id="prix" name="prix" type="number" min="0" step="0.01" placeholder="Le prix de la pizza" class="form-control input-md" required value="<%=pizza.getPrix()%>">
+						<input id="prix" name="prix" type="number" min="0" step="0.01" placeholder="Le prix de la pizza" class="form-control input-md" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="urlImage">URL Image</label>
 					<div class="col-md-4">
-						<input id="urlImage" name="urlImage" type="url" placeholder="URL de l'image" class="form-control input-md" value="<%=pizza.getUrlImage()%>">
+						<input id="urlImage" name="urlImage" type="url" placeholder="URL de l'image" class="form-control input-md">
 					</div>
 				</div>
 				<div class="form-group">

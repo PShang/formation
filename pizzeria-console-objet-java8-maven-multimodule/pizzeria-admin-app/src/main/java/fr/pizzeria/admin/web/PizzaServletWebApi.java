@@ -31,8 +31,7 @@ public class PizzaServletWebApi extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			List<Pizza> pizzas = pizzaDao.findAllPizzas();
 			List<String> jsonList = new ArrayList<>();
@@ -48,16 +47,14 @@ public class PizzaServletWebApi extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code = request.getParameter("code");
 		String nom = request.getParameter("nom");
 		String prix = request.getParameter("prix");
 		String categorie = request.getParameter("categorie");
 		String urlImage = request.getParameter("urlImage");
 
-		if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix)
-				|| StringUtils.isBlank(categorie) || StringUtils.isBlank(urlImage)) {
+		if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix) || StringUtils.isBlank(categorie) || StringUtils.isBlank(urlImage)) {
 			response.sendError(500, "Tous les champs ne sont pas renseignés.");
 		} else {
 			try {
@@ -68,8 +65,7 @@ public class PizzaServletWebApi extends HttpServlet {
 				p.setCategorie(CategoriePizza.valueOf(categorie));
 				p.setUrlImage(urlImage);
 				pizzaDao.saveNewPizza(p);
-				LOG.info("J'ai bien reçu le POST avec le code = " + code + ", nom = " + nom + ", prix = " + prix
-						+ ", categorie = " + categorie);
+				LOG.info("J'ai bien reçu le POST avec le code = " + code + ", nom = " + nom + ", prix = " + prix + ", categorie = " + categorie);
 				response.setStatus(201);
 			} catch (DaoException e) {
 				response.sendError(500, e.getMessage());
