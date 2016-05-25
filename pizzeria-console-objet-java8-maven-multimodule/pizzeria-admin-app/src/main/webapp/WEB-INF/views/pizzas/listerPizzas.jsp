@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="fr.pizzeria.model.Pizza"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,10 +13,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	function deletePizza(url, code) {
+	function deletePizza(code) {
 		$.ajax({
 			type : "DELETE",
-			url : url + '?code=' + code,
+			url : '<c:url value="/pizzas/edit?code=" />' + code,
 			success : function() {
 				$("#pizza-" + code).remove();
 			},
@@ -41,26 +44,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%
-					List<Pizza> pizzas = ((List<Pizza>) request.getAttribute("list"));
-					for (Pizza p : pizzas) {
-				%>
-				<tr id="pizza-<%=p.getCode()%>">
-					<td><%=p.getId()%></td>
-					<td><%=p.getCode()%></td>
-					<td><%=p.getNom()%></td>
-					<td><%=p.getCategorie().getLibelle()%></td>
-					<td><%=p.getPrix()%> €</td>
-					<td><img class="img-rounded" height="50" src="<%=p.getUrlImage()%>" alt="<%=p.getNom()%>" title="<%=p.getNom()%>" /></td>
-					<td><a class="btn btn-primary" href="<%=request.getContextPath()%>/pizzas/edit?code=<%=p.getCode()%>">Editer</a></td>
-					<td><a class="btn btn-danger" href="#" onclick="deletePizza('<%=request.getContextPath()%>/pizzas/edit', '<%=p.getCode()%>')">Supprimer</a></td>
-				</tr>
-				<%
-					}
-				%>
+				<c:set var="pizzas" value="${list}" />
+				<c:forEach var="p" items="${pizzas}">
+					<tr id="pizza-${p.code}">
+						<td>${p.id}</td>
+						<td>${p.code}</td>
+						<td>${p.nom}</td>
+						<td>${p.categorie.libelle}</td>
+						<td>${p.prix}&nbsp;€</td>
+						<td><img class="img-rounded" height="50" src="${p.urlImage}" alt="${p.nom}" title="${p.nom}" /></td>
+						<td><a class="btn btn-primary" href="<c:url value="/pizzas/edit?code=${p.code}" />">Editer</a></td>
+						<td><a class="btn btn-danger" href="#" onclick="deletePizza('${p.code}')">Supprimer</a></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
-		<a class="btn btn-success" href="<%=request.getContextPath()%>/pizzas/new">Ajouter une pizza</a>
+		<a class="btn btn-success" href="<c:url value="/pizzas/new" />">Ajouter une pizza</a>
 	</div>
 </body>
 </html>

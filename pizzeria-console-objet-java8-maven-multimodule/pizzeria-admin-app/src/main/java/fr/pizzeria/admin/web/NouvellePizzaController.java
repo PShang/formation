@@ -2,7 +2,6 @@ package fr.pizzeria.admin.web;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 
 import fr.pizzeria.dao.pizza.IPizzaDao;
-import fr.pizzeria.dao.pizza.PizzaDaoJdbcImpl;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
@@ -23,16 +21,7 @@ import fr.pizzeria.model.Pizza;
  */
 public class NouvellePizzaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private IPizzaDao pizzaDao;
-
-	public NouvellePizzaController() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			pizzaDao = new PizzaDaoJdbcImpl("jdbc:mysql://localhost:3306/pizzeria", "root", "");
-		} catch (DaoException | SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+	private IPizzaDao pizzaDao = IPizzaDao.DEFAULT_IMPLEMENTATION;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +40,7 @@ public class NouvellePizzaController extends HttpServlet {
 		String prix = request.getParameter("prix");
 		String categorie = request.getParameter("categorie");
 		String urlImage = request.getParameter("urlImage");
-		if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix) || StringUtils.isBlank(categorie) || StringUtils.isBlank(urlImage)) {
+		if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix) || StringUtils.isBlank(categorie)) {
 			response.sendError(500, "Tous les champs ne sont pas renseignés.");
 		} else {
 			try {

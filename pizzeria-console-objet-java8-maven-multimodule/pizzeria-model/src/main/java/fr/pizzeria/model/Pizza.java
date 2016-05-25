@@ -84,6 +84,24 @@ public class Pizza {
 		Pizza.nbPizzas++;
 	}
 
+	/**
+	 * Constructeur.
+	 * 
+	 * @param code Le code de la pizza.
+	 * @param nom Le nom de la pizza.
+	 * @param prix Le prix de la pizza.
+	 * @param categorie La catégorie de la pizza.
+	 */
+	public Pizza(Integer id, String code, String nom, BigDecimal prix, CategoriePizza categorie, String urlImage) {
+		this.id = id;
+		this.code = code;
+		this.nom = nom;
+		this.prix = prix;
+		this.categorie = categorie;
+		this.urlImage = urlImage;
+		Pizza.nbPizzas++;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -133,27 +151,25 @@ public class Pizza {
 	}
 
 	public String toJSON() {
-		return "{\"id\":\"" + id + "\",\"code\":\"" + code + "\",\"nom\":\"" + nom + "\",\"categorie\":\""
-				+ categorie.toString() + "\",\"prix\":\"" + prix + "\",\"urlImage\":\"" + urlImage + "\"}";
+		return "{\"id\":\"" + id + "\",\"code\":\"" + code + "\",\"nom\":\"" + nom + "\",\"categorie\":\"" + categorie.toString() + "\",\"prix\":\"" + prix + "\",\"urlImage\":\"" + urlImage + "\"}";
 	}
 
 	@Override
 	public String toString() {
-		return Arrays.asList(getClass().getDeclaredFields()).stream()
-				.filter(f -> f.getAnnotation(ToString.class) != null).map(f -> {
-					ToString ts = f.getAnnotation(ToString.class);
-					try {
-						String s;
-						if ("categorie".equals(f.getName()))
-							s = ((CategoriePizza) f.get(this)).getLibelle().toString();
-						else
-							s = f.get(this).toString();
-						return String.format(FORMAT.get(f.getName()), ts.uppercase() ? s.toUpperCase() : s);
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						e.printStackTrace();
-						return "";
-					}
-				}).collect(Collectors.joining());
+		return Arrays.asList(getClass().getDeclaredFields()).stream().filter(f -> f.getAnnotation(ToString.class) != null).map(f -> {
+			ToString ts = f.getAnnotation(ToString.class);
+			try {
+				String s;
+				if ("categorie".equals(f.getName()))
+					s = ((CategoriePizza) f.get(this)).getLibelle().toString();
+				else
+					s = f.get(this).toString();
+				return String.format(FORMAT.get(f.getName()), ts.uppercase() ? s.toUpperCase() : s);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+				return "";
+			}
+		}).collect(Collectors.joining());
 	}
 
 	@Override

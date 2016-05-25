@@ -3,6 +3,9 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="fr.pizzeria.model.CategoriePizza"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,20 +37,12 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="categorie">Categorie</label>
 					<div class="col-md-4">
-						<%
-							Map<String, String> cats = new HashMap<>();
-							for (CategoriePizza c : CategoriePizza.values()) {
-								cats.put(c.getLibelle(), c.toString());
-							}
-							for (Entry<String, String> entry : cats.entrySet()) {
-						%>
-						<div class="radio">
-							<label for="<%=entry.getValue()%>"> <input type="radio" name="categorie" id="<%=entry.getValue()%>" required value="<%=entry.getValue()%>"><%=entry.getKey()%>
-							</label>
-						</div>
-						<%
-							}
-						%>
+						<c:set var="cats" value="${CategoriePizza.values()}" />
+						<c:forEach var="c" items="${cats}">
+							<div class="radio">
+								<label for="${c}"> <input type="radio" name="categorie" id="${c}" required <c:if test="${pizza.categorie.equals(c)}">checked</c:if> value="${c}">${c.libelle}</label>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="form-group">

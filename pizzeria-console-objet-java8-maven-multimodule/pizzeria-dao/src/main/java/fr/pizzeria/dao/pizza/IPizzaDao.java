@@ -9,6 +9,7 @@ import fr.pizzeria.model.Pizza;
  * Interface de DAO pour la gestion des {@link Pizza}.
  */
 public interface IPizzaDao {
+	IPizzaDao DEFAULT_IMPLEMENTATION = new PizzaDaoImpl();
 
 	/**
 	 * Récupere la liste des pizzas.
