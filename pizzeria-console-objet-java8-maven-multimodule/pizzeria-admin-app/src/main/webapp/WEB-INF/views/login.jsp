@@ -17,7 +17,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="email">Email</label>
 					<div class="col-md-4">
-						<input id="email" name="email" type="email" placeholder="Email" class="form-control input-md" required>
+						<input id="email" name="email" type="email" placeholder="Email" class="form-control input-md" required autofocus>
 					</div>
 				</div>
 				<div class="form-group">

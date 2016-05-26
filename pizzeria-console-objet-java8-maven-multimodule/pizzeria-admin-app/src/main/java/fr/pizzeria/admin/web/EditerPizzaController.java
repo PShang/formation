@@ -3,6 +3,7 @@ package fr.pizzeria.admin.web;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
-import fr.pizzeria.dao.pizza.IPizzaDao;
+import fr.pizzeria.admin.metier.PizzaService;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
@@ -23,7 +24,12 @@ import fr.pizzeria.model.Pizza;
 @WebServlet(urlPatterns = { "/pizzas/edit" })
 public class EditerPizzaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final IPizzaDao pizzaDao = IPizzaDao.DEFAULT_IMPLEMENTATION;
+	@Inject private PizzaService pizzaService;
+
+	@Override
+	public void init() throws ServletException {
+		getServletContext().setAttribute("cats", CategoriePizza.values());
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +37,7 @@ public class EditerPizzaController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code = request.getParameter("code");
 		try {
-			request.setAttribute("pizza", pizzaDao.getPizza(code));
+			request.setAttribute("pizza", pizzaService.getPizza(code));
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/editerPizza.jsp");
 			dispatcher.forward(request, response);
 		} catch (DaoException e) {
@@ -50,12 +56,12 @@ public class EditerPizzaController extends HttpServlet {
 			response.sendError(500, "Tous les champs ne sont pas renseignés.");
 		} else {
 			try {
-				Pizza p = pizzaDao.getPizza(code);
+				Pizza p = pizzaService.getPizza(code);
 				p.setNom(nom);
 				p.setPrix(new BigDecimal(prix));
 				p.setCategorie(CategoriePizza.valueOf(categorie));
 				p.setUrlImage(urlImage);
-				pizzaDao.updatePizza(code, p);
+				pizzaService.updatePizza(code, p);
 				response.sendRedirect(request.getContextPath() + "/pizzas/list");
 			} catch (DaoException e) {
 				response.sendError(500, e.getMessage());
@@ -70,7 +76,7 @@ public class EditerPizzaController extends HttpServlet {
 			response.sendError(500, "Le code est vide.");
 		} else {
 			try {
-				pizzaDao.deletePizza(code);
+				pizzaService.deletePizza(code);
 			} catch (DaoException e) {
 				response.sendError(500, e.getMessage());
 			}

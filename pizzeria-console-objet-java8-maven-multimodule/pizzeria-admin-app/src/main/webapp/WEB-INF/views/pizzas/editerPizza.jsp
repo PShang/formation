@@ -35,14 +35,13 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="nom">Nom</label>
 					<div class="col-md-4">
-						<input id="nom" name="nom" type="text" placeholder="Nom de la pizza" class="form-control input-md" required value="<%=pizza.getNom()%>">
+						<input id="nom" name="nom" type="text" placeholder="Nom de la pizza" class="form-control input-md" required autofocus value="<%=pizza.getNom()%>">
 
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="categorie">Categorie</label>
 					<div class="col-md-4">
-						<c:set var="cats" value="${CategoriePizza.values()}" />
 						<c:forEach var="c" items="${cats}">
 							<div class="radio">
 								<label for="${c}"> <input type="radio" name="categorie" id="${c}" required <c:if test="${pizza.categorie.equals(c)}">checked</c:if> value="${c}">${c.libelle}</label>
