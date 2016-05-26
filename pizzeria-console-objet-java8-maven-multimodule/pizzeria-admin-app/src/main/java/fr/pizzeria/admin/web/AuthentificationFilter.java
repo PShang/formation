@@ -19,23 +19,17 @@ import javax.servlet.http.HttpSession;
 @WebFilter(urlPatterns = { "/pizzas/*" })
 public class AuthentificationFilter implements Filter {
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
+	@Override
 	public void init(FilterConfig fConfig) throws ServletException {
 		// Rien à faire
 	}
 
-	/**
-	 * @see Filter#destroy()
-	 */
+	@Override
 	public void destroy() {
 		// Rien à faire
 	}
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		Boolean logged = (Boolean) session.getAttribute("logged");

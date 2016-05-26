@@ -2,6 +2,8 @@ package fr.pizzeria.admin.web;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -23,6 +25,7 @@ import fr.pizzeria.model.Pizza;
  */
 @WebServlet(urlPatterns = { "/pizzas/new" })
 public class NouvellePizzaController extends HttpServlet {
+	private static final Logger LOG = Logger.getLogger(NouvellePizzaController.class.toString());
 	private static final long serialVersionUID = 1L;
 	@Inject private PizzaService pizzaService;
 
@@ -31,17 +34,13 @@ public class NouvellePizzaController extends HttpServlet {
 		getServletContext().setAttribute("cats", CategoriePizza.values());
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/nouvellePizza.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code = request.getParameter("code");
 		String nom = request.getParameter("nom");
@@ -62,6 +61,7 @@ public class NouvellePizzaController extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
 				response.setHeader("Location", request.getContextPath() + "/pizzas/list");
 			} catch (DaoException e) {
+				LOG.log(Level.SEVERE, "Erreur de création Pizza", e);
 				response.sendError(500, e.getMessage());
 			}
 		}

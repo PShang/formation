@@ -2,6 +2,8 @@ package fr.pizzeria.admin.web;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -23,6 +25,7 @@ import fr.pizzeria.model.Pizza;
  */
 @WebServlet(urlPatterns = { "/pizzas/edit" })
 public class EditerPizzaController extends HttpServlet {
+	private static final Logger LOG = Logger.getLogger(EditerPizzaController.class.toString());
 	private static final long serialVersionUID = 1L;
 	@Inject private PizzaService pizzaService;
 
@@ -31,9 +34,7 @@ public class EditerPizzaController extends HttpServlet {
 		getServletContext().setAttribute("cats", CategoriePizza.values());
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code = request.getParameter("code");
 		try {
@@ -41,6 +42,7 @@ public class EditerPizzaController extends HttpServlet {
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/editerPizza.jsp");
 			dispatcher.forward(request, response);
 		} catch (DaoException e) {
+			LOG.log(Level.SEVERE, "Erreur de lecture Pizza", e);
 			response.sendError(500, e.getMessage());
 		}
 	}
@@ -64,6 +66,7 @@ public class EditerPizzaController extends HttpServlet {
 				pizzaService.updatePizza(code, p);
 				response.sendRedirect(request.getContextPath() + "/pizzas/list");
 			} catch (DaoException e) {
+				LOG.log(Level.SEVERE, "Erreur de modification Pizza", e);
 				response.sendError(500, e.getMessage());
 			}
 		}
@@ -78,6 +81,7 @@ public class EditerPizzaController extends HttpServlet {
 			try {
 				pizzaService.deletePizza(code);
 			} catch (DaoException e) {
+				LOG.log(Level.SEVERE, "Erreur de suppression Pizza", e);
 				response.sendError(500, e.getMessage());
 			}
 		}
