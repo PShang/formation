@@ -20,10 +20,17 @@ import javax.servlet.http.HttpSession;
 public class AuthentificationFilter implements Filter {
 
 	/**
+	 * @see Filter#init(FilterConfig)
+	 */
+	public void init(FilterConfig fConfig) throws ServletException {
+		// Rien à faire
+	}
+
+	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
+		// Rien à faire
 	}
 
 	/**
@@ -37,13 +44,6 @@ public class AuthentificationFilter implements Filter {
 		} else {
 			((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/login");
 		}
-	}
-
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
 	}
 
 }

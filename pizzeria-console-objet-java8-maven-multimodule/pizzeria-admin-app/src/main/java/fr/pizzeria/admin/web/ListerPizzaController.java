@@ -19,7 +19,7 @@ import fr.pizzeria.model.Pizza;
 @WebServlet(urlPatterns = { "/pizzas/list" })
 public class ListerPizzaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private IPizzaDao pizzaDao = IPizzaDao.DEFAULT_IMPLEMENTATION;
+	private static final IPizzaDao pizzaDao = IPizzaDao.DEFAULT_IMPLEMENTATION;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
