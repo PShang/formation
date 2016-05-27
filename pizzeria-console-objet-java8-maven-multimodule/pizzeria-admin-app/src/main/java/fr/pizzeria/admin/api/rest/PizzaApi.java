@@ -5,12 +5,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
-import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -63,16 +63,15 @@ public class PizzaApi {
 
 	@GET
 	@Path("/{code}")
-	public void deletePizza(@PathParam("code") String code) {
-		// ResponseBuilder builder;
-		// try {
-		System.out.println("p= ***" + code + "***");
-		// pizzaService.deletePizza(code);
-		// builder = Response.status(Status.OK);
-		// } catch (DaoException e) {
-		// LOG.log(Level.SEVERE, e.getMessage(), e);
-		// builder = Response.status(Status.INTERNAL_SERVER_ERROR);
-		// }
-		// return builder.build();
+	public Response deletePizza(@PathParam("code") String code) {
+		ResponseBuilder builder;
+		try {
+			pizzaService.deletePizza(code);
+			builder = Response.status(Status.OK);
+		} catch (DaoException e) {
+			LOG.log(Level.SEVERE, e.getMessage(), e);
+			builder = Response.status(Status.INTERNAL_SERVER_ERROR);
+		}
+		return builder.build();
 	}
 }
