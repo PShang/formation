@@ -24,8 +24,9 @@ public class AuthentificationController extends HttpServlet {
 		try {
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
 			dispatcher.forward(request, response);
-		} catch (ServletException | IOException e) {
+		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
+			response.sendError(500, e.getMessage());
 		}
 	}
 
@@ -40,8 +41,9 @@ public class AuthentificationController extends HttpServlet {
 			} else {
 				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Connexion non authorisé");
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
+			response.sendError(500, e.getMessage());
 		}
 	}
 

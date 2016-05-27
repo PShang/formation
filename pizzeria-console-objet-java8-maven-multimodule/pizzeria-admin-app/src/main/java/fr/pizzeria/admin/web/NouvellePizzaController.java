@@ -39,8 +39,9 @@ public class NouvellePizzaController extends HttpServlet {
 		try {
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/nouvellePizza.jsp");
 			dispatcher.forward(request, response);
-		} catch (ServletException | IOException e) {
+		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
+			response.sendError(500, e.getMessage());
 		}
 	}
 
@@ -65,8 +66,11 @@ public class NouvellePizzaController extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
 				response.setHeader("Location", request.getContextPath() + "/pizzas/list");
 			}
-		} catch (DaoException | IOException e) {
+		} catch (DaoException e) {
 			LOG.log(Level.SEVERE, "Erreur de création Pizza", e);
+			response.sendError(500, e.getMessage());
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
 			response.sendError(500, e.getMessage());
 		}
 	}

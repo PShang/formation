@@ -41,8 +41,11 @@ public class EditerPizzaController extends HttpServlet {
 			request.setAttribute("pizza", pizzaService.getPizza(code));
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/editerPizza.jsp");
 			dispatcher.forward(request, response);
-		} catch (DaoException | ServletException | IOException e) {
+		} catch (DaoException e) {
 			LOG.log(Level.SEVERE, "Erreur de lecture Pizza", e);
+			response.sendError(500, e.getMessage());
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
 			response.sendError(500, e.getMessage());
 		}
 	}
@@ -66,8 +69,11 @@ public class EditerPizzaController extends HttpServlet {
 				pizzaService.updatePizza(code, p);
 				response.sendRedirect(request.getContextPath() + "/pizzas/list");
 			}
-		} catch (DaoException | IOException e) {
+		} catch (DaoException e) {
 			LOG.log(Level.SEVERE, "Erreur de modification Pizza", e);
+			response.sendError(500, e.getMessage());
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
 			response.sendError(500, e.getMessage());
 		}
 	}
@@ -81,8 +87,11 @@ public class EditerPizzaController extends HttpServlet {
 			} else {
 				pizzaService.deletePizza(code);
 			}
-		} catch (DaoException | IOException e) {
+		} catch (DaoException e) {
 			LOG.log(Level.SEVERE, "Erreur de suppression Pizza", e);
+			response.sendError(500, e.getMessage());
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
 			response.sendError(500, e.getMessage());
 		}
 	}
