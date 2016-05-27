@@ -1,6 +1,7 @@
 package fr.pizzeria.admin.web;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +25,7 @@ public class AuthentificationController extends HttpServlet {
 		try {
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
 			dispatcher.forward(request, response);
-		} catch (ServletException e) {
+		} catch (IllegalStateException e) {
 			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
 		}
 	}
@@ -40,7 +41,7 @@ public class AuthentificationController extends HttpServlet {
 			} else {
 				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Connexion non authorisé");
 			}
-		} catch (IOException e) {
+		} catch (UnknownHostException e) {
 			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
 		}
 	}
