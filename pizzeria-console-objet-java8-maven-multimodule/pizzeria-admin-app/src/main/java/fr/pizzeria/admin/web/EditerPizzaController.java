@@ -41,7 +41,7 @@ public class EditerPizzaController extends HttpServlet {
 			request.setAttribute("pizza", pizzaService.getPizza(code));
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/editerPizza.jsp");
 			dispatcher.forward(request, response);
-		} catch (DaoException | ServletException e) {
+		} catch (DaoException | ServletException | IOException e) {
 			LOG.log(Level.SEVERE, "Erreur de lecture Pizza", e);
 			response.sendError(500, e.getMessage());
 		}
