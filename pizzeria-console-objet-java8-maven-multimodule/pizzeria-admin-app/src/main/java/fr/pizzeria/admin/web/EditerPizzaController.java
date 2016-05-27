@@ -45,8 +45,7 @@ public class EditerPizzaController extends HttpServlet {
 			LOG.log(Level.SEVERE, "Erreur de lecture Pizza", e);
 			response.sendError(500, e.getMessage());
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
-			response.sendError(500, e.getMessage());
+			LOG.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 
@@ -73,8 +72,7 @@ public class EditerPizzaController extends HttpServlet {
 			LOG.log(Level.SEVERE, "Erreur de modification Pizza", e);
 			response.sendError(500, e.getMessage());
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
-			response.sendError(500, e.getMessage());
+			LOG.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 
@@ -91,8 +89,7 @@ public class EditerPizzaController extends HttpServlet {
 			LOG.log(Level.SEVERE, "Erreur de suppression Pizza", e);
 			response.sendError(500, e.getMessage());
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
-			response.sendError(500, e.getMessage());
+			LOG.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 }

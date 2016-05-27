@@ -33,8 +33,7 @@ public class ListerPizzaController extends HttpServlet {
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/listerPizzas.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
-			response.sendError(500, e.getMessage());
+			LOG.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 }
