@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>pizzeria-console-objet-java8</artifactId>
 
@@ -20,7 +19,7 @@
 		<profile>
 			<id>prod</id>
 			<properties>
-				<dao.impl>3</dao.impl>
+				<dao.impl>4</dao.impl>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>

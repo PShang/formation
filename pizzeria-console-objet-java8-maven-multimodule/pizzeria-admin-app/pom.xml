@@ -16,6 +16,16 @@
 		<dependency>
 			<groupId>fr.pizzeria</groupId>
 			<artifactId>pizzeria-dao</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.json</groupId>
+					<artifactId>javax.json-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.glassfish</groupId>
+					<artifactId>javax.json</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>jstl</groupId>

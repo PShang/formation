@@ -5,11 +5,13 @@ import java.sql.SQLException;
 import javax.persistence.EntityManagerFactory;
 
 import fr.pizzeria.dao.client.ClientDaoJpaImpl;
+import fr.pizzeria.dao.client.ClientDaoRestImpl;
 import fr.pizzeria.dao.commande.CommandeDaoJpaImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoJdbcImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoJpaImpl;
+import fr.pizzeria.dao.pizza.PizzaDaoRestImpl;
 import fr.pizzeria.exception.DaoException;
 
 public class DaoProducer {
@@ -28,5 +30,9 @@ public class DaoProducer {
 
 	public IDaoFactory getDaoFactoryJdbc(String urlConnection, String userConnection, String passConnection) throws DaoException, SQLException {
 		return new GenericDaoFactory(new PizzaDaoJdbcImpl(urlConnection, userConnection, passConnection), null, null);
+	}
+
+	public IDaoFactory getDaoFactoryRest(String baseUrl) throws DaoException, SQLException {
+		return new GenericDaoFactory(new PizzaDaoRestImpl(baseUrl), new ClientDaoRestImpl(baseUrl), null);
 	}
 }

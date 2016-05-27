@@ -27,6 +27,8 @@
 		<commons-codec.version>1.10</commons-codec.version>
 		<jstl.version>1.2</jstl.version>
 		<javaee-api.version>7.0</javaee-api.version>
+		<json-api.version>1.0</json-api.version>
+		<json.version>1.0.4</json.version>
 	</properties>
 
 	<build>
@@ -147,6 +149,16 @@
 				<artifactId>javaee-api</artifactId>
 				<version>${javaee-api.version}</version>
 				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.json</groupId>
+				<artifactId>javax.json-api</artifactId>
+				<version>${json-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish</groupId>
+				<artifactId>javax.json</artifactId>
+				<version>${json.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

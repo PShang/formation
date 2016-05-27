@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -18,13 +19,12 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import fr.pizzeria.admin.metier.PizzaService;
-import fr.pizzeria.admin.web.ListerPizzaController;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Pizza;
 
 @Path("/pizzas")
 public class PizzaApi {
-	private static final Logger LOG = Logger.getLogger(ListerPizzaController.class.toString());
+	private static final Logger LOG = Logger.getLogger(PizzaApi.class.toString());
 	@Inject PizzaService pizzaService;
 
 	@GET
@@ -61,7 +61,7 @@ public class PizzaApi {
 		return builder.build();
 	}
 
-	@GET
+	@DELETE
 	@Path("/{code}")
 	public Response deletePizza(@PathParam("code") String code) {
 		ResponseBuilder builder;

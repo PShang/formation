@@ -18,6 +18,7 @@ import fr.pizzeria.dao.pizza.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoJdbcImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoJpaImpl;
+import fr.pizzeria.dao.pizza.PizzaDaoRestImpl;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.Menu;
 import fr.pizzeria.ihm.menu.option.AfficherPizzaPlusCherOptionMenu;
@@ -41,6 +42,7 @@ public class PizzeriaAdminConsoleApp {
 	private static final String PROPERTY_URL = "url";
 	private static final String PROPERTY_USER = "user";
 	private static final String PROPERTY_PASS = "pass";
+	private static final String BASEURL_REST = "http://localhost:8080/pizzeria-admin-app/api/rest";
 
 	private PizzeriaAdminConsoleApp() {}
 
@@ -89,6 +91,10 @@ public class PizzeriaAdminConsoleApp {
 					Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
 					emf = Persistence.createEntityManagerFactory("pizzeria-console-objet-java8");
 					pizzaDao = new PizzaDaoJpaImpl(emf);
+					break;
+				case 4:
+					System.out.println("DAO : REST");
+					pizzaDao = new PizzaDaoRestImpl(BASEURL_REST);
 					break;
 				default:
 					System.err.println("Erreur: Le fichier " + FILE_APLLICATION_PROP + ".properties doit contenir la propriété \"" + PROPERTY_DAO_IMPL + "\" avec la valeur 0, 1, 2 ou 3.");
