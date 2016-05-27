@@ -8,7 +8,6 @@
 		<class>fr.pizzeria.model.Commande</class>
 		<class>fr.pizzeria.model.Livreur</class>
 		<properties>
-			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
 			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"></property>
 		</properties>
 	</persistence-unit>
