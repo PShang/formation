@@ -1,5 +1,7 @@
 package fr.pizzeria.dao.client;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -20,18 +22,8 @@ public class ClientDaoJpaImpl implements IClientDao {
 	}
 
 	@Override
-	public void saveNewClient(Client client) throws DaoException {
-		EntityManager em = emf.createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.persist(client);
-			em.getTransaction().commit();
-		} catch (PersistenceException e) {
-			em.getTransaction().rollback();
-			throw new SaveClientException("Erreur SQL lors de l'insertion du client.", e);
-		} finally {
-			em.close();
-		}
+	public List<Client> findAllClients() {
+		throw new UnsupportedOperationException("La méthode n'est pas implémenté en JPA.");
 	}
 
 	@Override
@@ -55,5 +47,30 @@ public class ClientDaoJpaImpl implements IClientDao {
 			em.close();
 		}
 		return c;
+	}
+
+	@Override
+	public void saveNewClient(Client client) throws DaoException {
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.persist(client);
+			em.getTransaction().commit();
+		} catch (PersistenceException e) {
+			em.getTransaction().rollback();
+			throw new SaveClientException("Erreur SQL lors de l'insertion du client.", e);
+		} finally {
+			em.close();
+		}
+	}
+
+	@Override
+	public void updateClient(Integer idClient, Client client) throws DaoException {
+		throw new UnsupportedOperationException("La méthode n'est pas implémenté en JPA.");
+	}
+
+	@Override
+	public void deleteClient(Integer idClient) throws DaoException {
+		throw new UnsupportedOperationException("La méthode n'est pas implémenté en JPA.");
 	}
 }

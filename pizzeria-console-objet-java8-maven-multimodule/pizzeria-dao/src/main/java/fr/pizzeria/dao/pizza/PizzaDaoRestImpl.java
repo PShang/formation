@@ -56,7 +56,6 @@ public class PizzaDaoRestImpl implements IPizzaDao {
 				pizzas.add(p);
 			});
 			jsonReader.close();
-			System.out.println(pizzas);
 		} catch (MalformedURLException e) {
 			System.err.println("Erreur dans l'URL de l'API REST lors de la lecture des pizzas : " + e.getMessage());
 		} catch (IOException e) {

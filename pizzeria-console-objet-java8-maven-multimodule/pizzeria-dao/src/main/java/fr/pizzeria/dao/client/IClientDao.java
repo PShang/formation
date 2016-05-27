@@ -1,5 +1,7 @@
 package fr.pizzeria.dao.client;
 
+import java.util.List;
+
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Client;
 
@@ -9,12 +11,11 @@ import fr.pizzeria.model.Client;
 public interface IClientDao {
 
 	/**
-	 * Sauvegarde un nouveau client.
+	 * Récupere la liste des clients.
 	 * 
-	 * @param client Le nouveau client à sauvegarder.
-	 * @throws DaoException
+	 * @return Une {@link List}<{@link Client}>.
 	 */
-	void saveNewClient(Client client) throws DaoException;
+	List<Client> findAllClients();
 
 	/**
 	 * Récupère un client.
@@ -25,4 +26,29 @@ public interface IClientDao {
 	 * @throws DaoException
 	 */
 	Client getClient(String email, String mdp) throws DaoException;
+
+	/**
+	 * Sauvegarde un nouveau client.
+	 * 
+	 * @param client Le nouveau client à sauvegarder.
+	 * @throws DaoException
+	 */
+	void saveNewClient(Client client) throws DaoException;
+
+	/**
+	 * Modifie un client.
+	 * 
+	 * @param idClient L'id du client à modifier.
+	 * @param client Le client modifié.
+	 * @throws DaoException
+	 */
+	void updateClient(Integer idClient, Client client) throws DaoException;
+
+	/**
+	 * Supprime une client.
+	 * 
+	 * @param idClient L'id du client à supprimer.
+	 * @throws DaoException
+	 */
+	void deleteClient(Integer idClient) throws DaoException;
 }
