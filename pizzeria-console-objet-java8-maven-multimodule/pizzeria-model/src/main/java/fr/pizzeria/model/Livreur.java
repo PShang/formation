@@ -14,17 +14,11 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Livreur {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
-	private Integer id;
-	@Column(length = 32, nullable = false)
-	private String nom;
-	@Column(length = 32, nullable = false)
-	private String prenom;
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(nullable = false) private Integer id;
+	@Column(length = 32, nullable = false) private String nom;
+	@Column(length = 32, nullable = false) private String prenom;
 
-	@OneToMany(mappedBy = "livreur")
-	private Set<Commande> commandes;
+	@OneToMany(mappedBy = "livreur") private Set<Commande> commandes;
 
 	/**
 	 * Constructeur vide pour JPA.
