@@ -41,7 +41,7 @@ public class EditerPizzaController extends HttpServlet {
 			request.setAttribute("pizza", pizzaService.getPizza(code));
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/editerPizza.jsp");
 			dispatcher.forward(request, response);
-		} catch (DaoException e) {
+		} catch (DaoException | ServletException e) {
 			LOG.log(Level.SEVERE, "Erreur de lecture Pizza", e);
 			response.sendError(500, e.getMessage());
 		}
@@ -54,10 +54,10 @@ public class EditerPizzaController extends HttpServlet {
 		String prix = request.getParameter("prix");
 		String categorie = request.getParameter("categorie");
 		String urlImage = request.getParameter("urlImage");
-		if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix) || StringUtils.isBlank(categorie)) {
-			response.sendError(500, "Tous les champs ne sont pas renseignés.");
-		} else {
-			try {
+		try {
+			if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix) || StringUtils.isBlank(categorie)) {
+				response.sendError(500, "Tous les champs ne sont pas renseignés.");
+			} else {
 				Pizza p = pizzaService.getPizza(code);
 				p.setNom(nom);
 				p.setPrix(new BigDecimal(prix));
@@ -65,25 +65,25 @@ public class EditerPizzaController extends HttpServlet {
 				p.setUrlImage(urlImage);
 				pizzaService.updatePizza(code, p);
 				response.sendRedirect(request.getContextPath() + "/pizzas/list");
-			} catch (DaoException e) {
-				LOG.log(Level.SEVERE, "Erreur de modification Pizza", e);
-				response.sendError(500, e.getMessage());
 			}
+		} catch (DaoException | IOException e) {
+			LOG.log(Level.SEVERE, "Erreur de modification Pizza", e);
+			response.sendError(500, e.getMessage());
 		}
 	}
 
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code = request.getParameter("code");
-		if (code == null || StringUtils.isBlank(code)) {
-			response.sendError(500, "Le code est vide.");
-		} else {
-			try {
+		try {
+			if (code == null || StringUtils.isBlank(code)) {
+				response.sendError(500, "Le code est vide.");
+			} else {
 				pizzaService.deletePizza(code);
-			} catch (DaoException e) {
-				LOG.log(Level.SEVERE, "Erreur de suppression Pizza", e);
-				response.sendError(500, e.getMessage());
 			}
+		} catch (DaoException | IOException e) {
+			LOG.log(Level.SEVERE, "Erreur de suppression Pizza", e);
+			response.sendError(500, e.getMessage());
 		}
 	}
 }

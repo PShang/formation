@@ -36,8 +36,12 @@ public class NouvellePizzaController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/nouvellePizza.jsp");
-		dispatcher.forward(request, response);
+		try {
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/nouvellePizza.jsp");
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
+		}
 	}
 
 	@Override
@@ -47,10 +51,10 @@ public class NouvellePizzaController extends HttpServlet {
 		String prix = request.getParameter("prix");
 		String categorie = request.getParameter("categorie");
 		String urlImage = request.getParameter("urlImage");
-		if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix) || StringUtils.isBlank(categorie)) {
-			response.sendError(500, "Tous les champs ne sont pas renseignés.");
-		} else {
-			try {
+		try {
+			if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix) || StringUtils.isBlank(categorie)) {
+				response.sendError(500, "Tous les champs ne sont pas renseignés.");
+			} else {
 				Pizza p = new Pizza();
 				p.setCode(code);
 				p.setNom(nom);
@@ -60,10 +64,10 @@ public class NouvellePizzaController extends HttpServlet {
 				pizzaService.saveNewPizza(p);
 				response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
 				response.setHeader("Location", request.getContextPath() + "/pizzas/list");
-			} catch (DaoException e) {
-				LOG.log(Level.SEVERE, "Erreur de création Pizza", e);
-				response.sendError(500, e.getMessage());
 			}
+		} catch (DaoException | IOException e) {
+			LOG.log(Level.SEVERE, "Erreur de création Pizza", e);
+			response.sendError(500, e.getMessage());
 		}
 	}
 }

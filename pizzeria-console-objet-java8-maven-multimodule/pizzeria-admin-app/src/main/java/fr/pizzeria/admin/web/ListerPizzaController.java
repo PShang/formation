@@ -2,6 +2,8 @@ package fr.pizzeria.admin.web;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -19,6 +21,7 @@ import fr.pizzeria.model.Pizza;
  */
 @WebServlet(urlPatterns = { "/pizzas/list" })
 public class ListerPizzaController extends HttpServlet {
+	private static final Logger LOG = Logger.getLogger(ListerPizzaController.class.toString());
 	private static final long serialVersionUID = 1L;
 	@Inject private PizzaService pizzaService;
 
@@ -26,7 +29,11 @@ public class ListerPizzaController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Pizza> pizzas = pizzaService.findAllPizzas();
 		request.setAttribute("list", pizzas);
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/listerPizzas.jsp");
-		dispatcher.forward(request, response);
+		try {
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/listerPizzas.jsp");
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			LOG.log(Level.SEVERE, "Erreur : " + e.getMessage(), e);
+		}
 	}
 }
