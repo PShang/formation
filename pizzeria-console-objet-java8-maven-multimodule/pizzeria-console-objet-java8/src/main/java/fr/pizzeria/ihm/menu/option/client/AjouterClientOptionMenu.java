@@ -1,4 +1,4 @@
-package fr.pizzeria.ihm.menu.option;
+package fr.pizzeria.ihm.menu.option.client;
 
 import java.util.Scanner;
 
@@ -6,42 +6,46 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
-import fr.pizzeria.exception.SaveClientException;
 import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.ihm.menu.option.OptionMenu;
 import fr.pizzeria.model.Client;
 
-public class InscriptionOptionMenu extends OptionMenu {
+/**
+ * Option pour ajouter un nouveau client.
+ */
+public class AjouterClientOptionMenu extends OptionMenu {
 
 	/**
 	 * Constante pour le {@link OptionMenu.libelle libéllé} de l'{@link OptionMenu}.
 	 */
-	private static final String INSCRIPTION_LIBELLE = "S'inscrire";
+	private static final String AJOUTER_CLIENT_LIBELLE = "Ajouter un client";
 	private Scanner scan;
 
 	/**
 	 * Constructeur.
 	 * 
 	 * @param dao La DAO Factory.
+	 * @param scan Le {@link Scanner} pour la saisie utilisateur.
 	 */
-	public InscriptionOptionMenu(IDaoFactory dao, Scanner scan) {
-		super(INSCRIPTION_LIBELLE, dao);
+	public AjouterClientOptionMenu(IDaoFactory dao, Scanner scan) {
+		super(AJOUTER_CLIENT_LIBELLE, dao);
 		this.scan = scan;
 	}
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Inscription.");
-		System.out.println("Veuillez saisir votre nom");
+		System.out.println("Ajout d'un nouveau client");
+		System.out.println("Veuillez saisir le nom");
 		String nom = scan.next();
-		System.out.println("Veuillez saisir votre prénom");
+		System.out.println("Veuillez saisir le prenom");
 		String prenom = scan.next();
-		System.out.println("Veuillez saisir votre adresse email");
+		System.out.println("Veuillez saisir l'email");
 		String email = scan.next();
-		System.out.println("Veuillez saisir votre mot de passe");
+		System.out.println("Veuillez saisir le mdp");
 		String mdp = scan.next();
 		try {
 			dao.getClientDao().saveNewClient(new Client(nom, prenom, email, DigestUtils.md5Hex(mdp).toString()));
-		} catch (SaveClientException e) {
+		} catch (SavePizzaException e) {
 			throw new SavePizzaException("Erreur : Le client avec l'adresse email " + email + " existe déjà.", e);
 		}
 		System.out.println();

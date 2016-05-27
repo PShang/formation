@@ -14,26 +14,25 @@ import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
-import fr.pizzeria.dao.pizza.IPizzaDao;
-import fr.pizzeria.dao.pizza.PizzaDaoImpl;
+import fr.pizzeria.dao.DaoProducer;
+import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.ihm.menu.option.pizza.AjouterPizzaOptionMenu;
 import fr.pizzeria.model.CategoriePizza;
 
 public class AjouterPizzaOptionMenuTest {
 
 	private AjouterPizzaOptionMenu ajouterPizzaOptionMenu;
-	private IPizzaDao dao;
-	@Rule
-	public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-	@Rule
-	public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
+	private IDaoFactory dao;
+	@Rule public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+	@Rule public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
 
 	@Before
 	public void setUp() {
 		Locale.setDefault(Locale.FRENCH);
 		Scanner scan = new Scanner(System.in);
-		dao = new PizzaDaoImpl();
+		dao = new DaoProducer().getDaoFactoryMemoire();
 		ajouterPizzaOptionMenu = new AjouterPizzaOptionMenu(dao, scan);
 	}
 

@@ -11,28 +11,28 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 
-import fr.pizzeria.dao.pizza.IPizzaDao;
-import fr.pizzeria.dao.pizza.PizzaDaoImpl;
+import fr.pizzeria.dao.DaoProducer;
+import fr.pizzeria.dao.IDaoFactory;
+import fr.pizzeria.ihm.menu.option.pizza.ListerPizzaOptionMenu;
 import fr.pizzeria.model.Pizza;
 
 public class ListerPizzaOptionMenuTest {
 
 	private ListerPizzaOptionMenu listerPizzaOptionMenu;
-	private IPizzaDao dao;
-	@Rule
-	public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+	private IDaoFactory dao;
+	@Rule public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
 	@Before
 	public void setUp() {
 		Locale.setDefault(Locale.FRENCH);
-		dao = new PizzaDaoImpl();
+		dao = new DaoProducer().getDaoFactoryMemoire();
 		listerPizzaOptionMenu = new ListerPizzaOptionMenu(dao);
 	}
 
 	@Test
 	public void testExecuteCodeExistant() {
 		StringBuilder outAttendus = new StringBuilder();
-		List<Pizza> listPizzas = dao.findAllPizzas();
+		List<Pizza> listPizzas = dao.getPizzaDao().findAllPizzas();
 		listPizzas.stream().forEach(p -> {
 			outAttendus.append(p).append(System.lineSeparator());
 		});

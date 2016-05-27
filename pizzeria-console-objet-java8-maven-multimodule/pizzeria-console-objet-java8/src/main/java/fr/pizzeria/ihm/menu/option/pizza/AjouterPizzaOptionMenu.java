@@ -1,13 +1,14 @@
-package fr.pizzeria.ihm.menu.option;
+package fr.pizzeria.ihm.menu.option.pizza;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import fr.pizzeria.dao.pizza.IPizzaDao;
+import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.CategoriePizzaException;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.ihm.menu.option.OptionMenu;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -25,11 +26,11 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 	/**
 	 * Constructeur.
 	 * 
-	 * @param pizzaDao La DAO pour les pizzas.
+	 * @param dao La DAO Factory.
 	 * @param scan Le {@link Scanner} pour la saisie utilisateur.
 	 */
-	public AjouterPizzaOptionMenu(IPizzaDao pizzaDao, Scanner scan) {
-		super(AJOUTER_PIZZA_LIBELLE, pizzaDao);
+	public AjouterPizzaOptionMenu(IDaoFactory dao, Scanner scan) {
+		super(AJOUTER_PIZZA_LIBELLE, dao);
 		this.scan = scan;
 	}
 
@@ -46,7 +47,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		String categorieString = scan.next();
 		try {
 			CategoriePizza categorie = CategoriePizza.valueOf(categorieString.toUpperCase());
-			pizzaDao.saveNewPizza(new Pizza(code, name, price, categorie));
+			dao.getPizzaDao().saveNewPizza(new Pizza(code, name, price, categorie));
 		} catch (SavePizzaException e) {
 			throw new SavePizzaException("Erreur : La pizza avec le code " + code + " existe déjà.", e);
 		} catch (IllegalArgumentException e) {

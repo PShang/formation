@@ -1,6 +1,10 @@
 package fr.pizzeria.model;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,21 +22,22 @@ import javax.persistence.OneToMany;
 @Entity
 @NamedQueries({ @NamedQuery(name = "client.findByEmail", query = "SELECT c FROM Client c WHERE c.email = :email") })
 public class Client {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
-	private Integer id;
-	@Column(length = 32, nullable = false)
-	private String nom;
-	@Column(length = 32, nullable = false)
-	private String prenom;
-	@Column(length = 64, nullable = false, unique = true)
-	private String email;
-	@Column(name = "mot_de_passe", length = 32, nullable = false)
-	private String mdp;
+	@ToString @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(nullable = false) private Integer id;
+	@ToString @Column(length = 32, nullable = false) private String nom;
+	@ToString @Column(length = 32, nullable = false) private String prenom;
+	@ToString @Column(length = 64, nullable = false, unique = true) private String email;
+	@Column(name = "mot_de_passe", length = 32, nullable = false) private String mdp;
 
-	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-	private Set<Commande> commandes;
+	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER) private Set<Commande> commandes;
+
+	private static final Map<String, String> FORMAT = new HashMap<>();
+
+	static {
+		FORMAT.put("id", "%s -> ");
+		FORMAT.put("nom", "%s");
+		FORMAT.put("prenom", " %s");
+		FORMAT.put("email", " (%s)");
+	}
 
 	/**
 	 * Constructeur vide pour JPA.
@@ -102,5 +107,19 @@ public class Client {
 
 	public void setCommandes(Set<Commande> commandes) {
 		this.commandes = commandes;
+	}
+
+	@Override
+	public String toString() {
+		return Arrays.asList(getClass().getDeclaredFields()).stream().filter(f -> f.getAnnotation(ToString.class) != null).map(f -> {
+			ToString ts = f.getAnnotation(ToString.class);
+			try {
+				String s = f.get(this).toString();
+				return String.format(FORMAT.get(f.getName()), ts.uppercase() ? s.toUpperCase() : s);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+				return "";
+			}
+		}).collect(Collectors.joining());
 	}
 }

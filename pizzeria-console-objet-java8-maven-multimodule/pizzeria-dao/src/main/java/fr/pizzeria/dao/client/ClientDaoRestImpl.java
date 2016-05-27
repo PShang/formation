@@ -86,8 +86,8 @@ public class ClientDaoRestImpl implements IClientDao {
 
 	@Override
 	public void updateClient(Integer idClient, Client client) throws DaoException {
-		String json = Json.createObjectBuilder().add(CLIENT_FIELD_NOM, client.getNom()).add(CLIENT_FIELD_PRENOM, client.getPrenom()).add(CLIENT_FIELD_EMAIL, client.getEmail())
-				.add(CLIENT_FIELD_MDP, client.getMdp()).build().toString();
+		String json = Json.createObjectBuilder().add(CLIENT_FIELD_ID, idClient).add(CLIENT_FIELD_NOM, client.getNom()).add(CLIENT_FIELD_PRENOM, client.getPrenom())
+				.add(CLIENT_FIELD_EMAIL, client.getEmail()).add(CLIENT_FIELD_MDP, client.getMdp()).build().toString();
 		try {
 			URL url = new URL(baseUrl + CLIENT_URL);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();

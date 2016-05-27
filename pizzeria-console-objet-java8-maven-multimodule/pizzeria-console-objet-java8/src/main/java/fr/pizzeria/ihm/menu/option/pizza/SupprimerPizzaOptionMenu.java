@@ -1,10 +1,11 @@
-package fr.pizzeria.ihm.menu.option;
+package fr.pizzeria.ihm.menu.option.pizza;
 
 import java.util.Scanner;
 
-import fr.pizzeria.dao.pizza.IPizzaDao;
+import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.ihm.menu.option.OptionMenu;
 
 public class SupprimerPizzaOptionMenu extends OptionMenu {
 
@@ -17,18 +18,18 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 	/**
 	 * Constructeur.
 	 * 
-	 * @param pizzaDao La DAO pour les pizzas.
+	 * @param dao La DAO Factory.
 	 * @param scan Le {@link Scanner} pour la saisie utilisateur.
 	 */
-	public SupprimerPizzaOptionMenu(IPizzaDao pizzaDao, Scanner scan) {
-		super(SUPPRIMER_PIZZA_LIBELLE, pizzaDao);
+	public SupprimerPizzaOptionMenu(IDaoFactory dao, Scanner scan) {
+		super(SUPPRIMER_PIZZA_LIBELLE, dao);
 		this.scan = scan;
 	}
 
 	@Override
 	public boolean execute() throws DaoException {
 		System.out.println("Suppression d'une pizza");
-		new ListerPizzaOptionMenu(pizzaDao).execute();
+		new ListerPizzaOptionMenu(dao).execute();
 		System.out.println("Veuillez choisir le code la pizza à supprimer.");
 		System.out.println("(99 pour abandonner).");
 		String oldCode = scan.next();
@@ -36,7 +37,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 			return false;
 		}
 		try {
-			pizzaDao.deletePizza(oldCode);
+			dao.getPizzaDao().deletePizza(oldCode);
 		} catch (DeletePizzaException e) {
 			throw new DeletePizzaException("Erreur : La pizza avec le code " + oldCode + " n'existe pas.", e);
 		}

@@ -1,9 +1,10 @@
-package fr.pizzeria.ihm.menu.option;
+package fr.pizzeria.ihm.menu.option.pizza;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-import fr.pizzeria.dao.pizza.IPizzaDao;
+import fr.pizzeria.dao.IDaoFactory;
+import fr.pizzeria.ihm.menu.option.OptionMenu;
 import fr.pizzeria.model.Pizza;
 
 public class AfficherPizzaPlusCherOptionMenu extends OptionMenu {
@@ -16,16 +17,16 @@ public class AfficherPizzaPlusCherOptionMenu extends OptionMenu {
 	/**
 	 * Constructeur.
 	 * 
-	 * @param pizzaDao La DAO pour les pizzas.
+	 * @param dao La DAO Factory.
 	 */
-	public AfficherPizzaPlusCherOptionMenu(IPizzaDao pizzaDao) {
-		super(LISTER_PIZZAS_LIBELLE, pizzaDao);
+	public AfficherPizzaPlusCherOptionMenu(IDaoFactory dao) {
+		super(LISTER_PIZZAS_LIBELLE, dao);
 	}
 
 	@Override
 	public boolean execute() {
 		System.out.println("La pizza la plus cher : ");
-		System.out.println(this.pizzaDao.findAllPizzas().stream().collect(Collectors.maxBy(Comparator.comparing(Pizza::getPrix))).get());
+		System.out.println(dao.getPizzaDao().findAllPizzas().stream().collect(Collectors.maxBy(Comparator.comparing(Pizza::getPrix))).get());
 		System.out.println("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
 		System.out.println();
 		return false;

@@ -15,27 +15,26 @@ import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
-import fr.pizzeria.dao.pizza.IPizzaDao;
-import fr.pizzeria.dao.pizza.PizzaDaoImpl;
+import fr.pizzeria.dao.DaoProducer;
+import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.ihm.menu.option.pizza.ModifierPizzaOptionMenu;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaOptionMenuTest {
 
 	private ModifierPizzaOptionMenu modifierPizzaOptionMenu;
-	private IPizzaDao dao;
-	@Rule
-	public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-	@Rule
-	public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
+	private IDaoFactory dao;
+	@Rule public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+	@Rule public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
 
 	@Before
 	public void setUp() {
 		Locale.setDefault(Locale.FRENCH);
 		Scanner scan = new Scanner(System.in);
-		dao = new PizzaDaoImpl();
+		dao = new DaoProducer().getDaoFactoryMemoire();
 		modifierPizzaOptionMenu = new ModifierPizzaOptionMenu(dao, scan);
 	}
 
@@ -43,7 +42,7 @@ public class ModifierPizzaOptionMenuTest {
 	public void testExecuteCodeExistant() throws DaoException {
 		StringBuilder outAttendus = new StringBuilder();
 		outAttendus.append("Mise à jour d'une pizza" + System.lineSeparator());
-		List<Pizza> listPizzas = dao.findAllPizzas();
+		List<Pizza> listPizzas = dao.getPizzaDao().findAllPizzas();
 		listPizzas.stream().forEach(p -> {
 			outAttendus.append(p).append(System.lineSeparator());
 		});

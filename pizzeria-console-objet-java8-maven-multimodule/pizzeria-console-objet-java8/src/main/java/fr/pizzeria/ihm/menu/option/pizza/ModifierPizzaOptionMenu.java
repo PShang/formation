@@ -1,13 +1,14 @@
-package fr.pizzeria.ihm.menu.option;
+package fr.pizzeria.ihm.menu.option.pizza;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import fr.pizzeria.dao.pizza.IPizzaDao;
+import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.CategoriePizzaException;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.ihm.menu.option.OptionMenu;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -22,18 +23,18 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 	/**
 	 * Constructeur.
 	 * 
-	 * @param pizzaDao La DAO pour les pizzas.
+	 * @param dao La DAO Factory.
 	 * @param scan Le {@link Scanner} pour la saisie utilisateur.
 	 */
-	public ModifierPizzaOptionMenu(IPizzaDao pizzaDao, Scanner scan) {
-		super(MODIFIER_PIZZA_LIBELLE, pizzaDao);
+	public ModifierPizzaOptionMenu(IDaoFactory dao, Scanner scan) {
+		super(MODIFIER_PIZZA_LIBELLE, dao);
 		this.scan = scan;
 	}
 
 	@Override
 	public boolean execute() throws DaoException {
 		System.out.println("Mise à jour d'une pizza");
-		new ListerPizzaOptionMenu(pizzaDao).execute();
+		new ListerPizzaOptionMenu(dao).execute();
 		System.out.println("Veuillez choisir le code la pizza à modifier.");
 		System.out.println("(99 pour abandonner).");
 		String code = scan.next();
@@ -48,7 +49,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		String categorieString = scan.next();
 		try {
 			CategoriePizza categorie = CategoriePizza.valueOf(categorieString.toUpperCase());
-			pizzaDao.updatePizza(code, new Pizza(code, name, price, categorie));
+			dao.getPizzaDao().updatePizza(code, new Pizza(code, name, price, categorie));
 		} catch (UpdatePizzaException e) {
 			throw new UpdatePizzaException("Erreur : La pizza avec le code " + code + " n'existe pas.", e);
 		} catch (IllegalArgumentException e) {

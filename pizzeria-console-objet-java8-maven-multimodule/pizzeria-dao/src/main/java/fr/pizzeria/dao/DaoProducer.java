@@ -32,7 +32,7 @@ public class DaoProducer {
 		return new GenericDaoFactory(new PizzaDaoJdbcImpl(urlConnection, userConnection, passConnection), null, null);
 	}
 
-	public IDaoFactory getDaoFactoryRest(String baseUrl) throws DaoException, SQLException {
+	public IDaoFactory getDaoFactoryRest(String baseUrl) {
 		return new GenericDaoFactory(new PizzaDaoRestImpl(baseUrl), new ClientDaoRestImpl(baseUrl), null);
 	}
 }

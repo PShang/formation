@@ -1,12 +1,13 @@
-package fr.pizzeria.ihm.menu.option;
+package fr.pizzeria.ihm.menu.option.pizza;
 
 import java.util.Scanner;
 
-import fr.pizzeria.dao.pizza.IPizzaDao;
+import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.dao.pizza.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoJdbcImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoJpaImpl;
 import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.ihm.menu.option.OptionMenu;
 
 public class ImporterPizzaOptionMenu extends OptionMenu {
 
@@ -18,17 +19,17 @@ public class ImporterPizzaOptionMenu extends OptionMenu {
 	/**
 	 * Constructeur.
 	 * 
-	 * @param pizzaDao La DAO pour les pizzas.
+	 * @param dao La DAO Factory.
 	 * @param scan Le {@link Scanner} pour la saisie utilisateur.
 	 */
-	public ImporterPizzaOptionMenu(IPizzaDao pizzaDao) {
-		super(IMPORTER_PIZZA_LIBELLE, pizzaDao);
+	public ImporterPizzaOptionMenu(IDaoFactory dao) {
+		super(IMPORTER_PIZZA_LIBELLE, dao);
 	}
 
 	@Override
 	public boolean execute() throws DaoException {
-		if (pizzaDao instanceof PizzaDaoJdbcImpl || pizzaDao instanceof PizzaDaoJpaImpl) {
-			pizzaDao.importFromFiles(new PizzaDaoFichierImpl(), 3);
+		if (dao instanceof PizzaDaoJdbcImpl || dao instanceof PizzaDaoJpaImpl) {
+			dao.getPizzaDao().importFromFiles(new PizzaDaoFichierImpl(), 3);
 		} else {
 			System.err.println("Veuillez configurer l'application avec une implémentation base de données.");
 		}
