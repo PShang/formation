@@ -23,8 +23,8 @@ import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Pizza;
 
 @Path("/pizzas")
-public class PizzaApi {
-	private static final Logger LOG = Logger.getLogger(PizzaApi.class.toString());
+public class PizzaRessource {
+	private static final Logger LOG = Logger.getLogger(PizzaRessource.class.toString());
 	@Inject PizzaService pizzaService;
 
 	@GET

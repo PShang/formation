@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class AuthentificationFilter
  */
-@WebFilter(urlPatterns = { "/pizzas/*" })
+@WebFilter(urlPatterns = { "/*" })
 public class AuthentificationFilter implements Filter {
 
 	@Override
@@ -31,12 +31,14 @@ public class AuthentificationFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpSession session = ((HttpServletRequest) request).getSession();
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		HttpSession session = httpRequest.getSession();
 		Boolean logged = (Boolean) session.getAttribute("logged");
-		if (logged != null && logged) {
+		if ((logged != null && logged) || httpRequest.getRequestURI().contains("/login") || httpRequest.getRequestURI().contains("/api/rest")) {
 			chain.doFilter(request, response);
 		} else {
-			((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/login");
+			httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
 		}
 	}
 
