@@ -4,6 +4,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -14,6 +16,7 @@ import fr.pizzeria.ihm.menu.Menu;
  * Classe principale de l'application.
  */
 public class PizzeriaAdminConsoleApp {
+	private static final String APPLICATION_CONFIG_XML = "application-config.xml";
 	private static final String FILE_APLLICATION_PROP = "application";
 	private static final String PROPERTY_DAO_IMPL = "dao.impl";
 
@@ -25,11 +28,13 @@ public class PizzeriaAdminConsoleApp {
 	 * @param args Les aguments du programme.
 	 */
 	public static void main(String[] args) {
+		Logger.getLogger("org").setLevel(Level.SEVERE);
 		Locale.setDefault(Locale.FRENCH);
 		try {
 			ResourceBundle bundle = ResourceBundle.getBundle(FILE_APLLICATION_PROP);
 			String fileDaoImpl = bundle.getString(PROPERTY_DAO_IMPL);
-			try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-config.xml", fileDaoImpl)) {
+			System.out.println("DAO : " + fileDaoImpl);
+			try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(APPLICATION_CONFIG_XML, fileDaoImpl)) {
 				Menu menu = context.getBean(Menu.class);
 				menu.afficher();
 			}
