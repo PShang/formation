@@ -42,13 +42,13 @@
     <profile>
       <id>dev</id>
       <properties>
-        <dao.impl>0</dao.impl>
+        <dao.impl>dao-memoire-config.xml</dao.impl>
       </properties>
     </profile>
     <profile>
       <id>prod</id>
       <properties>
-        <dao.impl>4</dao.impl>
+        <dao.impl>dao-rest-config.xml</dao.impl>
       </properties>
     </profile>
   </profiles>
@@ -73,9 +73,9 @@
     </dependency>
   </dependencies>
   <properties>
-    <user>root</user>
-    <url>jdbc:mysql://localhost:3306/pizzeria</url>
-    <driver>com.mysql.jdbc.Driver</driver>
+    <db.user>root</db.user>
+    <db.url>jdbc:mysql://localhost:3306/pizzeria</db.url>
+    <db.driver>com.mysql.jdbc.Driver</db.driver>
   </properties>
 </project>
 

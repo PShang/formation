@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	<bean id="dao" class="fr.pizzeria.dao.DaoProducer" factory-method="getDaoFactoryJdbc">
+		<constructor-arg name="driverConnection" value="${driver}"></constructor-arg>
+		<constructor-arg name="urlConnection" value="${url}"></constructor-arg>
+		<constructor-arg name="userConnection" value="${user}"></constructor-arg>
+		<constructor-arg name="passConnection" value="${pass}"></constructor-arg>
+	</bean>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="jdbc.properties"></property>
+	</bean>
+</beans>

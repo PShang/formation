@@ -13,13 +13,13 @@
 		<profile>
 			<id>dev</id>
 			<properties>
-				<dao.impl>0</dao.impl>
+				<dao.impl>dao-memoire-config.xml</dao.impl>
 			</properties>
 		</profile>
 		<profile>
 			<id>prod</id>
 			<properties>
-				<dao.impl>4</dao.impl>
+				<dao.impl>dao-rest-config.xml</dao.impl>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -27,12 +27,11 @@
 		</profile>
 	</profiles>
 
-
 	<properties>
-		<driver>com.mysql.jdbc.Driver</driver>
-		<url>jdbc:mysql://localhost:3306/pizzeria</url>
-		<user>root</user>
-		<pass></pass>
+		<db.driver>com.mysql.jdbc.Driver</db.driver>
+		<db.url>jdbc:mysql://localhost:3306/pizzeria</db.url>
+		<db.user>root</db.user>
+		<db.pass></db.pass>
 	</properties>
 
 	<build>
@@ -89,6 +88,10 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
 		</dependency>
 	</dependencies>
 </project>

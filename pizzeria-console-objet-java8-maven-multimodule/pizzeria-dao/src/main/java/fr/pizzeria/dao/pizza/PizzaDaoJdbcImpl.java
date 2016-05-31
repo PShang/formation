@@ -44,7 +44,12 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 	 * @throws DaoException
 	 * @throws SQLException
 	 */
-	public PizzaDaoJdbcImpl(String urlConnection, String userConnection, String passConnection) throws DaoException, SQLException {
+	public PizzaDaoJdbcImpl(String driverConnection, String urlConnection, String userConnection, String passConnection) throws DaoException, SQLException {
+		try {
+			Class.forName(driverConnection);
+		} catch (ClassNotFoundException e) {
+			System.err.println("Erreur : Le driver " + driverConnection + " est introuvable.");
+		}
 		this.urlConnection = urlConnection;
 		this.userConnection = userConnection;
 		this.passConnection = passConnection;
