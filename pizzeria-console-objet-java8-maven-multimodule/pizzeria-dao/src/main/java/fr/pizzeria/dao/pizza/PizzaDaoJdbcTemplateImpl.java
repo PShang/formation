@@ -1,5 +1,6 @@
 package fr.pizzeria.dao.pizza;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -36,14 +37,14 @@ public class PizzaDaoJdbcTemplateImpl implements IPizzaDao {
 	 * 
 	 * @param dataSource La DataSource.
 	 */
-	public PizzaDaoJdbcTemplateImpl(DataSource dataSource) {
+	public PizzaDaoJdbcTemplateImpl(DataSource dataSource, DataSourceTransactionManager txManager) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
-		transactionTemplate = new TransactionTemplate(new DataSourceTransactionManager(dataSource));
+		transactionTemplate = new TransactionTemplate(txManager);
 	}
 
 	@Override
 	public List<Pizza> findAllPizzas() {
-		return jdbcTemplate.query("SELECT * FROM " + TABLE_PIZZA + " ORDER BY " + COLUMN_NOM, (rs, rowNum) -> {
+		return jdbcTemplate.query(MessageFormat.format("SELECT * FROM {0} ORDER BY {1}", TABLE_PIZZA, COLUMN_NOM), (rs, rowNum) -> {
 			Pizza p = new Pizza();
 			p.setId(rs.getInt(COLUMN_ID));
 			p.setCode(rs.getString(COLUMN_CODE));
@@ -57,38 +58,37 @@ public class PizzaDaoJdbcTemplateImpl implements IPizzaDao {
 
 	@Override
 	public Pizza getPizza(String codePizza) {
-		return jdbcTemplate.queryForObject("SELECT * FROM " + TABLE_PIZZA + " WHERE " + COLUMN_CODE + " = ?", Pizza.class, codePizza);
+		return jdbcTemplate.queryForObject(MessageFormat.format("SELECT * FROM {0} WHERE {1} = ?", TABLE_PIZZA, COLUMN_CODE), Pizza.class, codePizza);
 	}
 
 	@Override
 	public void saveNewPizza(Pizza pizza) throws DaoException {
-		jdbcTemplate.update("INSERT INTO " + TABLE_PIZZA + "(" + COLUMN_CODE + ", " + COLUMN_NOM + ", " + COLUMN_PRIX + ", " + COLUMN_CATEGORIE + ", " + COLUMN_URL_IMAGE + ") VALUES(?, ?, ?, ?, ?)",
+		jdbcTemplate.update(
+				MessageFormat.format("INSERT INTO {0}({1}, {2}, {3}, {4}, {5}) VALUES(?, ?, ?, ?, ?)", TABLE_PIZZA, COLUMN_CODE, COLUMN_NOM, COLUMN_PRIX, COLUMN_CATEGORIE, COLUMN_URL_IMAGE),
 				pizza.getCode(), pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString(), pizza.getUrlImage());
 	}
 
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) throws DaoException {
-		jdbcTemplate.update("UPDATE " + TABLE_PIZZA + " SET " + COLUMN_CODE + " = ?, " + COLUMN_NOM + " = ?, " + COLUMN_PRIX + " = ?, " + COLUMN_CATEGORIE + " = ?, " + COLUMN_URL_IMAGE + " = ? WHERE "
-				+ COLUMN_CODE + " = ?", pizza.getCode(), pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString(), pizza.getUrlImage(), codePizza);
+		jdbcTemplate.update(MessageFormat.format("UPDATE {0} SET {1} = ?, {2} = ?, {3} = ?, {4} = ?, {5} = ? WHERE {6} = ?", TABLE_PIZZA, COLUMN_CODE, COLUMN_NOM, COLUMN_PRIX, COLUMN_CATEGORIE,
+				COLUMN_URL_IMAGE, COLUMN_CODE), pizza.getCode(), pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString(), pizza.getUrlImage(), codePizza);
 	}
 
 	@Override
 	public void deletePizza(String codePizza) throws DaoException {
-		jdbcTemplate.update("DELETE FROM " + TABLE_PIZZA + " WHERE " + COLUMN_CODE + " = ?", codePizza);
+		jdbcTemplate.update(MessageFormat.format("DELETE FROM {0} WHERE {1} = ?", TABLE_PIZZA, COLUMN_CODE), codePizza);
 	}
 
 	@Override
 	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException {
-		for (List<Pizza> list : ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), nb)) {
+		ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), nb).forEach(list -> {
 			transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
 			transactionTemplate.execute((TransactionStatus status) -> {
-				for (Pizza pizza : list) {
-					jdbcTemplate.update(
-							"INSERT INTO " + TABLE_PIZZA + "(" + COLUMN_CODE + ", " + COLUMN_NOM + ", " + COLUMN_PRIX + ", " + COLUMN_CATEGORIE + ", " + COLUMN_URL_IMAGE + ") VALUES(?, ?, ?, ?, ?)",
-							pizza.getCode(), pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString(), pizza.getUrlImage());
-				}
+				list.forEach(pizza -> jdbcTemplate.update(
+						MessageFormat.format("INSERT INTO {0}({1}, {2}, {3}, {4}, {5}) VALUES(?, ?, ?, ?, ?)", TABLE_PIZZA, COLUMN_CODE, COLUMN_NOM, COLUMN_PRIX, COLUMN_CATEGORIE, COLUMN_URL_IMAGE),
+						pizza.getCode(), pizza.getNom(), pizza.getPrix(), pizza.getCategorie().toString(), pizza.getUrlImage()));
 				return null;
 			});
-		}
+		});
 	}
 }

@@ -2,6 +2,7 @@ package fr.pizzeria.ihm.menu.option.client;
 
 import java.util.Scanner;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
@@ -28,10 +29,10 @@ public class SupprimerClientOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Suppression d'un client");
+		ConsoleLogger.out("Suppression d'un client");
 		new ListerClientOptionMenu(dao).execute();
-		System.out.println("Veuillez choisir l'id du client à supprimer.");
-		System.out.println("(99 pour abandonner).");
+		ConsoleLogger.out("Veuillez choisir l'id du client à supprimer.");
+		ConsoleLogger.out("(99 pour abandonner).");
 		Integer id = scan.nextInt();
 		if (99 == id) {
 			return false;
@@ -41,7 +42,7 @@ public class SupprimerClientOptionMenu extends OptionMenu {
 		} catch (DeletePizzaException e) {
 			throw new DeletePizzaException("Erreur : Le client avec l'id " + id + " n'existe pas.", e);
 		}
-		System.out.println();
+		ConsoleLogger.out("");
 		return false;
 	}
 }

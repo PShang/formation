@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SaveClientException;
@@ -31,10 +32,10 @@ public class ConnexionOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Connexion.");
-		System.out.println("Veuillez saisir votre adresse email");
+		ConsoleLogger.out("Connexion.");
+		ConsoleLogger.out("Veuillez saisir votre adresse email");
 		String email = scan.next();
-		System.out.println("Veuillez saisir votre mot de passe");
+		ConsoleLogger.out("Veuillez saisir votre mot de passe");
 		String mdp = scan.next();
 		try {
 			Client client = dao.getClientDao().getClient(email, mdp);
@@ -50,7 +51,7 @@ public class ConnexionOptionMenu extends OptionMenu {
 		} catch (SaveClientException e) {
 			throw new SavePizzaException("Erreur : Le client avec l'adresse email " + email + " existe déjà.", e);
 		}
-		System.out.println();
+		ConsoleLogger.out("");
 		return false;
 	}
 }

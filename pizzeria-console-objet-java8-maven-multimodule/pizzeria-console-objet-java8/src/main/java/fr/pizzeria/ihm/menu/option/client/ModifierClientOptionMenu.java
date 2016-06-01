@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.UpdatePizzaException;
@@ -31,28 +32,28 @@ public class ModifierClientOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Mise à jour d'un client");
+		ConsoleLogger.out("Mise à jour d'un client");
 		new ListerClientOptionMenu(dao).execute();
-		System.out.println("Veuillez choisir l'id du client à modifier.");
-		System.out.println("(99 pour abandonner).");
+		ConsoleLogger.out("Veuillez choisir l'id du client à modifier.");
+		ConsoleLogger.out("(99 pour abandonner).");
 		Integer id = scan.nextInt();
 		if (99 == id) {
 			return false;
 		}
-		System.out.println("Veuillez saisir le nom");
+		ConsoleLogger.out("Veuillez saisir le nom");
 		String nom = scan.next();
-		System.out.println("Veuillez saisir le prenom");
+		ConsoleLogger.out("Veuillez saisir le prenom");
 		String prenom = scan.next();
-		System.out.println("Veuillez saisir l'email");
+		ConsoleLogger.out("Veuillez saisir l'email");
 		String email = scan.next();
-		System.out.println("Veuillez saisir le mdp");
+		ConsoleLogger.out("Veuillez saisir le mdp");
 		String mdp = scan.next();
 		try {
 			dao.getClientDao().updateClient(id, new Client(nom, prenom, email, DigestUtils.md5Hex(mdp).toString()));
 		} catch (UpdatePizzaException e) {
 			throw new UpdatePizzaException("Erreur : Le client avec l'id " + id + " n'existe pas.", e);
 		}
-		System.out.println();
+		ConsoleLogger.out("");
 		return false;
 	}
 }

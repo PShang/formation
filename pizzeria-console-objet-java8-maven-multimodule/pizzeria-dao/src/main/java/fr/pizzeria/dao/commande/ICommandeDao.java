@@ -6,6 +6,7 @@ import fr.pizzeria.model.Commande;
 /**
  * Interface de DAO pour la gestion des {@link Commande}.
  */
+@FunctionalInterface
 public interface ICommandeDao {
 
 	/**

@@ -2,6 +2,7 @@ package fr.pizzeria.ihm.menu.option.pizza;
 
 import java.util.Scanner;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
@@ -28,10 +29,10 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Suppression d'une pizza");
+		ConsoleLogger.out("Suppression d'une pizza");
 		new ListerPizzaOptionMenu(dao).execute();
-		System.out.println("Veuillez choisir le code la pizza à supprimer.");
-		System.out.println("(99 pour abandonner).");
+		ConsoleLogger.out("Veuillez choisir le code la pizza à supprimer.");
+		ConsoleLogger.out("(99 pour abandonner).");
 		String oldCode = scan.next();
 		if ("99".equals(oldCode)) {
 			return false;
@@ -41,7 +42,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		} catch (DeletePizzaException e) {
 			throw new DeletePizzaException("Erreur : La pizza avec le code " + oldCode + " n'existe pas.", e);
 		}
-		System.out.println();
+		ConsoleLogger.out("");
 		return false;
 	}
 }

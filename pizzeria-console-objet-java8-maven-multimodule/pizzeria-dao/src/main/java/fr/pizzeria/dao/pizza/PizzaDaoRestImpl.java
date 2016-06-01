@@ -9,6 +9,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -57,9 +59,9 @@ public class PizzaDaoRestImpl implements IPizzaDao {
 			});
 			jsonReader.close();
 		} catch (MalformedURLException e) {
-			System.err.println("Erreur dans l'URL de l'API REST lors de la lecture des pizzas : " + e.getMessage());
+			Logger.getGlobal().log(Level.SEVERE, "Erreur dans l'URL de l'API REST lors de la lecture des pizzas : " + e.getMessage(), e);
 		} catch (IOException e) {
-			System.err.println("Erreur IO lors de la lecture des pizzas : " + e.getMessage());
+			Logger.getGlobal().log(Level.SEVERE, "Erreur IO lors de la lecture des pizzas : " + e.getMessage(), e);
 		}
 		return pizzas;
 	}

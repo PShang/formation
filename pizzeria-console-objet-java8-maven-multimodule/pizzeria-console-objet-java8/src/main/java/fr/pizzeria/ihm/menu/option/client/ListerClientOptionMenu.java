@@ -1,5 +1,6 @@
 package fr.pizzeria.ihm.menu.option.client;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.ihm.menu.option.OptionMenu;
 
@@ -21,8 +22,8 @@ public class ListerClientOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() {
-		dao.getClientDao().findAllClients().stream().forEach(System.out::println);
-		System.out.println();
+		dao.getClientDao().findAllClients().stream().forEach(ConsoleLogger::out);
+		ConsoleLogger.out("");
 		return false;
 	}
 }

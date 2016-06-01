@@ -2,6 +2,7 @@ package fr.pizzeria.ihm.menu.option.pizza;
 
 import java.util.Scanner;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.dao.pizza.IPizzaDao;
 import fr.pizzeria.dao.pizza.PizzaDaoFichierImpl;
@@ -34,9 +35,9 @@ public class ImporterPizzaOptionMenu extends OptionMenu {
 		if (pizzaDao instanceof PizzaDaoJdbcImpl || pizzaDao instanceof PizzaDaoJdbcTemplateImpl || pizzaDao instanceof PizzaDaoJpaImpl) {
 			pizzaDao.importFromFiles(new PizzaDaoFichierImpl(), 3);
 		} else {
-			System.err.println("Veuillez configurer l'application avec une implémentation base de données.");
+			ConsoleLogger.err("Veuillez configurer l'application avec une implémentation base de données.");
 		}
-		System.out.println();
+		ConsoleLogger.out("");
 		return false;
 	}
 }

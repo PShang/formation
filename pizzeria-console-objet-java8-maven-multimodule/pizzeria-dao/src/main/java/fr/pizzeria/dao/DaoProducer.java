@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
 import fr.pizzeria.dao.client.ClientDaoJpaImpl;
 import fr.pizzeria.dao.client.ClientDaoRestImpl;
 import fr.pizzeria.dao.commande.CommandeDaoJpaImpl;
@@ -32,8 +34,8 @@ public class DaoProducer {
 		return new GenericDaoFactory(new PizzaDaoJdbcImpl(driverConnection, urlConnection, userConnection, passConnection), null, null);
 	}
 
-	public static IDaoFactory getDaoFactoryJdbcTemplate(DataSource dataSource) {
-		return new GenericDaoFactory(new PizzaDaoJdbcTemplateImpl(dataSource), null, null);
+	public static IDaoFactory getDaoFactoryJdbcTemplate(DataSource dataSource, DataSourceTransactionManager txManager) {
+		return new GenericDaoFactory(new PizzaDaoJdbcTemplateImpl(dataSource, txManager), null, null);
 	}
 
 	public static IDaoFactory getDaoFactoryJpa(EntityManagerFactory emf) {

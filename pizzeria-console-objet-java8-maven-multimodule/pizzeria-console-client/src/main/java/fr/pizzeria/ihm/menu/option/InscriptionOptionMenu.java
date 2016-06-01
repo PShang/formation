@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SaveClientException;
@@ -30,21 +31,21 @@ public class InscriptionOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Inscription.");
-		System.out.println("Veuillez saisir votre nom");
+		ConsoleLogger.out("Inscription.");
+		ConsoleLogger.out("Veuillez saisir votre nom");
 		String nom = scan.next();
-		System.out.println("Veuillez saisir votre prénom");
+		ConsoleLogger.out("Veuillez saisir votre prénom");
 		String prenom = scan.next();
-		System.out.println("Veuillez saisir votre adresse email");
+		ConsoleLogger.out("Veuillez saisir votre adresse email");
 		String email = scan.next();
-		System.out.println("Veuillez saisir votre mot de passe");
+		ConsoleLogger.out("Veuillez saisir votre mot de passe");
 		String mdp = scan.next();
 		try {
 			dao.getClientDao().saveNewClient(new Client(nom, prenom, email, DigestUtils.md5Hex(mdp).toString()));
 		} catch (SaveClientException e) {
 			throw new SavePizzaException("Erreur : Le client avec l'adresse email " + email + " existe déjà.", e);
 		}
-		System.out.println();
+		ConsoleLogger.out("");
 		return false;
 	}
 }

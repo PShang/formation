@@ -1,5 +1,6 @@
 package fr.pizzeria.console;
 
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -33,14 +34,14 @@ public class PizzeriaAdminConsoleApp {
 		try {
 			ResourceBundle bundle = ResourceBundle.getBundle(FILE_APLLICATION_PROP);
 			String fileDaoImpl = bundle.getString(PROPERTY_DAO_IMPL);
-			System.out.println("DAO : " + fileDaoImpl);
+			ConsoleLogger.out("DAO : " + fileDaoImpl);
 			try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(APPLICATION_CONFIG_XML, fileDaoImpl)) {
 				Menu menu = context.getBean(Menu.class);
 				menu.afficher();
 			}
 		} catch (MissingResourceException e) {
-			System.err.println(
-					"Erreur: Le fichier " + FILE_APLLICATION_PROP + ".properties doit contenir la propriété \"" + PROPERTY_DAO_IMPL + "\" désignant le fichier de configuration Spring pour la DAO.");
+			ConsoleLogger.err(MessageFormat.format("Erreur: Le fichier {0}.properties doit contenir la propriété \"{1}\" désignant le fichier de configuration Spring pour la DAO.",
+					FILE_APLLICATION_PROP, PROPERTY_DAO_IMPL), e);
 		}
 	}
 }

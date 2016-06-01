@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Client;
@@ -35,14 +36,14 @@ public class CommanderPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Commande.");
+		ConsoleLogger.out("Commande.");
 		boolean stop = false;
 		List<Pizza> pizzas = new ArrayList<>();
 		while (!stop) {
-			dao.getPizzaDao().findAllPizzas().stream().forEach(System.out::println);
-			System.out.println();
-			System.out.println("Veuillez saisir le code de la pizza.");
-			System.out.println("(99 pour valider la liste)");
+			dao.getPizzaDao().findAllPizzas().stream().forEach(ConsoleLogger::out);
+			ConsoleLogger.out("");
+			ConsoleLogger.out("Veuillez saisir le code de la pizza.");
+			ConsoleLogger.out("(99 pour valider la liste)");
 			String code = scan.next();
 			if ("99".equals(code)) {
 				stop = true;
@@ -51,7 +52,7 @@ public class CommanderPizzaOptionMenu extends OptionMenu {
 			}
 		}
 		dao.getCommandeDao().saveNewCommande(new Commande(Calendar.getInstance().getTime(), client, pizzas));
-		System.out.println();
+		ConsoleLogger.out("");
 		return false;
 	}
 }

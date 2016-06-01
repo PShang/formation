@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
@@ -117,7 +119,7 @@ public class Client {
 				String s = f.get(this).toString();
 				return String.format(FORMAT.get(f.getName()), ts.uppercase() ? s.toUpperCase() : s);
 			} catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
+				Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 				return "";
 			}
 		}).collect(Collectors.joining());

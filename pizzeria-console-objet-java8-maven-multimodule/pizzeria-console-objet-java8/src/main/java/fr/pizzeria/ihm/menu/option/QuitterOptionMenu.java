@@ -1,5 +1,7 @@
 package fr.pizzeria.ihm.menu.option;
 
+import fr.pizzeria.console.ConsoleLogger;
+
 public class QuitterOptionMenu extends OptionMenu {
 
 	/**
@@ -16,7 +18,7 @@ public class QuitterOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() {
-		System.out.println("Au revoir ;-)");
+		ConsoleLogger.out("Au revoir ;-)");
 		return true;
 	}
 }

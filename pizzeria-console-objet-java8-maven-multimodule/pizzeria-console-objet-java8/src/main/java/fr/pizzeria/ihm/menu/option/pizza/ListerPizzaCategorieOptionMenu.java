@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.ihm.menu.option.OptionMenu;
 import fr.pizzeria.model.CategoriePizza;
@@ -29,11 +30,11 @@ public class ListerPizzaCategorieOptionMenu extends OptionMenu {
 	public boolean execute() {
 		Map<CategoriePizza, List<Pizza>> map = dao.getPizzaDao().findAllPizzas().stream().collect(Collectors.groupingBy(Pizza::getCategorie));
 		map.forEach((k, v) -> {
-			System.out.println("--- " + k.getLibelle() + " :");
-			v.stream().forEach(System.out::println);
+			ConsoleLogger.out("--- " + k.getLibelle() + " :");
+			v.stream().forEach(ConsoleLogger::out);
 		});
-		System.out.println("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
-		System.out.println();
+		ConsoleLogger.out("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
+		ConsoleLogger.out("");
 		return false;
 	}
 }

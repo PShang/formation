@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -54,7 +56,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 						Number number = format.parse(line[1]);
 						return new Pizza(path.getFileName().toString().replace(".txt", ""), line[0], BigDecimal.valueOf(number.doubleValue()), CategoriePizza.valueOf(line[2]));
 					} catch (IOException | ParseException e) {
-						e.printStackTrace();
+						Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 						return null;
 					}
 				}).forEach(p -> pizzas.put(p.getCode(), p));

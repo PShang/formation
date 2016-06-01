@@ -34,16 +34,17 @@ public class PizzaDaoImplTest {
 
 	@Test
 	public void testFindAllPizzas() {
+		String placeholderImg = "http://placehold.it/150x150";
 		List<Pizza> pizzas = new ArrayList<Pizza>();
-		pizzas.add(new Pizza(1, "PEP", "Pépéroni", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
-		pizzas.add(new Pizza(2, "MAR", "Margherita", BigDecimal.valueOf(14.00), CategoriePizza.SANS_VIANDE, "http://placehold.it/150x150"));
-		pizzas.add(new Pizza(3, "REI", "La Reine", BigDecimal.valueOf(11.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
-		pizzas.add(new Pizza(4, "FRO", "La 4 fromages", BigDecimal.valueOf(12.00), CategoriePizza.SANS_VIANDE, "http://placehold.it/150x150"));
-		pizzas.add(new Pizza(5, "CAN", "La cannibale", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
-		pizzas.add(new Pizza(6, "SAV", "La savoyarde", BigDecimal.valueOf(13.00), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
-		pizzas.add(new Pizza(7, "ORI", "L'orientale", BigDecimal.valueOf(13.50), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
-		pizzas.add(new Pizza(8, "IND", "L'indienne", BigDecimal.valueOf(14.00), CategoriePizza.VIANDE, "http://placehold.it/150x150"));
-		pizzas.add(new Pizza(9, "SAU", "La saumonetta", BigDecimal.valueOf(15.50), CategoriePizza.POISSON, "http://placehold.it/150x150"));
+		pizzas.add(new Pizza(1, "PEP", "Pépéroni", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE, placeholderImg));
+		pizzas.add(new Pizza(2, "MAR", "Margherita", BigDecimal.valueOf(14.00), CategoriePizza.SANS_VIANDE, placeholderImg));
+		pizzas.add(new Pizza(3, "REI", "La Reine", BigDecimal.valueOf(11.50), CategoriePizza.VIANDE, placeholderImg));
+		pizzas.add(new Pizza(4, "FRO", "La 4 fromages", BigDecimal.valueOf(12.00), CategoriePizza.SANS_VIANDE, placeholderImg));
+		pizzas.add(new Pizza(5, "CAN", "La cannibale", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE, placeholderImg));
+		pizzas.add(new Pizza(6, "SAV", "La savoyarde", BigDecimal.valueOf(13.00), CategoriePizza.VIANDE, placeholderImg));
+		pizzas.add(new Pizza(7, "ORI", "L'orientale", BigDecimal.valueOf(13.50), CategoriePizza.VIANDE, placeholderImg));
+		pizzas.add(new Pizza(8, "IND", "L'indienne", BigDecimal.valueOf(14.00), CategoriePizza.VIANDE, placeholderImg));
+		pizzas.add(new Pizza(9, "SAU", "La saumonetta", BigDecimal.valueOf(15.50), CategoriePizza.POISSON, placeholderImg));
 
 		Collections.sort(pizzas, Comparator.comparing(Pizza::getNom));
 		List<Pizza> resultat = dao.findAllPizzas();

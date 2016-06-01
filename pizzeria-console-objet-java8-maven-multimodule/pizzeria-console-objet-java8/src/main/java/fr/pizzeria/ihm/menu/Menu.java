@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.option.OptionMenu;
@@ -73,19 +74,19 @@ public class Menu {
 	public void afficher() {
 		boolean stop = false;
 		while (!stop) {
-			System.out.println(this.titre);
-			options.forEach((k, v) -> System.out.println(k + ". " + v.getLibelle()));
+			ConsoleLogger.out(this.titre);
+			options.forEach((k, v) -> ConsoleLogger.out(k + ". " + v.getLibelle()));
 			try {
 				int choix = this.scan.nextInt();
 				if (options.containsKey(choix)) {
 					stop = options.get(choix).execute();
 				} else {
-					System.err.println("Erreur : L'option " + choix + " n'existe pas.");
+					ConsoleLogger.err("Erreur : L'option " + choix + " n'existe pas.");
 				}
 			} catch (DaoException e) {
-				System.err.println(e.getMessage());
+				ConsoleLogger.err(e.getMessage(), e);
 			} catch (InputMismatchException e) {
-				System.err.println("Erreur de saisie : \"" + scan.next() + "\" n'était pas attendu.");
+				ConsoleLogger.err("Erreur de saisie : \"" + scan.next() + "\" n'était pas attendu.", e);
 			}
 		}
 	}

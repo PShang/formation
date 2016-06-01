@@ -5,6 +5,10 @@
 
 	<bean id="dao" class="fr.pizzeria.dao.DaoProducer" factory-method="getDaoFactoryJdbcTemplate">
 		<constructor-arg name="dataSource" ref="dataSource" />
+		<constructor-arg name="txManager" ref="txManager" />
+	</bean>
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${driver}" />

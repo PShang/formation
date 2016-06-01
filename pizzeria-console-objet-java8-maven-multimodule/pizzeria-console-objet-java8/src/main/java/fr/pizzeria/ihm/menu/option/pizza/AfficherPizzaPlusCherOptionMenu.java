@@ -3,6 +3,7 @@ package fr.pizzeria.ihm.menu.option.pizza;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.ihm.menu.option.OptionMenu;
 import fr.pizzeria.model.Pizza;
@@ -25,10 +26,10 @@ public class AfficherPizzaPlusCherOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() {
-		System.out.println("La pizza la plus cher : ");
-		System.out.println(dao.getPizzaDao().findAllPizzas().stream().collect(Collectors.maxBy(Comparator.comparing(Pizza::getPrix))).get());
-		System.out.println("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
-		System.out.println();
+		ConsoleLogger.out("La pizza la plus cher : ");
+		ConsoleLogger.out(dao.getPizzaDao().findAllPizzas().stream().collect(Collectors.maxBy(Comparator.comparing(Pizza::getPrix))).get());
+		ConsoleLogger.out("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
+		ConsoleLogger.out("");
 		return false;
 	}
 }

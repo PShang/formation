@@ -1,5 +1,6 @@
 package fr.pizzeria.ihm.menu.option.pizza;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.ihm.menu.option.OptionMenu;
 import fr.pizzeria.model.Pizza;
@@ -22,9 +23,9 @@ public class ListerPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() {
-		dao.getPizzaDao().findAllPizzas().stream().forEach(System.out::println);
-		System.out.println("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
-		System.out.println();
+		dao.getPizzaDao().findAllPizzas().stream().forEach(ConsoleLogger::out);
+		ConsoleLogger.out("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
+		ConsoleLogger.out("");
 		return false;
 	}
 }

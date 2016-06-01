@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.CategoriePizzaException;
 import fr.pizzeria.exception.DaoException;
@@ -36,14 +37,14 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		System.out.println("Ajout d'une nouvelle pizza");
-		System.out.println("Veuillez saisir le code");
+		ConsoleLogger.out("Ajout d'une nouvelle pizza");
+		ConsoleLogger.out("Veuillez saisir le code");
 		String code = scan.next();
-		System.out.println("Veuillez saisir le nom (sans espace)");
+		ConsoleLogger.out("Veuillez saisir le nom (sans espace)");
 		String name = scan.next();
-		System.out.println("Veuillez saisir le prix");
+		ConsoleLogger.out("Veuillez saisir le prix");
 		BigDecimal price = scan.nextBigDecimal();
-		System.out.println("Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values()));
+		ConsoleLogger.out("Veuillez saisir la catégorie : " + Arrays.toString(CategoriePizza.values()));
 		String categorieString = scan.next();
 		try {
 			CategoriePizza categorie = CategoriePizza.valueOf(categorieString.toUpperCase());
@@ -53,7 +54,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		} catch (IllegalArgumentException e) {
 			throw new CategoriePizzaException("Erreur de saisie : La catégorie \"" + categorieString + "\" n'existe pas.", e);
 		}
-		System.out.println();
+		ConsoleLogger.out("");
 		return false;
 	}
 }

@@ -1,5 +1,6 @@
 package fr.pizzeria.ihm.menu.option;
 
+import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Client;
@@ -26,7 +27,7 @@ public class ListerCommandesOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		client.getCommandes().forEach(System.out::println);
+		client.getCommandes().forEach(ConsoleLogger::out);
 		return false;
 	}
 }

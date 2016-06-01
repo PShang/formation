@@ -14,6 +14,7 @@ import fr.pizzeria.exception.SaveClientException;
 import fr.pizzeria.model.Client;
 
 public class ClientDaoJpaImpl implements IClientDao {
+	private static final String NON_IMPLEMENTE_JPA = "La méthode n'est pas implémenté en JPA.";
 
 	private EntityManagerFactory emf;
 
@@ -23,7 +24,7 @@ public class ClientDaoJpaImpl implements IClientDao {
 
 	@Override
 	public List<Client> findAllClients() {
-		throw new UnsupportedOperationException("La méthode n'est pas implémenté en JPA.");
+		throw new UnsupportedOperationException(NON_IMPLEMENTE_JPA);
 	}
 
 	@Override
@@ -66,11 +67,11 @@ public class ClientDaoJpaImpl implements IClientDao {
 
 	@Override
 	public void updateClient(Integer idClient, Client client) throws DaoException {
-		throw new UnsupportedOperationException("La méthode n'est pas implémenté en JPA.");
+		throw new UnsupportedOperationException(NON_IMPLEMENTE_JPA);
 	}
 
 	@Override
 	public void deleteClient(Integer idClient) throws DaoException {
-		throw new UnsupportedOperationException("La méthode n'est pas implémenté en JPA.");
+		throw new UnsupportedOperationException(NON_IMPLEMENTE_JPA);
 	}
 }
