@@ -2,6 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
 	<bean id="dao" class="fr.pizzeria.dao.DaoProducer" factory-method="getDaoFactoryRest">
-		<constructor-arg name="baseUrl" value="http://localhost:8080/pizzeria-admin-app/api/rest"></constructor-arg>
+		<constructor-arg name="baseUrl" value="http://localhost:8080/pizzeria-admin-app/api/rest" />
 	</bean>
 </beans>

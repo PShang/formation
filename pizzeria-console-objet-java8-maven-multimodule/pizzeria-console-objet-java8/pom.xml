@@ -19,7 +19,7 @@
 		<profile>
 			<id>prod</id>
 			<properties>
-				<dao.impl>dao-rest-config.xml</dao.impl>
+				<dao.impl>dao-jdbc-template-config.xml</dao.impl>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>

@@ -3,8 +3,10 @@ package fr.pizzeria.ihm.menu.option.pizza;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IDaoFactory;
+import fr.pizzeria.dao.pizza.IPizzaDao;
 import fr.pizzeria.dao.pizza.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoJdbcImpl;
+import fr.pizzeria.dao.pizza.PizzaDaoJdbcTemplateImpl;
 import fr.pizzeria.dao.pizza.PizzaDaoJpaImpl;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.option.OptionMenu;
@@ -28,8 +30,9 @@ public class ImporterPizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean execute() throws DaoException {
-		if (dao instanceof PizzaDaoJdbcImpl || dao instanceof PizzaDaoJpaImpl) {
-			dao.getPizzaDao().importFromFiles(new PizzaDaoFichierImpl(), 3);
+		IPizzaDao pizzaDao = dao.getPizzaDao();
+		if (pizzaDao instanceof PizzaDaoJdbcImpl || pizzaDao instanceof PizzaDaoJdbcTemplateImpl || pizzaDao instanceof PizzaDaoJpaImpl) {
+			pizzaDao.importFromFiles(new PizzaDaoFichierImpl(), 3);
 		} else {
 			System.err.println("Veuillez configurer l'application avec une implémentation base de données.");
 		}
