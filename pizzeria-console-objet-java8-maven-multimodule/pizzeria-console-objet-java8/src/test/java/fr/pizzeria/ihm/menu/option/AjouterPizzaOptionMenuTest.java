@@ -32,7 +32,7 @@ public class AjouterPizzaOptionMenuTest {
 	public void setUp() {
 		Locale.setDefault(Locale.FRENCH);
 		Scanner scan = new Scanner(System.in);
-		dao = new DaoProducer().getDaoFactoryMemoire();
+		dao = DaoProducer.getDaoFactoryMemoire();
 		ajouterPizzaOptionMenu = new AjouterPizzaOptionMenu(dao, scan);
 	}
 

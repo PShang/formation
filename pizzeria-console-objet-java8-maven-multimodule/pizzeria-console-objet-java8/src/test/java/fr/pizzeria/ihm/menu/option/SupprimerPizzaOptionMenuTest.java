@@ -32,7 +32,7 @@ public class SupprimerPizzaOptionMenuTest {
 	public void setUp() {
 		Locale.setDefault(Locale.FRENCH);
 		Scanner scan = new Scanner(System.in);
-		dao = new DaoProducer().getDaoFactoryMemoire();
+		dao = DaoProducer.getDaoFactoryMemoire();
 		supprimerPizzaOptionMenu = new SupprimerPizzaOptionMenu(dao, scan);
 	}
 

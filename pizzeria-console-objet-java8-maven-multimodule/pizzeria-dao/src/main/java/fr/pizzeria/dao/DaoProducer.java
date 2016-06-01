@@ -16,6 +16,8 @@ import fr.pizzeria.exception.DaoException;
 
 public class DaoProducer {
 
+	private DaoProducer() {}
+
 	public static IDaoFactory getDaoFactoryMemoire() {
 		return new GenericDaoFactory(new PizzaDaoImpl(), null, null);
 	}

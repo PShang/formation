@@ -36,7 +36,7 @@ public class PizzeriaClientConsoleApp {
 		Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("pizzeria-console-client");
-		IDaoFactory dao = new DaoProducer().getDaoFactoryJpa(emf);
+		IDaoFactory dao = DaoProducer.getDaoFactoryJpa(emf);
 
 		Scanner scan = new Scanner(System.in);
 		Map<Integer, OptionMenu> options = new TreeMap<>();

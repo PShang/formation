@@ -25,7 +25,7 @@ public class ListerPizzaOptionMenuTest {
 	@Before
 	public void setUp() {
 		Locale.setDefault(Locale.FRENCH);
-		dao = new DaoProducer().getDaoFactoryMemoire();
+		dao = DaoProducer.getDaoFactoryMemoire();
 		listerPizzaOptionMenu = new ListerPizzaOptionMenu(dao);
 	}
 

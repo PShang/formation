@@ -34,7 +34,7 @@ public class ModifierPizzaOptionMenuTest {
 	public void setUp() {
 		Locale.setDefault(Locale.FRENCH);
 		Scanner scan = new Scanner(System.in);
-		dao = new DaoProducer().getDaoFactoryMemoire();
+		dao = DaoProducer.getDaoFactoryMemoire();
 		modifierPizzaOptionMenu = new ModifierPizzaOptionMenu(dao, scan);
 	}
 
