@@ -5,7 +5,12 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
 
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
@@ -17,7 +22,9 @@ import fr.pizzeria.model.Pizza;
 /**
  * Implémentation de la DAO utilisant une {@link Map} pour les pizzas.
  */
-public class PizzaDaoImpl implements IPizzaDao {
+@Repository
+@Lazy
+public class PizzaDaoMemoireImpl implements IPizzaDao {
 
 	/**
 	 * La {@link Map} pour les pizzas.
@@ -27,7 +34,8 @@ public class PizzaDaoImpl implements IPizzaDao {
 	/**
 	 * Constructeur. Initialise la {@link Map} de pizzas.
 	 */
-	public PizzaDaoImpl() {
+	public PizzaDaoMemoireImpl() {
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
 		String placeholderImg = "http://placehold.it/150x150";
 		pizzas = new HashMap<>();
 		pizzas.put("PEP", new Pizza(1, "PEP", "Pépéroni", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE, placeholderImg));

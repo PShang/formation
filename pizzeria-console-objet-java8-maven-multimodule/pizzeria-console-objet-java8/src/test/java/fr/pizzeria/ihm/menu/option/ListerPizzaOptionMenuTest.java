@@ -11,8 +11,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 
-import fr.pizzeria.dao.DaoProducer;
+import fr.pizzeria.dao.GenericDaoFactory;
 import fr.pizzeria.dao.IDaoFactory;
+import fr.pizzeria.dao.pizza.PizzaDaoMemoireImpl;
 import fr.pizzeria.ihm.menu.option.pizza.ListerPizzaOptionMenu;
 import fr.pizzeria.model.Pizza;
 
@@ -25,7 +26,7 @@ public class ListerPizzaOptionMenuTest {
 	@Before
 	public void setUp() {
 		Locale.setDefault(Locale.FRENCH);
-		dao = DaoProducer.getDaoFactoryMemoire();
+		dao = new GenericDaoFactory(new PizzaDaoMemoireImpl(), null, null);
 		listerPizzaOptionMenu = new ListerPizzaOptionMenu(dao);
 	}
 

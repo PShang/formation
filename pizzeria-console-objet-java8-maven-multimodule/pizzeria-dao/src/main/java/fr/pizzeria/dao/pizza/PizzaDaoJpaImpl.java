@@ -1,6 +1,8 @@
 package fr.pizzeria.dao.pizza;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,6 +10,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import org.apache.commons.collections4.ListUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
 
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
@@ -18,6 +23,8 @@ import fr.pizzeria.model.Pizza;
 /**
  * Implémentation de la DAO JPA pour les pizzas.
  */
+@Repository
+@Lazy
 public class PizzaDaoJpaImpl implements IPizzaDao {
 
 	private static final String PIZZA_FIND_BY_CODE = "pizza.findByCode";
@@ -28,7 +35,9 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 	 * 
 	 * @param emf L'entityManagerFactory pour JPA.
 	 */
+	@Autowired
 	public PizzaDaoJpaImpl(EntityManagerFactory emf) {
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
 		this.emf = emf;
 	}
 

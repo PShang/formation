@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import fr.pizzeria.console.ConsoleLogger;
 import fr.pizzeria.dao.IDaoFactory;
 import fr.pizzeria.exception.DaoException;
@@ -25,6 +28,7 @@ import fr.pizzeria.ihm.menu.option.pizza.SupprimerPizzaOptionMenu;
 /**
  * Classe pour le menu principale.
  */
+@Component
 public class Menu {
 
 	/**
@@ -42,6 +46,7 @@ public class Menu {
 	 * @param scan Un {@link Scanner} pour la gestion des saisies utilisateur.
 	 * @param dao La DAO Factory.
 	 */
+	@Autowired
 	public Menu(Scanner scan, IDaoFactory dao) {
 		this.titre = "***** " + MENU_TITRE_LIBELLE + " *****";
 		this.scan = scan;

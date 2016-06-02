@@ -3,13 +3,18 @@ package fr.pizzeria.dao.pizza;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
 import org.apache.commons.collections4.ListUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -22,8 +27,10 @@ import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 /**
- * Implémentation de la DAO JDBC pour les pizzas.
+ * Implémentation de la DAO JDBC Template pour les pizzas.
  */
+@Repository
+@Lazy
 public class PizzaDaoJdbcTemplateImpl implements IPizzaDao {
 	private JdbcTemplate jdbcTemplate;
 	private TransactionTemplate transactionTemplate;
@@ -41,7 +48,9 @@ public class PizzaDaoJdbcTemplateImpl implements IPizzaDao {
 	 * 
 	 * @param dataSource La DataSource.
 	 */
-	public PizzaDaoJdbcTemplateImpl(DataSource dataSource, DataSourceTransactionManager txManager) {
+	@Autowired
+	public PizzaDaoJdbcTemplateImpl(DataSource dataSource, PlatformTransactionManager txManager) {
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		transactionTemplate = new TransactionTemplate(txManager);
 	}

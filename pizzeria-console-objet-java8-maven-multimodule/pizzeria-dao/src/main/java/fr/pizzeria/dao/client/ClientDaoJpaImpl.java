@@ -1,6 +1,8 @@
 package fr.pizzeria.dao.client;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,17 +10,22 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
 
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SaveClientException;
 import fr.pizzeria.model.Client;
 
+@Repository
+@Lazy
 public class ClientDaoJpaImpl implements IClientDao {
 	private static final String NON_IMPLEMENTE_JPA = "La méthode n'est pas implémenté en JPA.";
 
 	private EntityManagerFactory emf;
 
 	public ClientDaoJpaImpl(EntityManagerFactory emf) {
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
 		this.emf = emf;
 	}
 

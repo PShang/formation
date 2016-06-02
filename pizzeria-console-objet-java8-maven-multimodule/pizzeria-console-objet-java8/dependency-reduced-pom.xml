@@ -38,20 +38,6 @@
       </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>dev</id>
-      <properties>
-        <dao.impl>dao-memoire-config.xml</dao.impl>
-      </properties>
-    </profile>
-    <profile>
-      <id>prod</id>
-      <properties>
-        <dao.impl>dao-jdbc-template-config.xml</dao.impl>
-      </properties>
-    </profile>
-  </profiles>
   <dependencies>
     <dependency>
       <groupId>com.github.stefanbirkner</groupId>
@@ -75,6 +61,7 @@
   <properties>
     <db.user>root</db.user>
     <db.url>jdbc:mysql://localhost:3306/pizzeria</db.url>
+    <rest.baseUrl>http://localhost:8080/pizzeria-admin-app/api/rest</rest.baseUrl>
     <db.driver>com.mysql.jdbc.Driver</db.driver>
   </properties>
 </project>

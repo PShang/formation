@@ -19,6 +19,9 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
+
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
@@ -29,6 +32,8 @@ import fr.pizzeria.model.Pizza;
 /**
  * Implémentation de la DAO utilisant une {@link Map} pour les pizzas.
  */
+@Repository
+@Lazy
 public class PizzaDaoFichierImpl implements IPizzaDao {
 
 	/**
@@ -44,6 +49,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	 * @throws DaoException
 	 */
 	public PizzaDaoFichierImpl() throws DaoException {
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
 		try {
 			if (Files.notExists(ROOTDIR)) {
 				Files.createDirectory(ROOTDIR);

@@ -16,9 +16,15 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
+
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Client;
 
+@Repository
+@Lazy
 public class ClientDaoRestImpl implements IClientDao {
 	private static final String CLIENT_URL = "/clients";
 	private static final String CLIENT_FIELD_ID = "id";
@@ -28,7 +34,12 @@ public class ClientDaoRestImpl implements IClientDao {
 	private static final String CLIENT_FIELD_MDP = "mdp";
 	private String baseUrl;
 
-	public ClientDaoRestImpl(String baseUrl) {
+	public ClientDaoRestImpl() {
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
+	}
+
+	@Value("${rest.baseUrl}")
+	public void setBaseUrl(String baseUrl) {
 		this.baseUrl = baseUrl;
 	}
 

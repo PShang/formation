@@ -14,8 +14,9 @@ import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
-import fr.pizzeria.dao.DaoProducer;
+import fr.pizzeria.dao.GenericDaoFactory;
 import fr.pizzeria.dao.IDaoFactory;
+import fr.pizzeria.dao.pizza.PizzaDaoMemoireImpl;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.ihm.menu.option.pizza.AjouterPizzaOptionMenu;
@@ -32,7 +33,7 @@ public class AjouterPizzaOptionMenuTest {
 	public void setUp() {
 		Locale.setDefault(Locale.FRENCH);
 		Scanner scan = new Scanner(System.in);
-		dao = DaoProducer.getDaoFactoryMemoire();
+		dao = new GenericDaoFactory(new PizzaDaoMemoireImpl(), null, null);
 		ajouterPizzaOptionMenu = new AjouterPizzaOptionMenu(dao, scan);
 	}
 
