@@ -53,7 +53,7 @@ public class PizzaDaoImplTest {
 
 	@Test
 	public void testSaveNewPizzaCodeInexistant() throws DaoException {
-		Pizza newPizza = new Pizza("CODE_INEXISTANT", "nom", BigDecimal.valueOf(11), CategoriePizza.POISSON);
+		Pizza newPizza = new Pizza("CODEINEX", "nom", BigDecimal.valueOf(11), CategoriePizza.POISSON);
 		dao.saveNewPizza(newPizza);
 		List<Pizza> listPizzas = dao.findAllPizzas();
 		assertTrue(listPizzas.contains(newPizza));
@@ -67,8 +67,8 @@ public class PizzaDaoImplTest {
 
 	@Test(expected = UpdatePizzaException.class)
 	public void testUpdatePizzaCodeInexistant() throws DaoException {
-		Pizza newPizza = new Pizza("CODE_INEXISTANT", "nom", BigDecimal.valueOf(11), CategoriePizza.POISSON);
-		dao.updatePizza("CODE_INEXISTANT", newPizza);
+		Pizza newPizza = new Pizza("CODEINEX", "nom", BigDecimal.valueOf(11), CategoriePizza.POISSON);
+		dao.updatePizza("CODEINEX", newPizza);
 	}
 
 	@Test
@@ -83,7 +83,7 @@ public class PizzaDaoImplTest {
 
 	@Test(expected = DeletePizzaException.class)
 	public void testDeletePizzaCodeInexistant() throws DaoException {
-		dao.deletePizza("CODE_INEXISTANT");
+		dao.deletePizza("CODEINEX");
 	}
 
 	@Test

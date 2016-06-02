@@ -37,7 +37,7 @@ public class Pizza {
 	/**
 	 * Variable statique servant a compter la création des pizzas..
 	 */
-	public static int nbPizzas;
+	private static int nbPizzas;
 
 	private static final Map<String, String> FORMAT = new HashMap<>();
 
@@ -115,6 +115,10 @@ public class Pizza {
 		return urlImage;
 	}
 
+	public static int getNbPizzas() {
+		return Pizza.nbPizzas;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -150,7 +154,7 @@ public class Pizza {
 			try {
 				String s;
 				if ("categorie".equals(f.getName()))
-					s = ((CategoriePizza) f.get(this)).getLibelle().toString();
+					s = ((CategoriePizza) f.get(this)).getLibelle();
 				else
 					s = f.get(this).toString();
 				return String.format(FORMAT.get(f.getName()), ts.uppercase() ? s.toUpperCase() : s);
@@ -168,6 +172,6 @@ public class Pizza {
 
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+		return EqualsBuilder.reflectionEquals(this, obj, "id", "prix", "urlImage");
 	}
 }

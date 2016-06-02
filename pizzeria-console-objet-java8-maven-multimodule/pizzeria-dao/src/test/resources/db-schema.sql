@@ -1,4 +1,4 @@
-CREATE TABLE `pizza` (
+CREATE TABLE IF NOT EXISTS `pizza` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `categorie` varchar(255) NOT NULL,
   `code` varchar(8) NOT NULL,
@@ -7,4 +7,4 @@ CREATE TABLE `pizza` (
   `url_image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_m169cbpctqeb9bc04mkr6nw7n` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+);

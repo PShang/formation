@@ -49,7 +49,7 @@ public class ModifierClientOptionMenu extends OptionMenu {
 		ConsoleLogger.out("Veuillez saisir le mdp");
 		String mdp = scan.next();
 		try {
-			dao.getClientDao().updateClient(id, new Client(nom, prenom, email, DigestUtils.md5Hex(mdp).toString()));
+			dao.getClientDao().updateClient(id, new Client(nom, prenom, email, DigestUtils.md5Hex(mdp)));
 		} catch (UpdatePizzaException e) {
 			throw new UpdatePizzaException("Erreur : Le client avec l'id " + id + " n'existe pas.", e);
 		}

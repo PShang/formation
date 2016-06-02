@@ -24,7 +24,7 @@ public class ListerPizzaOptionMenu extends OptionMenu {
 	@Override
 	public boolean execute() {
 		dao.getPizzaDao().findAllPizzas().stream().forEach(ConsoleLogger::out);
-		ConsoleLogger.out("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
+		ConsoleLogger.out("------- " + Pizza.getNbPizzas() + " pizzas créées depuis l'initialisation du programme");
 		ConsoleLogger.out("");
 		return false;
 	}

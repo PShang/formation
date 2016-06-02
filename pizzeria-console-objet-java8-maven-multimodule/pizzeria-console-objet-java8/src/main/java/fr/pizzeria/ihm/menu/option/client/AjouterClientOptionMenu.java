@@ -45,7 +45,7 @@ public class AjouterClientOptionMenu extends OptionMenu {
 		ConsoleLogger.out("Veuillez saisir le mdp");
 		String mdp = scan.next();
 		try {
-			dao.getClientDao().saveNewClient(new Client(nom, prenom, email, DigestUtils.md5Hex(mdp).toString()));
+			dao.getClientDao().saveNewClient(new Client(nom, prenom, email, DigestUtils.md5Hex(mdp)));
 		} catch (SavePizzaException e) {
 			throw new SavePizzaException("Erreur : Le client avec l'adresse email " + email + " existe déjà.", e);
 		}

@@ -28,7 +28,7 @@ public class AfficherPizzaPlusCherOptionMenu extends OptionMenu {
 	public boolean execute() {
 		ConsoleLogger.out("La pizza la plus cher : ");
 		ConsoleLogger.out(dao.getPizzaDao().findAllPizzas().stream().collect(Collectors.maxBy(Comparator.comparing(Pizza::getPrix))).get());
-		ConsoleLogger.out("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
+		ConsoleLogger.out("------- " + Pizza.getNbPizzas() + " pizzas créées depuis l'initialisation du programme");
 		ConsoleLogger.out("");
 		return false;
 	}

@@ -11,7 +11,7 @@
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<jdbc:embedded-database id="dataSource" type="H2">
+	<jdbc:embedded-database database-name="test" id="dataSource" type="H2">
 		<jdbc:script location="classpath:db-schema.sql" />
 		<jdbc:script location="classpath:db-data.sql" />
 	</jdbc:embedded-database>

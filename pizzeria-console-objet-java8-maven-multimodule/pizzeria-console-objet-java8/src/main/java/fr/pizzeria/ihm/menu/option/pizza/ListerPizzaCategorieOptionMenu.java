@@ -33,7 +33,7 @@ public class ListerPizzaCategorieOptionMenu extends OptionMenu {
 			ConsoleLogger.out("--- " + k.getLibelle() + " :");
 			v.stream().forEach(ConsoleLogger::out);
 		});
-		ConsoleLogger.out("------- " + Pizza.nbPizzas + " pizzas créées depuis l'initialisation du programme");
+		ConsoleLogger.out("------- " + Pizza.getNbPizzas() + " pizzas créées depuis l'initialisation du programme");
 		ConsoleLogger.out("");
 		return false;
 	}
