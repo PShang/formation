@@ -5,11 +5,13 @@ import java.util.Calendar;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import fr.pizzeria.dao.performance.IPerformanceDao;
 import fr.pizzeria.model.Performance;
+import fr.pizzeria.model.Pizza;
 
 @Aspect
 @Component
@@ -26,5 +28,12 @@ public class GreffonPerformance {
 		Performance p = new Performance(pjp.getSignature().toShortString(), Calendar.getInstance().getTime(), tempsExecution);
 		performanceDao.saveNewPerformance(p);
 		return obj;
+	}
+
+	@Before("execution(* fr.pizzeria.dao.pizza.*.saveNewPizza(..)) && args(pizza)")
+	public void generateCodePizza(Pizza pizza) {
+		if (pizza.getCode() == null || pizza.getCode().isEmpty()) {
+			pizza.setCode(pizza.getNom().substring(0, 3).toUpperCase());
+		}
 	}
 }
