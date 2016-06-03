@@ -15,13 +15,14 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SaveClientException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Client;
 
 @Repository
 @Lazy
 public class ClientDaoJpaImpl implements IClientDao {
-	private static final String NON_IMPLEMENTE_JPA = "La méthode n'est pas implémenté en JPA.";
 
 	private EntityManagerFactory emf;
 
@@ -77,11 +78,35 @@ public class ClientDaoJpaImpl implements IClientDao {
 
 	@Override
 	public void updateClient(Integer idClient, Client client) throws DaoException {
-		throw new UnsupportedOperationException(NON_IMPLEMENTE_JPA);
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Client p = em.find(Client.class, idClient);
+			p.setNom(client.getNom());
+			p.setPrenom(client.getPrenom());
+			p.setEmail(client.getEmail());
+			p.setMdp(client.getMdp());
+			em.getTransaction().commit();
+		} catch (PersistenceException e) {
+			em.getTransaction().rollback();
+			throw new UpdatePizzaException("Erreur SQL lors de la mise à jour des données.", e);
+		} finally {
+			em.close();
+		}
 	}
 
 	@Override
 	public void deleteClient(Integer idClient) throws DaoException {
-		throw new UnsupportedOperationException(NON_IMPLEMENTE_JPA);
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.remove(em.find(Client.class, idClient));
+			em.getTransaction().commit();
+		} catch (PersistenceException e) {
+			em.getTransaction().rollback();
+			throw new DeletePizzaException("Erreur SQL lors de la suppression des données.", e);
+		} finally {
+			em.close();
+		}
 	}
 }

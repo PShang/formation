@@ -6,6 +6,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,22 @@ public class GreffonPerformance {
 
 	@Autowired IPerformanceDao performanceDao;
 
-	@Around("execution(* fr.pizzeria.dao.pizza.*.*(..))")
+	@Pointcut("execution(* fr.pizzeria.dao.pizza.IPizzaDao.*(..))")
+	private void toutesLesMethodesPizza() {
+		// Les Pointcut sont vide.
+	}
+
+	@Pointcut("execution(* fr.pizzeria.dao.client.IClientDao.*(..))")
+	private void toutesLesMethodesClient() {
+		// Les Pointcut sont vide.
+	}
+
+	@Pointcut("execution(* fr.pizzeria.dao.commande.ICommandeDao.*(..))")
+	private void toutesLesMethodesCommande() {
+		// Les Pointcut sont vide.
+	}
+
+	@Around("toutesLesMethodesPizza() || toutesLesMethodesClient() || toutesLesMethodesCommande()")
 	public Object calcExecutionTime(ProceedingJoinPoint pjp) throws Throwable {
 		long before = Calendar.getInstance().getTimeInMillis();
 		Object obj = pjp.proceed();
@@ -30,7 +46,7 @@ public class GreffonPerformance {
 		return obj;
 	}
 
-	@Before("execution(* fr.pizzeria.dao.pizza.*.saveNewPizza(..)) && args(pizza)")
+	@Before("execution(* fr.pizzeria.dao.pizza.IPizzaDao.saveNewPizza(..)) && args(pizza)")
 	public void generateCodePizza(Pizza pizza) {
 		if (pizza.getCode() == null || pizza.getCode().isEmpty()) {
 			pizza.setCode(pizza.getNom().substring(0, 3).toUpperCase());

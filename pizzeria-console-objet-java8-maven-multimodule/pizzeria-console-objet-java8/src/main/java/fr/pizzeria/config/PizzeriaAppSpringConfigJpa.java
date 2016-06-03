@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import fr.pizzeria.dao.GenericDaoFactory;
 import fr.pizzeria.dao.IDaoFactory;
+import fr.pizzeria.dao.client.IClientDao;
+import fr.pizzeria.dao.commande.ICommandeDao;
 import fr.pizzeria.dao.pizza.IPizzaDao;
 
 @Configuration
@@ -37,8 +39,9 @@ public class PizzeriaAppSpringConfigJpa {
 	}
 
 	@Bean
-	public IDaoFactory daoFactory(@Qualifier("pizzaDaoJpaDataImpl") IPizzaDao pizzaDao) {
-		return new GenericDaoFactory(pizzaDao, null, null);
+	public IDaoFactory daoFactory(@Qualifier("pizzaDaoJpaDataImpl") IPizzaDao pizzaDao, @Qualifier("clientDaoJpaImpl") IClientDao clientDao,
+			@Qualifier("commandeDaoJpaImpl") ICommandeDao commandeDao) {
+		return new GenericDaoFactory(pizzaDao, clientDao, commandeDao);
 	}
 
 	@Bean
