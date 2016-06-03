@@ -10,3 +10,9 @@ INSERT INTO `pizza` (`id`, `categorie`, `code`, `nom`, `prix`, `url_image`) VALU
 (9, 'SANS_VIANDE', 'MAR', 'Margherita', '14.00', 'http://placehold.it/150x150'),
 (10, 'VIANDE', 'PEP', 'Pépéroni', '12.50', 'http://placehold.it/150x150'),
 (11, 'POISSON', 'AAA', 'Test', '31.51', 'http://placehold.it/150x150');
+
+INSERT INTO `performance` (`id`, `date`, `service`, `tempsExecution`) VALUES
+(1, '2016-06-03 11:57:58', 'fr.pizzeria.dao.pizza.PizzaDaoJpaDataImpl@4cdb8504', 61),
+(2, '2016-06-03 11:58:12', 'fr.pizzeria.dao.pizza.PizzaDaoJpaDataImpl@4cdb8504', 29),
+(3, '2016-06-03 12:01:30', 'List fr.pizzeria.dao.pizza.IPizzaDao.findAllPizzas()', 73),
+(4, '2016-06-03 12:02:26', 'void fr.pizzeria.dao.pizza.IPizzaDao.saveNewPizza(Pizza)', 59);

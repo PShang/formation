@@ -84,7 +84,7 @@ public class PizzaDaoMemoireImpl implements IPizzaDao {
 	}
 
 	@Override
-	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException {
+	public void saveAllPizzas(List<Pizza> pizzas, int nb) throws DaoException {
 		throw new UnsupportedOperationException("La méthode n'est utilisable uniquement avec les bases de données.");
 	}
 }

@@ -24,6 +24,7 @@ import fr.pizzeria.repos.IPizzaRepository;
 public class PizzaDaoJpaDataImpl implements IPizzaDao {
 
 	@Autowired private IPizzaRepository pizzaRepository;
+	@Autowired private BatchPizzaDaoJpaData batchPizzaDaoJpaData;
 
 	public PizzaDaoJpaDataImpl() {
 		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
@@ -66,7 +67,7 @@ public class PizzaDaoJpaDataImpl implements IPizzaDao {
 
 	@Override
 	@Transactional
-	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException {
-		ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), nb).forEach(pizzaRepository::save);
+	public void saveAllPizzas(List<Pizza> pizzas, int nb) throws DaoException {
+		ListUtils.partition(pizzas, nb).forEach(batchPizzaDaoJpaData::save);
 	}
 }

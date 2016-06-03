@@ -2,16 +2,17 @@ package fr.pizzeria.dao.pizza;
 
 import java.text.MessageFormat;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.sql.DataSource;
+import javax.transaction.TransactionManager;
 
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -44,15 +45,16 @@ public class PizzaDaoJdbcTemplateImpl implements IPizzaDao {
 	private static final String COLUMN_URL_IMAGE = "url_image";
 
 	/**
-	 * Constructeur. Initialise la {@link Map} de pizzas en lisant une base de données de pizzas.
+	 * Constructeur.
 	 * 
-	 * @param dataSource La DataSource.
+	 * @param dataSource La {@link DataSource}.
+	 * @param transactionManager Le {@link TransactionManager}
 	 */
 	@Autowired
-	public PizzaDaoJdbcTemplateImpl(DataSource dataSource, PlatformTransactionManager txManager) {
+	public PizzaDaoJdbcTemplateImpl(DataSource dataSource, PlatformTransactionManager transactionManager) {
 		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
 		jdbcTemplate = new JdbcTemplate(dataSource);
-		transactionTemplate = new TransactionTemplate(txManager);
+		transactionTemplate = new TransactionTemplate(transactionManager);
 	}
 
 	@Override
@@ -71,16 +73,24 @@ public class PizzaDaoJdbcTemplateImpl implements IPizzaDao {
 
 	@Override
 	public Pizza getPizza(String codePizza) {
-		return jdbcTemplate.queryForObject(MessageFormat.format("SELECT * FROM {0} WHERE {1} = ?", TABLE_PIZZA, COLUMN_CODE), (rs, rowNum) -> {
-			Pizza p = new Pizza();
-			p.setId(rs.getInt(COLUMN_ID));
-			p.setCode(rs.getString(COLUMN_CODE));
-			p.setNom(rs.getString(COLUMN_NOM));
-			p.setPrix(rs.getBigDecimal(COLUMN_PRIX));
-			p.setCategorie(CategoriePizza.valueOf(rs.getString(COLUMN_CATEGORIE)));
-			p.setUrlImage(rs.getString(COLUMN_URL_IMAGE));
-			return p;
-		}, codePizza);
+		Pizza pizza;
+		try {
+			pizza = jdbcTemplate.queryForObject(MessageFormat.format("SELECT * FROM {0} WHERE {1} = ?", TABLE_PIZZA, COLUMN_CODE), (rs, rowNum) -> {
+				Pizza p = new Pizza();
+				p.setId(rs.getInt(COLUMN_ID));
+				p.setCode(rs.getString(COLUMN_CODE));
+				p.setNom(rs.getString(COLUMN_NOM));
+				p.setPrix(rs.getBigDecimal(COLUMN_PRIX));
+				p.setCategorie(CategoriePizza.valueOf(rs.getString(COLUMN_CATEGORIE)));
+				p.setUrlImage(rs.getString(COLUMN_URL_IMAGE));
+				return p;
+			}, codePizza);
+		} catch (EmptyResultDataAccessException e) {
+			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "La pizza avec le code " + codePizza + " n'existe pas.", e);
+			pizza = null;
+		}
+		return pizza;
+
 	}
 
 	@Override
@@ -108,8 +118,8 @@ public class PizzaDaoJdbcTemplateImpl implements IPizzaDao {
 	}
 
 	@Override
-	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException {
-		ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), nb).forEach(list -> {
+	public void saveAllPizzas(List<Pizza> pizzas, int nb) throws DaoException {
+		ListUtils.partition(pizzas, nb).forEach(list -> {
 			transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
 			transactionTemplate.execute((TransactionStatus status) -> {
 				list.forEach(pizza -> jdbcTemplate.update(

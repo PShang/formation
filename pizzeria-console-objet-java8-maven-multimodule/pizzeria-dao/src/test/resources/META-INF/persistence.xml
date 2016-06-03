@@ -6,6 +6,7 @@
 		<class>fr.pizzeria.model.Client</class>
 		<class>fr.pizzeria.model.Livreur</class>
 		<class>fr.pizzeria.model.Commande</class>
+		<class>fr.pizzeria.model.Performance</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:testdb" />

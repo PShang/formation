@@ -5,12 +5,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.apache.commons.collections4.ListUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.pizzeria.exception.DaoException;
@@ -25,6 +26,7 @@ public class PizzaDaoJpaSpringImpl implements IPizzaDao {
 
 	private static final String PIZZA_FIND_BY_CODE = "pizza.findByCode";
 	@PersistenceContext private EntityManager em;
+	@Autowired private BatchPizzaDaoJpaSpring batchPizzaDaoJpaSpring;
 
 	public PizzaDaoJpaSpringImpl() {
 		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
@@ -37,7 +39,14 @@ public class PizzaDaoJpaSpringImpl implements IPizzaDao {
 
 	@Override
 	public Pizza getPizza(String code) throws DaoException {
-		return em.createNamedQuery(PIZZA_FIND_BY_CODE, Pizza.class).setParameter("code", code).getSingleResult();
+		Pizza p;
+		try {
+			p = em.createNamedQuery(PIZZA_FIND_BY_CODE, Pizza.class).setParameter("code", code).getSingleResult();
+		} catch (NoResultException e) {
+			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "La pizza avec le code " + code + " n'existe pas.", e);
+			p = null;
+		}
+		return p;
 	}
 
 	@Override
@@ -64,14 +73,7 @@ public class PizzaDaoJpaSpringImpl implements IPizzaDao {
 
 	@Override
 	@Transactional
-	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException {
-		for (List<Pizza> list : ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), nb)) {
-			importFromList(list);
-		}
-	}
-
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	private void importFromList(List<Pizza> list) {
-		list.forEach(em::persist);
+	public void saveAllPizzas(List<Pizza> pizzas, int nb) throws DaoException {
+		ListUtils.partition(pizzas, nb).forEach(batchPizzaDaoJpaSpring::save);
 	}
 }

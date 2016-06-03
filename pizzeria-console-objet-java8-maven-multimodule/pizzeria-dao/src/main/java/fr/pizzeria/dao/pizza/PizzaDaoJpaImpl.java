@@ -117,8 +117,8 @@ public class PizzaDaoJpaImpl implements IPizzaDao {
 	}
 
 	@Override
-	public void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException {
-		for (List<Pizza> list : ListUtils.partition(pizzaDaoFichierImpl.findAllPizzas(), nb)) {
+	public void saveAllPizzas(List<Pizza> pizzas, int nb) throws DaoException {
+		for (List<Pizza> list : ListUtils.partition(pizzas, nb)) {
 			EntityManager em = emf.createEntityManager();
 			try {
 				em.getTransaction().begin();

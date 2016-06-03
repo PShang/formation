@@ -54,9 +54,9 @@ public interface IPizzaDao {
 	/**
 	 * Importe les pizzas depuis les fichiers.
 	 * 
-	 * @param pizzaDaoFichierImpl La DAO pour la lecture des fichiers.
+	 * @param pizzas La Liste des pizzas à ajouter.
 	 * @param nb Le nombre de pizza par groupe d'importation.
 	 * @throws DaoException
 	 */
-	void importFromFiles(PizzaDaoFichierImpl pizzaDaoFichierImpl, int nb) throws DaoException;
+	void saveAllPizzas(List<Pizza> pizzas, int nb) throws DaoException;
 }

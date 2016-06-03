@@ -12,6 +12,7 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -27,6 +28,7 @@ import fr.pizzeria.dao.pizza.IPizzaDao;
 @ComponentScan("fr.pizzeria")
 @EnableTransactionManagement
 @EnableJpaRepositories("fr.pizzeria.repos")
+@EnableAspectJAutoProxy
 public class PizzeriaAppSpringConfigJpa {
 
 	@Bean
