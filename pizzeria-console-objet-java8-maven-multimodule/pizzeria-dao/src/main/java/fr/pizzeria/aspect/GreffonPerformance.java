@@ -6,7 +6,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,22 +19,7 @@ public class GreffonPerformance {
 
 	@Autowired IPerformanceDao performanceDao;
 
-	@Pointcut("execution(* fr.pizzeria.dao.pizza.IPizzaDao.*(..))")
-	private void toutesLesMethodesPizza() {
-		// Les Pointcut sont vide.
-	}
-
-	@Pointcut("execution(* fr.pizzeria.dao.client.IClientDao.*(..))")
-	private void toutesLesMethodesClient() {
-		// Les Pointcut sont vide.
-	}
-
-	@Pointcut("execution(* fr.pizzeria.dao.commande.ICommandeDao.*(..))")
-	private void toutesLesMethodesCommande() {
-		// Les Pointcut sont vide.
-	}
-
-	@Around("toutesLesMethodesPizza() || toutesLesMethodesClient() || toutesLesMethodesCommande()")
+	@Around("execution(* fr.pizzeria.dao.pizza.IPizzaDao.*(..)) || execution(* fr.pizzeria.dao.client.IClientDao.*(..)) || execution(* fr.pizzeria.dao.commande.ICommandeDao.*(..))")
 	public Object calcExecutionTime(ProceedingJoinPoint pjp) throws Throwable {
 		long before = Calendar.getInstance().getTimeInMillis();
 		Object obj = pjp.proceed();
