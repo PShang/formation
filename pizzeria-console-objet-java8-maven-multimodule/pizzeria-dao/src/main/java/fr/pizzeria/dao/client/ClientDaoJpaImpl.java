@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,7 @@ public class ClientDaoJpaImpl implements IClientDao {
 
 	private EntityManagerFactory emf;
 
+	@Autowired
 	public ClientDaoJpaImpl(EntityManagerFactory emf) {
 		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
 		this.emf = emf;
@@ -31,7 +33,8 @@ public class ClientDaoJpaImpl implements IClientDao {
 
 	@Override
 	public List<Client> findAllClients() {
-		throw new UnsupportedOperationException(NON_IMPLEMENTE_JPA);
+		EntityManager em = emf.createEntityManager();
+		return em.createQuery("SELECT c FROM Client c", Client.class).getResultList();
 	}
 
 	@Override

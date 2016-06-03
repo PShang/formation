@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,7 @@ public class CommandeDaoJpaImpl implements ICommandeDao {
 
 	private EntityManagerFactory emf;
 
+	@Autowired
 	public CommandeDaoJpaImpl(EntityManagerFactory emf) {
 		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
 		this.emf = emf;
