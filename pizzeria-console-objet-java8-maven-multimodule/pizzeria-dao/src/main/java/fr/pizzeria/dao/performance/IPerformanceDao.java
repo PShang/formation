@@ -18,7 +18,7 @@ public interface IPerformanceDao {
 	List<Performance> findAllPerformances();
 
 	/**
-	 * Récupere une Performance par son code.
+	 * Récupere une performance par son code.
 	 * 
 	 * @param id L'd de la performance à récupérer.
 	 * @return Une {@link Performance}.
@@ -27,10 +27,25 @@ public interface IPerformanceDao {
 	Performance getPerformance(Integer id) throws DaoException;
 
 	/**
-	 * Sauvegarde une nouvelle Performance.
+	 * Sauvegarde une nouvelle performance.
 	 * 
-	 * @param performance La nouvelle Performance à sauvegarder.
+	 * @param performance La nouvelle performance à sauvegarder.
 	 * @throws DaoException
 	 */
 	void saveNewPerformance(Performance performance) throws DaoException;
+
+	/**
+	 * Supprime une performance.
+	 * 
+	 * @param id La performance à supprimer.
+	 * @throws DaoException
+	 */
+	void deletePerformance(int id) throws DaoException;
+
+	/**
+	 * Supprime toutes les performances.
+	 * 
+	 * @throws DaoException
+	 */
+	void deleteAllPerformances() throws DaoException;
 }

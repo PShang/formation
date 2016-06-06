@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +24,12 @@ public class PerformanceJpaDataImpl implements IPerformanceDao {
 	@Autowired private IPerformanceRepository performanceRepository;
 
 	public PerformanceJpaDataImpl() {
-		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "===== Création du bean " + this.getClass().getName() + " =====");
 	}
 
 	@Override
 	public List<Performance> findAllPerformances() {
-		return performanceRepository.findAll();
+		return performanceRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
 	}
 
 	@Override
@@ -40,5 +41,15 @@ public class PerformanceJpaDataImpl implements IPerformanceDao {
 	@Transactional
 	public void saveNewPerformance(Performance performance) throws DaoException {
 		performanceRepository.save(performance);
+	}
+
+	@Override
+	public void deletePerformance(int id) throws DaoException {
+		performanceRepository.delete(id);
+	}
+
+	@Override
+	public void deleteAllPerformances() throws DaoException {
+		performanceRepository.deleteAll();
 	}
 }

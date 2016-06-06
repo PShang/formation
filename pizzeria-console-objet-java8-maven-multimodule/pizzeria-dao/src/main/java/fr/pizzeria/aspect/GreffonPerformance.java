@@ -1,6 +1,8 @@
 package fr.pizzeria.aspect;
 
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -18,6 +20,10 @@ import fr.pizzeria.model.Pizza;
 public class GreffonPerformance {
 
 	@Autowired IPerformanceDao performanceDao;
+	
+	public GreffonPerformance() {
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "===== Création du bean " + this.getClass().getName() + " =====");
+	}
 
 	@Around("execution(* fr.pizzeria.dao.pizza.IPizzaDao.*(..)) || execution(* fr.pizzeria.dao.client.IClientDao.*(..)) || execution(* fr.pizzeria.dao.commande.ICommandeDao.*(..))")
 	public Object calcExecutionTime(ProceedingJoinPoint pjp) throws Throwable {

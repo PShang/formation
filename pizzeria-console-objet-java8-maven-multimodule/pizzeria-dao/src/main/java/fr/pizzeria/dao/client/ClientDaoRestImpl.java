@@ -35,7 +35,7 @@ public class ClientDaoRestImpl implements IClientDao {
 	private String baseUrl;
 
 	public ClientDaoRestImpl() {
-		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "===== Création du bean " + this.getClass().getName() + " =====");
 	}
 
 	@Value("${rest.baseUrl}")

@@ -52,7 +52,7 @@ public class PizzaDaoJdbcTemplateImpl implements IPizzaDao {
 	 */
 	@Autowired
 	public PizzaDaoJdbcTemplateImpl(DataSource dataSource, PlatformTransactionManager transactionManager) {
-		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "===== Création du bean " + this.getClass().getName() + " =====");
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		transactionTemplate = new TransactionTemplate(transactionManager);
 	}

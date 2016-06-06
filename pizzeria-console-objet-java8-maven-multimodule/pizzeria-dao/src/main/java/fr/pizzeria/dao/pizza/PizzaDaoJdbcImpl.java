@@ -64,7 +64,7 @@ public class PizzaDaoJdbcImpl implements IPizzaDao {
 	}
 
 	public PizzaDaoJdbcImpl() {
-		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "===== Création du bean " + this.getClass().getName() + " =====");
 	}
 
 	@Value("${db.url}")

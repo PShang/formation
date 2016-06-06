@@ -49,7 +49,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	 * @throws DaoException
 	 */
 	public PizzaDaoFichierImpl() throws DaoException {
-		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "===== Création du bean " + this.getClass().getName() + " =====");
 		try {
 			if (Files.notExists(ROOTDIR)) {
 				Files.createDirectory(ROOTDIR);

@@ -41,7 +41,7 @@ public class PizzaDaoRestImpl implements IPizzaDao {
 	private String baseUrl;
 
 	public PizzaDaoRestImpl() {
-		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "===== Création du bean " + this.getClass().getName() + " =====");
 	}
 
 	@Value("${rest.baseUrl}")

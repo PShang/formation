@@ -27,7 +27,7 @@ public class PizzaDaoJpaDataImpl implements IPizzaDao {
 	@Autowired private BatchPizzaDaoJpaData batchPizzaDaoJpaData;
 
 	public PizzaDaoJpaDataImpl() {
-		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "===== Création du bean " + this.getClass().getName() + " =====");
 	}
 
 	@Override

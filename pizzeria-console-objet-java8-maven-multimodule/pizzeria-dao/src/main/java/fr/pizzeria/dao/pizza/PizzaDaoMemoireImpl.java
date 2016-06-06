@@ -35,7 +35,7 @@ public class PizzaDaoMemoireImpl implements IPizzaDao {
 	 * Constructeur. Initialise la {@link Map} de pizzas.
 	 */
 	public PizzaDaoMemoireImpl() {
-		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Création du bean " + this.getClass().getName());
+		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "===== Création du bean " + this.getClass().getName() + " =====");
 		String placeholderImg = "http://placehold.it/150x150";
 		pizzas = new HashMap<>();
 		pizzas.put("PEP", new Pizza(1, "PEP", "Pépéroni", BigDecimal.valueOf(12.50), CategoriePizza.VIANDE, placeholderImg));
