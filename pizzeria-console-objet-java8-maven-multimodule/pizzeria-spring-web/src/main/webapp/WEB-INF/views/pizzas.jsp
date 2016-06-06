@@ -3,6 +3,7 @@
 <%@ page import="fr.pizzeria.model.Pizza"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +18,9 @@
 		$.ajax({
 			type : "DELETE",
 			url : '<c:url value="/api/pizzas/delete/" />' + code,
+			headers : {
+				"${_csrf.headerName}" : "${_csrf.token}"
+			},
 			success : function() {
 				$("#pizza-" + code).remove();
 			},
@@ -58,7 +62,7 @@
 			</tbody>
 		</table>
 		<h1>Nouvelle pizza</h1>
-		<form class="form-horizontal" method="post">
+		<form:form class="form-horizontal" method="post">
 			<fieldset>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="code">Code</label>
@@ -102,7 +106,7 @@
 					</div>
 				</div>
 			</fieldset>
-		</form>
+		</form:form>
 	</div>
 </body>
 </html>

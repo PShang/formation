@@ -17,6 +17,9 @@
 		$.ajax({
 			type : "DELETE",
 			url : '<c:url value="/api/performance/delete/" />' + id,
+			headers : {
+				"${_csrf.headerName}" : "${_csrf.token}"
+			},
 			success : function() {
 				$("#perf-" + id).remove();
 			},
@@ -28,6 +31,9 @@
 		$.ajax({
 			type : "DELETE",
 			url : '<c:url value="/api/performance/deleteall" />',
+			headers : {
+				"${_csrf.headerName}" : "${_csrf.token}"
+			},
 			success : function() {
 				$('[id^="perf-"]').remove();
 			},
@@ -58,7 +64,7 @@
 						<td>${p.id}</td>
 						<td><fmt:formatDate type="BOTH" value="${p.date}" /></td>
 						<td>${p.service}</td>
-						<td>${p.tempsExecution} ms</td>
+						<td>${p.tempsExecution}ms</td>
 						<td><a class="btn btn-danger" href="#" onclick="deletePerf('${p.id}')">Supprimer</a></td>
 					</tr>
 				</c:forEach>
